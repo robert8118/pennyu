@@ -1,0 +1,103 @@
+ <odoo>
+
+     <menuitem name="Cash &amp; Bank" id="menu_finance_payment" parent="account.menu_finance" sequence="4"/>
+
+
+
+
+
+
+
+     <record model="ir.ui.view" id="tbl_msi_acc_mhd_tree">
+        <field name="name">tbl_msi_acc_mhd.tree</field>
+        <field name="model">tbl_msi_acc_mhd</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+            	<field name="partner_id"/>
+            	<field name="analytic_id"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_acc_mhd_form">
+        <field name="name">tbl_msi_acc_mhd.form</field>
+        <field name="model">tbl_msi_acc_mhd</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Submit" type="object" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" states="appr"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="date"/>
+		                	<field name="partner_id"/>
+		                	<field name="analytic_id"/>
+
+		                </group>
+		                <group>
+		                	<field name="saldo"/>
+		                	<field name="jumlah_request"/>
+
+		               </group>
+			</group>
+
+
+
+
+	     <notebook>
+
+                        <page string="Detail">
+                    <button name="action_get_data" string="Get Data" type="object" states="draft"/>
+		            		<field name="detail_id">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="to_bill"/>
+				                	<field name="date"/>
+				            		<field name="name"/>
+				                	<field name="debit"/>
+
+				                </tree>
+				            </field>
+                        </page>
+                        <page string="Account">
+                	<group>
+                		<group>
+		                	<field name="property_account_mhd"/>
+		                </group>
+		                <group>
+		                	<field name="property_account_intransit"/>
+
+		               </group>
+			</group>
+                        </page>
+
+	     </notebook>
+
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_mhd">
+        <field name="name">YMHD</field> 
+        <field name="res_model">tbl_msi_acc_mhd</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_mhd" id="menu_action_mhd" parent="menu_finance_payment" sequence="10"/>
+
+</odoo>

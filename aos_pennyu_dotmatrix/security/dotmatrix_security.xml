@@ -1,0 +1,18 @@
+<odoo>
+
+	<record id="group_dotmatrix" model="res.groups">
+	    <field name="name">dotmatrix</field>
+	</record>
+
+    <record id="dotmatrix_editable_only" model="ir.rule">
+	    <field name="name">Only cancelled dotmatrix may be deleted</field>
+        <field name="model_id" search="[('model','=','stock.picking')]" model="ir.model"/>
+	    <field name="groups" eval="[(4, ref('aos_pennyu_dotmatrix.group_dotmatrix'))]"/>
+        <field name="global" eval="True" />
+	    <field name="perm_read" eval="1"/>
+	    <field name="perm_write" eval="1"/>
+	    <field name="perm_create" eval="1"/>
+	    <field name="perm_unlink" eval="1" />
+	</record>
+        
+</odoo>

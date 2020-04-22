@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>		
+	<record id="reverse_ict_wizard_form_view" model="ir.ui.view">
+		<field name="name">Reverse ICT</field>
+	    <field name="model">reverse.ict.wizard</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Reverse ICT">
+			 	<group colspan="4">
+			 		<field name='ict_id' readonly="1"/>
+			 	</group>
+			 	
+			 	<group colspan="1" string="Reverse product and quantity">
+			 		<field name="reverse_line_ids" nolabel="1">
+			 			<tree editable="top" create="0" >
+							<field name='product_id' readonly="True" />
+							<field name='quantity' />
+							<field name="qty_delivered" invisible="True"/> 
+							<field name='price' />
+					  </tree>
+			 		</field>
+			 	</group>
+			 	<footer>
+			 	<button class="oe_highlight" string="Create Reverse ICT" name="create_reverse_ict" type="object"/><button class="oe_highlight" special="cancel" string="Cancel"/></footer>
+        	</form>
+		</field>
+	</record>
+</data>
+</odoo>

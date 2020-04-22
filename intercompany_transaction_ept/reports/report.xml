@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_ict_sale_order_search_ept" model="ir.ui.view">
+        <field name="name">sale.order.search</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+            	<separator/>
+            	<field name ="ict_id" />
+                <filter string="ICT Sales" domain="[('ict_id','!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+	
+	<record id="view_ict_purchase_order_search_ept" model="ir.ui.view">
+        <field name="name">purchase.order.search</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+            <xpath expr="//filter[@name='not_invoiced']" position="before">
+            	<field name ="ict_id" />
+                <filter string="ICT Purchase" domain="[('ict_id','!=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+    
+   	<record id="view_ict_invoice_search_ept" model="ir.ui.view">
+        <field name="name">account.invoice.search</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+            	<separator/>
+            	<field name ="ict_id" />
+                <filter string="ICT Invoices" domain="[('ict_id','!=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+    
+   	<record id="view_ict_pickings_search_ept" model="ir.ui.view">
+        <field name="name">stock.picking.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_overdue']" position="before">
+            	<field name ="ict_id" />
+                <filter string="ICT Pickings" domain="[('ict_id','!=', False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+	
+	<record id="view_ict_sale_order_report_search" model="ir.ui.view">
+        <field name="name">sale.report.search</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@expand='0']" position="inside">
+                <filter name="ict_id" string="ICT Sales" domain="[('ict_id','!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_ict_sales_pivot_inherit" model="ir.ui.view">
+      <field name="name">sale.report.pivot</field>
+      <field name="model">sale.report</field>
+      <field name="inherit_id" ref="sale.view_order_product_pivot"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='team_id']" position="after">
+              <field name="ict_id" type="row"/>
+          </xpath>
+      </field>
+ </record>
+
+
+</odoo>

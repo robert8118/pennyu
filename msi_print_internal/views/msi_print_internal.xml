@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Partner -->
+
+	<record id="msi_stock_internal_transfer_form" model="ir.ui.view">
+		<field name="name">msi_stock.internal.transfer.form</field>
+		<field name="model">stock.internal.transfer</field>
+                <field name="inherit_id" ref="sgeede_internal_transfer.stock_internal_transfer_form"/>
+		<field name="arch" type="xml">
+
+                <xpath expr="//button[@name='do_enter_wizard']" position="after">
+
+					<button name="do_print" type="object" class="oe_highlight" string="Print"/>
+
+            	</xpath>
+		</field>
+	</record>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="paperformat_account_invoice" model="report.paperformat">
+		<field name="name">Landscape A5</field>
+		<field name="default" eval="True"/>
+		<field name="format">A5</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Landscape</field>
+		<field name="margin_top">37</field>
+		<field name="margin_bottom">24</field>
+		<field name="margin_left">5</field>
+		<field name="margin_right">5</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">36</field>
+		<field name="dpi">90</field>
+	</record>
+
+	<report 
+		string="Invoices"
+		id="account.account_invoices"
+		model="account.invoice"
+		report_type="qweb-pdf"
+		name="pn_account.report_account_invoice"
+		file="pn_account.report_account_invoice"
+		print_report_name="(object._get_printed_report_name())"
+		paperformat="pn_account.paperformat_account_invoice" 
+	/>
+</odoo>

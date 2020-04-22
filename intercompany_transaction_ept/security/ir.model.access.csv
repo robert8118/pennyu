@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inter_company_transfer_all,inter.company.transfer Manager,model_inter_company_transfer,group_ict_manager,1,1,1,1
+access_inter_company_config_all,inter.company.config Manager,model_inter_company_transfer_config,group_ict_manager,1,1,1,1
+access_inter_company_config_read,inter.company.config User,model_inter_company_transfer_config,group_ict_user,1,1,1,0
+access_inter_company_transfer_read,inter.company.transfer User,model_inter_company_transfer,group_ict_user,1,1,1,0
+access_inter_company_transfer_line_all,inter.company.transfer.line Manager,model_inter_company_transfer_line,group_ict_manager,1,1,1,1
+access_inter_company_transfer_line_read,inter.company.transfer.line User,model_inter_company_transfer_line,group_ict_user,1,1,1,0
+access_sale_advance_payment_inv_all,sale_advance_payment_inv Manager,sale.model_sale_advance_payment_inv,group_ict_manager,1,1,1,1
+access_sale_advance_payment_inv_read,sale_advance_payment_inv User,sale.model_sale_advance_payment_inv,group_ict_user,1,1,1,0
+access_ict_process_log_manager,ict.process.log.manager,model_ict_process_log_ept,group_ict_manager,1,1,1,1
+access_ict_process_log_user,ict.process.log.user,model_ict_process_log_ept,group_ict_user,1,1,1,0
+access_ict_process_log_line_manager,ict.process.log.line.manager,model_ict_process_log_line_ept,group_ict_manager,1,1,1,1
+access_ict_process_log_line_user,ict.process.log.line.user,model_ict_process_log_line_ept,group_ict_user,1,1,1,0

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="ict_process_log_tree_view" model="ir.ui.view">
+			<field name="name">ict.process.log.view.tree</field>
+			<field name="model">ict.process.log.ept</field>
+			<field name="arch" type="xml">
+				<tree default_order="name desc" create="false">
+					<field name="name"></field>
+					<field name="ict_process"></field>
+					<field name="ict_operation"></field>
+					<field name="ict_log_date"></field>
+				</tree>
+			</field>
+		</record>
+		<record id="ict_process_log_form_view" model="ir.ui.view">
+			<field name="name">ICT Log</field>
+			<field name="model">ict.process.log.ept</field>
+			<field name="arch" type="xml">
+				<form string="Inter Company Log" create="false" edit="false">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"></field>
+								<field name="ict_log_date"></field>
+								<field name="intercompany_transfer_id" readonly="1"/>
+							</group>
+							<group>
+								<field name="ict_process"></field>
+								<field name="ict_operation"></field>
+							</group>
+							<group colspan="4" string="Log Lines">
+								<field name="ict_log_line_ids" nolabel="1"></field>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="ict_process_log_action" model="ir.actions.act_window">
+			<field name="name">Operation Log</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">ict.process.log.ept</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="ict_log_menu_ept" action="ict_process_log_action"
+			parent="menu_intercompany_transaction" name="Operation Log" />
+
+
+		<!-- Procecss Log Line View -->
+
+		<record id="ict_process_log_line_tree_view" model="ir.ui.view">
+			<field name="name">ict.process.log.line.view.tree</field>
+			<field name="model">ict.process.log.line.ept</field>
+			<field name="arch" type="xml">
+				<tree decoration-success="ict_log_type=='info'"
+					decoration-danger="ict_log_type=='error'" default_order="ict_log_id desc"
+					create="false">
+					<field name="ict_log_id"></field>
+					<field name="ict_log_type"></field>
+					<field name="ict_message"></field>
+				</tree>
+			</field>
+		</record>
+
+		<record id="ict_process_log_line_form_view" model="ir.ui.view">
+			<field name="name">ict.process.log.line.view.form</field>
+			<field name="model">ict.process.log.line.ept</field>
+			<field name="arch" type="xml">
+				<form string="Process Log Line" create="false" edit="false">
+					<sheet>
+						<group>
+							<group>
+								<field name="ict_log_type"></field>
+							</group>
+							<group>
+								<field name="ict_log_id"></field>
+							</group>
+							<group>
+								<field name="ict_message"></field>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</odoo>

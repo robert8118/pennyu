@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="discount_sale_line_view" model="ir.ui.view">
+        <field name="name">discount.sale.line.view</field>
+        <field name="model">discount.sale</field>
+        <field name="arch" type="xml">
+        	<tree string="Discount Sale Order Line" editable="bottom">
+                <field name="order_line_id" invisible="1"/>
+                <field name="type"/>
+                <field name="amount"/>
+            </tree>
+    	</field>
+    </record>
+
+    <record id="discount_sale_order_line_view" model="ir.ui.view">
+        <field name="name">discount.sale.line.view</field>
+        <field name="model">sale.order.line</field>
+        <field name="priority" eval="50"/>
+        <field name="arch" type="xml">
+        	<form string="Discount Detail">
+        		<group>
+        			<field name="price_unit" readonly="1"/>
+        			<field name="state" readonly="1" invisible="1"/>
+                </group>
+                <field name="sale_discount_ids" mode="tree,kanban" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}">
+                	<form string="Discount Lines">
+                		<group>
+                			<field name="order_line_id" invisible="1"/>
+		                    <field name="type"/>
+		                    <field name="amount"/>
+                		</group>
+                	</form>
+                	<tree string="Discount Sale Order Line" editable="bottom">
+	                    <field name="order_line_id" invisible="1"/>
+	                    <field name="type"/>
+	                    <field name="amount"/>
+	                </tree>
+	                <kanban class="o_kanban_mobile">
+	                	<field name="type"/>
+	                    <field name="amount"/>
+	                    <templates>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                    <div class="row">
+                                        <div class="col-xs-10 text-muted">
+                                            <span>Type: <t t-esc="record.type.value"/></span>
+                                        </div>
+                                        <div class="col-xs-2 o_kanban_primary_right o_kanban_manage_button_section">
+                                        	<a class="o_kanban_manage_toggle_button" type="object" name="unlink"><i class="fa fa-trash-o"/></a>
+				                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 text-muted">
+                                            <span>Amount: <t t-esc="record.amount.value"/></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+	                </kanban>
+                </field>
+                <group>
+                	<field name="net_price" readonly="1"/>
+                </group>
+                <footer class="oe_edit_only">
+                    <button name="button_discount" string="Confirm" class="oe_highlight" type="object" groups="sales_team.group_sale_manager"
+                    	attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <button name="button_apply_all" string="Apply All" class="oe_highlight" type="object"  groups="sales_team.group_sale_manager"
+                    	attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                    <button string="Discard" special="cancel"/>
+                </footer>
+            </form>
+    	</field>
+    </record>
+
+    <record id="sale_order_group" model="ir.ui.view">
+        <field name="name">sale.order.group</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"></field>
+        <field name="arch" type="xml">
+        	<xpath expr="//tree/field[@name='discount']" position="after">
+        		<field name="display_discount" readonly="1"/>
+            	<button name="action_list_discount" string="List of Discount" type="object" options='{"warn": true}' icon="fa-pencil"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/group/group[1]/field[@name='price_unit']" position="after">
+				<field name="display_discount" readonly="1"/>
+			</xpath>
+            <xpath expr="//field[@name='order_line']/kanban/field[@name='price_unit']" position="after">
+				<field name="display_discount"/>
+			</xpath>
+            <xpath expr="//field[@name='order_line']/kanban/templates/t/div" position="inside">
+				<div class="row">
+                    <div class="col-xs-12 text-muted">
+                        <span>Discount: <t t-esc="record.display_discount.value"/></span>
+                    </div>
+                </div>
+			</xpath>
+        </field>
+    </record>
+</odoo>

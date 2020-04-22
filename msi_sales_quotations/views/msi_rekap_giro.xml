@@ -1,0 +1,40 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_rekap_giro_tree">
+        <field name="name">tbl_rekap_giro.tree</field>
+        <field name="model">tbl_rekap_giro</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" editable="bottom" >
+                <field name="name"/>
+            	<field name="nama_bank"/>	
+            	<field name="no_bg"/>
+            	<field name="tgl_bg"/>
+            	<field name="nilai_bg"/>
+
+                <field name="no_invoice"/>
+            	<field name="tgl_invoice"/>	
+            	<field name="nilai_invoice"/>
+            	<field name="tgl_setor"/>
+            	<field name="setor_ke"/>
+            	<field name="nilai_setor"/>
+            	<field name="tgl_masuk"/>
+            	<field name="ket"/>
+            	<field name="state" invisible="1"/>
+                        <button name="act_set" class="oe_highlight" string="Set" type="object" states="draft"/>	
+            </tree>
+        </field>
+    </record>
+
+ 
+
+    <record model="ir.actions.act_window" id="action_rekap_giro">
+        <field name="name">Rekap Giro</field> 
+        <field name="res_model">tbl_rekap_giro</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_rekap_giro" id="menu_action_rekap_giro" parent="menu_finance_payment" sequence="100"/>
+
+</odoo>

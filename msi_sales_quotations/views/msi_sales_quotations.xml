@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sales Quotation -->
+        <record id="view_msi_sales_quotation_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//button[@name='action_draft']" position="after">
+
+                    <button name="action_sepakat" states="draft,sent" type="object" string="Sepakat"  class="btn-primary"/>
+                    <button name="action_contract" states="sepakat" type="object" string="COntract" class="btn-primary"/>
+            	</xpath>
+
+                <xpath expr="//button[@name='action_quotation_send']" position="replace">
+
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale,sepakat"/>
+            	</xpath>
+
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+
+                    <button name="action_cancel" states="draft,sent,sale,sepakat,contract" type="object" string="Cancel"/>
+            	</xpath>
+
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="action_confirm"
+                        string="Confirm Sale" type="object"
+                        states="sepakat,contract"/>
+
+            	</xpath>
+
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+
+                    <field name="sold_to"/>
+                    <field name="delivery_manual"/>
+                    <field name="nama_ekspedisi"/>
+            	</xpath>
+		<xpath expr="//field[@name='payment_term_id']" position="after">
+		     <field name="no_aks"/>
+		     <field name="no_po"/>
+		     <field name="tgl_akhir_kontrak"/>
+		     <field name="note_to_wh"/>
+		</xpath>
+
+
+
+                <xpath expr="//group[@name='sale_total']" position="replace">
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+				<label for="disc_tambahan"/>
+                    		<table>
+                    			<tr>
+									<td><field name="disc_tambahan_p"/></td>
+									<td>%--</td>
+									<td><field name="disc_tambahan"/></td>
+
+					            </tr>
+			        </table>
+
+
+
+                                <field name="sale_ppn" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="sale_ongkir" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="sale_total" />
+                                </div>
+                                <field name="sale_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>
+
+                 </xpath>
+
+				<notebook position="inside">
+		            <page string="Negosiasi">
+		            	
+
+		                <field name="negosiasi_ids"> 
+								<tree string="Negosiasi" editable="bottom">
+									<button name="add_to_sq" type="object" string="Add to SQ" class="oe_highlight"/>
+									<field name="product"/>
+									<field name="berat_unit"/>
+									<field name="ongkir"/>
+									<field name="harga_satuan"/>
+									<field name="qty"/>
+									<field name="total"/>
+									<field name="asuransi_persen"/>
+									<field name="asuransi_value"/>
+									<field name="total_berat_kg"/>
+									<field name="ongkir2"/>
+									<field name="total_transaksi"/>
+									<field name="ongkir_nego"/>
+									<field name="harga_satuan_setelah_nego"/>
+									<field name="dpp"/>
+									<field name="ppn"/>
+									<field name="total_setelah_nego" invisible="1"/>
+
+								</tree>
+							</field>
+							<group class="oe_subtotal_footer oe_right" colspan="100" name="negosiasi">
+								<field name="total_harga_barang"/>
+								<field name="total_harga_barang_setelah_nego"  invisible="1"/>
+								<field name="nilai_awal_harga_barang"/>
+								<field name="total_asuransi"/>
+								<field name="total_ongkir"/>
+								<field name="total_ongkir_asuransi"/>
+								<field name="total_transaksi"/>
+							</group>
+							<group>
+							 
+						<field name="nego_so_id"> 
+								<tree string="Nego SO" editable="bottom">
+									<field name="jenis_pengajuan"/>
+									<field name="tipe_transaksi"/>
+									<field name="nilai_awal"/>
+									<field name="nilai_pengajuan"/>
+									<field name="selisih"/>
+									<field name="nilai_yg_disetujui"/>
+									<field name="keterangan"/>
+									
+								</tree>
+							</field>
+						</group>
+						<group class="oe_subtotal_footer oe_right" colspan="100" name="negosiasi">
+								<field name="total_selisih"/>
+								<field name="total_transaksi_setelah_nego"/>
+								
+							</group>
+							<group>
+						<field name="nego_finansial_id"> 
+								<tree string="Nego Financial" editable="bottom">
+
+									<field name="product"/>
+									<field name="nilai_awal"/>
+									<field name="nilai_akhir"/>
+									<field name="selisih"/>
+									<field name="persen"/>
+									<field name="qty"/>
+									<field name="pajak"/>
+									<field name="nilai_pengajuan"/>
+									<field name="nilai_yg_disetujui"/>
+									<field name="analytic_id"/>
+									<field name="keterangan"/>
+									<button name="submit_to_acc_nego" type="object" string="Submit Acc" class="oe_highlight"/>
+								</tree>
+							</field>
+							</group>
+							<field name="catatan_negosiasi" class="oe_inline" placeholder="Terms and conditions... (note: you can setup default ones in the Configuration menu)"/>
+		            </page>
+		            <page string="SKA">
+		            	<button name="edit" type="object" string="Edit" class="oe_highlight" invisible="1"/>
+		            	<button name="selesai" type="object" string="Selesai" class="oe_highlight"  invisible="1"/>
+				<group>
+					<group>
+		            		<field name="tgl_sepakat"/>
+					</group>
+					<group/>
+				</group>
+		            	<field name="ska_id"> 
+								<tree string="SKA" editable="bottom">
+									<button name="transfer_to_sq" type="object" string="Transfer to SQ" class="oe_highlight"/>
+									<field name="product"/>
+									<field name="harga_satuan"/>
+									<field name="qty"/>
+									<field name="harga_bruto"/>
+									<field name="harga_netto"/>
+									<field name="diskon"/>
+									<field name="ppn"/>
+									<field name="ppn2"/>
+									
+								</tree>
+							</field>
+							<field name="ska_biaya_id"> 
+								<tree string="SKA Biaya" editable="bottom">
+									<field name="product"/>
+									<field name="analytic_id"/>
+									<field name="harga_satuan"/>
+									<field name="qty"/>
+									<field name="harga"/>
+									<field name="status_acc" invisible="1"/>
+									<button name="submit_to_acc_ska" type="object" string="Submit Acc" class="oe_highlight"   attrs="{'invisible': [('status_acc','=', True)]}"/>
+								</tree>
+							</field>
+						<group>
+							<group>
+								<field name="nilai_bruto"/>
+								<label for="discount"/>
+                    		<table>
+                    			<tr>
+									<td><field name="discount"/></td>
+									<td>-atau-</td>
+									<td><field name="discount_persen"/></td>
+									<td>%</td>
+					            </tr>
+					        </table>
+					        <label for="biaya"/>
+                    		<table>
+                    			<tr>
+									<td><field name="biaya"/></td>
+									<td>-atau-</td>
+									<td><field name="biaya_persen"/></td>
+									<td>%</td>
+					            </tr>
+					        </table>
+								<field name="nilai_netto"/>
+							</group>
+							<group>
+								<field name="total_sebelum_ppn"/>
+								<field name="ppn"/>
+								<field name="total_setelah_ppn"/>
+							</group>
+						</group>
+						<field name="catatan_ska" class="oe_inline" placeholder="Terms and conditions... (note: you can setup default ones in the Configuration menu)"/>
+		            </page>
+        		</notebook>
+		</field>
+	</record>
+	    <record id="view_msi_sales_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='user_id']" position="after">
+                    <field name="no_aks"/>
+		     		<field name="no_po"/>
+            	</xpath>
+            	<xpath expr="//field[@name='state']" position="after">
+                    <field name="invoice_status"/>
+		     		<field name="no_delivery_order"/>
+		     		<field name="no_invoice"/>
+            	</xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<odoo>
+	<!-- Contract -->
+	<record model="ir.ui.view" id="view_order_tree">
+		<field name="name">sale.order.tree</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_tree" />
+		<field name="arch" type="xml">
+			<field name="amount_total" position="after">
+				<field name="invoiced_amount"/>
+				<field name="balance_amount"/>
+			</field>
+		</field>
+	</record>
+</odoo>

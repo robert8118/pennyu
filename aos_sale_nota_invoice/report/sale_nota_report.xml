@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_sale_nota">
+		<t t-foreach="docs" t-as="o">
+			<t t-call="web.basic_layout">
+				<div class="header">
+					<div class="col-xs-12 text-center">
+						NOTA
+					</div>
+					<br/>
+					<div class="row" style="font-size:12px">
+						<div class="col-xs-6 text-left">
+							<t t-if="o.company_id.name">
+								<span t-esc="o.company_id.name"/><br/>	
+							</t>
+							<t t-if="not o.company_id.name">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.company_id.street">
+							<span t-esc="o.company_id.street"/><br/>
+							</t>
+							<t t-if="not o.company_id.street">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.company_id.city">
+								<span t-esc="o.company_id.city"/><br/>
+							</t>
+							<t t-if="not o.company_id.city">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.company_id.country_id">
+								<span t-esc="o.company_id.country_id.name"/><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>HP/SMS/WA :<span t-esc="o.partner_id.mobile"/><br/>
+							NPWP<br/>
+							</t>
+							<t t-if="not o.company_id.country_id">
+								<span><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]></span><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>HP/SMS/WA :<span t-esc="o.partner_id.mobile"/><br/>
+							NPWP<br/>
+							</t>
+							
+						</div>
+						<div class="col-xs-2 text-right">
+							Pembeli<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+						</div>
+						<div class="col-xs-4 text-left">
+							<t t-if="o.partner_id.name">
+								<span t-esc="o.partner_id.ref"/><![CDATA[&nbsp;]]><span t-esc="o.partner_id.name"/><br/>
+							</t>
+							<t t-if="not o.partner_id.name">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.partner_id.street">
+								<span t-esc="o.partner_id.street"/><br/>
+							</t>
+							<t t-if="not o.partner_id.street">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.partner_id.city">
+								<span t-esc="o.partner_id.city"/><br/>
+							</t>
+							<t t-if="not o.partner_id.street">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							<t t-if="o.partner_id.country_id">
+								<span t-esc="o.partner_id.country_id.name"/><br/>
+							</t>
+							<t t-if="not o.partner_id.country_id">
+								<span><![CDATA[&nbsp;]]></span><br/>
+							</t>
+							NPWP<br/>
+						</div>
+					</div>
+					<div class="row">
+						<table style="width:100%">
+							<tr>
+								<td width="5%" align="center">Nomor</td>
+								<td width="5%" align="center"><span t-esc="o.name"/></td>
+								<td width="5%" align="center">DO</td>
+								<td width="5%" align="center">
+									<t t-set="picking" t-value="o.picking_ids"/>
+									<t t-if="picking">
+										<t t-foreach="picking" t-as="p">
+											<t t-if="p.picking_type_code == 'outgoing'">
+												<t t-esc="p.name"/>
+											</t>
+										</t>
+									</t>
+								</td>
+								<td width="10%" align="center">Tanggal</td>
+								<td width="10%" align="center"><span t-esc="o.date_order"/></td>
+								<td width="10%" align="center">Tempo-Cash</td>
+								<td width="10%" align="center"><span t-esc="o.payment_term_id.name"/></td>
+								<td width="10%" align="center">Max Pelunasan</td>
+								<td width="10%" align="center"><span t-esc="o.date_due"/></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="page">
+					<div class="row" widht="100%">
+						<table class="table table-condensed" widht="100%">
+							<thead>
+								<tr style="page-break-inside: avoid">
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="5%">No</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="25%">Nama Product</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="7%">Qty</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="8%">Satuan</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="15%">Harga Satuan</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="3%"></th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="12%">Total</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="10%">Disc</th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="3%"></th>
+									<th style="border-top:1px solid black; border-bottom:1px solid black;" widht="12%">Harga Netto</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="border-black" style="page-break-inside: avoid">
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+								</tr>
+								<t t-set="no" t-value="1"/>
+								<t t-foreach="o.order_line" t-as="l">
+									<tr>
+										<td style="border:0px" widht="5%">
+											<t t-esc="no"/>
+										</td>
+										<td style="border:0px" widht="25%">
+											<span t-field="l.product_id.name"/>												
+										</td>
+										<td style="border:0px" widht="7%">
+											<span t-field="l.qty_delivered"/>
+										</td>
+										<td style="border:0px" widht="8%">
+											<span t-field="l.product_uom.name"/>
+										</td>
+										<td style="border:0px" widht="15%">
+											<span t-field="l.price_unit"/>
+										</td>
+										<td style="border:0px" widht="3%" class="text-left">
+											<span t-esc="o.currency_id.symbol"/>
+										</td>
+										<td style="border:0px" widht="12%" class="text-right">
+											<span t-esc="'{0:,.2f}'.format(l.price_delivered_subtotal)"/>
+										</td>
+										<td style="border:0px" widht="10%">
+											<span t-field="l.discount"/>
+										</td>
+										<td style="border:0px" widht="3%" class="text-left">
+											<span t-esc="o.currency_id.symbol"></span>
+										</td>
+										<td style="border:0px" widht="12%" class="text-right">
+											<span t-esc="'{0:,.2f}'.format(l.price_delivered_total)"/>
+										</td>
+										<t t-set="no" t-value="no+1"/>
+									</tr>							
+								</t>
+								<tr class="border-black" style="page-break-inside: avoid">
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+									<td style="border-top:1px solid black;" />
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="clearfix">
+						<div id="total" class="row">
+							<div class="col-xs-8 pill-left">
+								Terbilang: #<![CDATA[&nbsp;]]><span t-esc="o.total_terbilang(o.amount_delivered_total)"/><span t-esc="o.currency_word()"/><![CDATA[&nbsp;]]>#
+							</div>
+							<div class="col-xs-4 pull-right">
+								<table class="table noborder" style="min-width: 250px;max-width: 400px; ">
+									<tr style="page-break-inside: avoid">
+		                                <td style="border-bottom:1px solid black;">
+		                                	<strong>Total :<![CDATA[&nbsp;]]></strong>
+		                                	<span t-esc="o.currency_id.symbol"/>
+		                                </td>
+		                                <td class="text-right" style="border-bottom:1px solid black;">
+		                                    <span t-esc="'{0:,.2f}'.format(o.amount_delivered_total)"/>
+		                                </td>
+		                            </tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="last-page">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="col-xs-7">
+									<t>
+										<div class="col-xs-7">
+											<span>Harga sudah termasuk PPN</span>
+										</div>
+									</t>
+								</div>
+								<div class="col-xs-5 text-center">
+									<span>
+										Barang sudah diterima dengan baik dan benar
+									</span>
+									<br/>
+									<br/>
+									<br/>
+									<span>
+										Cap &amp; Tanda Tangan
+									</span>
+								</div>
+							</div>
+							<div class="col-xs-12 text-center" style="font-size:12px">
+								<t t-set="bank" t-value="request.env['account.journal'].search([('company_id', '=', o.company_id.id),('display_on_footer', '=', True)])"/>
+								<t t-if="bank">
+									<table width="100%">
+										<tr>
+											<td width="100%" style="border-top:1px solid black; text-align:center">
+												<t t-foreach="bank" t-as="b">
+													<t t-esc="b.bank_id.name"/>:<![CDATA[&nbsp;]]><t t-esc="b.bank_acc_number"/>
+													<t t-if="bank[-1].id != b.id"><![CDATA[&nbsp;]]><![CDATA[&middot;]]><![CDATA[&nbsp;]]></t>
+												</t>
+											</td>
+										</tr>
+									</table>
+								</t>
+							</div>
+						</div>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

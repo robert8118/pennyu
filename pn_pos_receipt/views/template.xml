@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="pn_receipt_assets" inherit_id="point_of_sale.assets">
+      <xpath expr="." position="inside">
+          <script type="text/javascript" src="/pn_pos_receipt/static/src/js/widget_base.js"></script>
+          <script type="text/javascript" src="/pn_pos_receipt/static/src/js/screen.js"></script>
+      </xpath>
+    </template>
+    
+</odoo> 

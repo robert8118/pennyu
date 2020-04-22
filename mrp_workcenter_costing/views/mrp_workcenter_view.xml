@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_workcenter_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+
+
+
+            <notebook>
+                <page string="Costing Data">
+                    <group>
+                        <group string='Labour'>
+                            <field name="costs_man_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
+                            <field name="costs_man_account_credit"/>
+                           <field name="costs_man_account_debit"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string='Other'>       
+                            <field name="costs_other_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
+                            <field name="costs_other_account_credit"/>
+                           <field name="costs_other_account_debit"/>
+                        </group> 
+
+                    </group>
+
+                    <group>
+                        <group string='Electricity'>
+                            <field name="costs_electricity_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
+                            <field name="costs_electricity_account_credit"/>
+                           <field name="costs_electricity_account_debit"/>
+                        </group>
+                        <group string='Gas'>       
+                            <field name="costs_gas_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
+                            <field name="costs_gas_account_credit"/>
+                           <field name="costs_gas_account_debit"/>
+                        </group> 
+
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

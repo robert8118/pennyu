@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_picking_form_aos_dot" model="ir.ui.view">
+            <field name="name">view_picking_form_dot_inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="pn_dotmatrix.view_picking_form_dot"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <button type="action" string="Dot Matrix" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" custom="print" 
+                        attrs="{'invisible': [('state','not in','done')]}"/>
+                    <button string="Refresh Printer Data" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" type="object" name="generate_printer_data"
+                        attrs="{'invisible': [('state','not in','done')]}"/>                      
+                </header>
+                <notebook position="inside">
+                    <page string="Dot Matrix" groups="aos_pennyu_dotmatrix.group_dotmatrix" attrs="{'invisible': [('state','not in','done')]}">
+                        <pre>
+                            <field name="printer_data"/>
+                        </pre>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_inherit_form_stock_picking" model="ir.ui.view">
+            <field name="name">view_picking_form_stock_picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </xpath>
+                <button name="%(stock.action_report_delivery)d" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </button>
+                <xpath expr="//button[@name='button_validate']" position="after">
+                    <button name="%(stock.action_report_delivery)d" string="Print DO" attrs="{'invisible': [('state','not in','done')]}" type="action" groups="aos_pennyu_dotmatrix.group_dotmatrix"/>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='scheduled_date']" position="after">
+                    <field name="due_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <report
+            string="Delivery Slip"
+            id="stock.action_report_delivery"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="stock.report_deliveryslip"
+            file="stock.report_deliveryslip"
+            print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+            menu="False"
+        />
+    </data>
+</openerp>

@@ -1,0 +1,97 @@
+ <odoo>
+
+
+     <record model="ir.ui.view" id="tbl_msi_fix_settlement_tree">
+        <field name="name">tbl_msi_fix_settlement.tree</field>
+        <field name="model">tbl_msi_fix_settlement</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+            	<field name="employee_id"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_fix_settlement_form">
+        <field name="name">tbl_msi_fix_settlement.form</field>
+        <field name="model">tbl_msi_fix_settlement</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Submit Advanced" type="object" states="draft11"/>
+                    <button name="action_approve1" string="Approve Advanced" type="object" states="appr11"/>
+                    <button name="action_submit2" string="Submit Settlement" type="object" states="draft"/>
+                    <button name="action_approve2" string="Approve Settlement" type="object" states="appr2"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="date"/>
+		                	<field name="employee_id"/>
+
+		                </group>
+		                <group>
+
+		                	<field name="settlement"/>
+
+		               </group>
+			</group>
+
+
+
+	     <notebook>
+
+
+                        <page string="Detail Settlement">
+		            		<field name="detail_settlement_id">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="name"/>
+				                	<field name="amount"/>
+				                	<field name="property_account_expense"/>
+				                	<field name="analytic_id"/>
+
+				                </tree>
+				            </field>
+                        </page>
+                        <page string="Account">
+                	<group>
+                		<group>
+		                	<field name="property_account_uang_muka"/>
+		                </group>
+		                <group>
+		                	<field name="journal_id"/>
+		                	<field name="property_account_intransit"/>
+		                	<field name="property_account_intransit_recv"/>
+
+		               </group>
+			</group>
+                        </page>
+
+	     </notebook>
+
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_advance_permanent">
+        <field name="name">Advanced Permanent &amp; Settlement</field> 
+        <field name="res_model">tbl_msi_fix_settlement</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_advance_permanent" id="menu_action_advanced_permanent" parent="menu_finance_payment" sequence="30"/>
+
+</odoo>

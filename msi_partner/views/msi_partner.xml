@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Partner -->
+        <record id="view_msi_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+
+                    <field name="no_ktp" placeholder="e.g. 12345678"/>
+                    <field name="is_npwp_pribadi"/>
+                    <field name="nama_npwp_pribadi" placeholder="e.g. NAMA PRIBADI"/>
+                    <field name="alamat_npwp_pribadi" placeholder="e.g. ALAMAT SELENGKAPNYA"/>
+            	</xpath>
+		</field>
+	</record>
+    </data>
+</odoo>

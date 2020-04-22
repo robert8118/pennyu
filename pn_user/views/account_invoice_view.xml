@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<!-- Invoices -->
+		 <record id="invoice_form_view" model="ir.ui.view">
+		           <field name="name">account.invoice.view.form</field>
+		            <field name="model">account.invoice</field>
+		            <field name="inherit_id" ref="account.invoice_form"/>
+		            <field name="arch" type="xml">
+		                <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+		                      <attribute name="groups">account.group_account_invoice, pn_user.group_portal_sales</attribute>
+		                </xpath>
+                    <xpath expr="//button[@name='action_invoice_cancel']" position="attributes">
+                              <attribute name="groups">account.group_account_invoice, pn_user.group_portal_sales</attribute>
+                    </xpath>
+		            </field>
+		 </record>
+		 <!-- Bills -->
+        <record id="invoice_supplier_view_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.view.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                	<attribute name="groups">account.group_account_invoice, pn_user.group_portal_sales</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_invoice_cancel']" position="attributes">
+                    <attribute name="groups">account.group_account_invoice, pn_user.group_portal_sales</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- helpdesk -->
+        <record id="helpdesk_ticket_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='assign_ticket_to_self']" position="attributes">
+                	<attribute name="groups">helpdesk.group_helpdesk_user, pn_user.group_portal_sales</attribute>
+                </xpath>
+            </field>
+        </record>
+
+         <!-- Menu -->
+        
+        <record model='ir.ui.menu' id='efaktur.menu_efaktur'>
+            <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+        </record>
+
+        <record model='ir.ui.menu' id='account.menu_action_account_payments_payable'>
+            <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+        </record>
+
+         <record model='ir.ui.menu' id='account.menu_action_account_payments_receivable'>
+            <field name="groups_id" eval="[(4,ref('account.group_account_user'))]"/>
+        </record>
+   
+   
+
+
+	</data>
+</odoo>

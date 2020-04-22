@@ -1,0 +1,2 @@
+id,name,property_account_receivable_id:id,property_account_payable_id:id,property_account_expense_categ_id:id,property_account_income_categ_id:id,income_currency_exchange_account_id:id,expense_currency_exchange_account_id:id,property_stock_account_input_categ_id:id,property_stock_account_output_categ_id:id,use_anglo_saxon,currency_id:id
+l10n_id_pennyu,ID Tax and Account Chart Template of (Pennyu),101100,200100,500600,400100,800110,800110,202300,103200,True,base.IDR

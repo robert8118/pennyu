@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="view_picking_form_dot" model="ir.ui.view">
+            <field name="name">view_picking_form_dot_inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="vit_dotmatrix.view_picking_form_dot"/>
+            <field name="arch" type="xml">
+				<xpath expr="//button[last()]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[last()]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

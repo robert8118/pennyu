@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Faktur Pajak Masukan Form View User -->
+        <record id="view_tbl_menu_record_form" model="ir.ui.view">
+            <field name="name">tbl_menu_record.form.view</field>
+            <field name="model">tbl_menu_record</field>
+            <field name="arch" type="xml">
+                <form string="Faktur Pajak Masukkan Form View" class="o_invoice_form" create="0" delete="0">
+                <header>
+                    <button name="action_submit" string="Submit" type="object"/>
+                </header>
+                <sheet string="Efaktur">
+
+                    <h1 class="mt0">
+                        <div>
+                            <label string="Nomor MO"/><br/>
+                            <field name="mrp_id" readonly="1" class="oe_inline"/>
+                        </div>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="wo_id" domain="[('status_record', '=', 'draft'), ('production_id', '=', mrp_id)]"/>
+
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="wo_product_id"/>
+
+                        </group>
+                        <group>
+                            <field name="target_qty"/>
+                            <field name="out_good"/>
+                            <field name="out_no_good"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="rty"/>
+
+                        </group>
+                        <group>
+                            <field name="prf"/>
+
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="defect_power"/>
+                            <field name="defect_mesin"/>
+                        </group>
+                        <group>
+                            <field name="defect_material"/>
+                            <field name="defect_listrik"/>
+
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="cng_awal"/>
+                            <field name="cng_akhir"/>
+                            <field name="cng_total"/>
+                        </group>
+                        <group>
+                            <field name="listrik_awal"/>
+                            <field name="listrik_akhir"/>
+                            <field name="listrik_total"/>
+
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="date_planned_start"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="duration_expected" widget="float_time"/>
+                        </group>
+                        <group>
+                            <field name="duration" widget="mrp_time_counter"/>
+                        </group>
+                    </group>
+
+                </sheet>
+          
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_mrp_record"> 
+        <field name="name">Record production</field> 
+        <field name="res_model">tbl_menu_record</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+    </record>
+
+        <record id="msi_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">mrp.msi_production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <button name="button_unreserve" position="after">
+                    <button name="%(action_mrp_record)d" type="action" string="Record production"
+                            attrs="{'invisible': [('state','!=','done')]}"/>
+
+                </button>
+
+            </field>
+        </record>
+
+
+    <record id="tbl_menu_record_hasil_graph_view" model="ir.ui.view">
+        <field name="name">tbl_menu_record_hasil.graph</field>
+        <field name="model">tbl_menu_record_hasil</field>
+        <field name="arch" type="xml">
+            <graph string="Production Report">
+                <field name="mrp_id"/>
+                <field name="duration" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="tbl_menu_record_hasil_pivot_view" model="ir.ui.view">
+        <field name="name">tbl_menu_record_hasil.pivot</field>
+        <field name="model">tbl_menu_record_hasil</field>
+        <field name="arch" type="xml">
+            <pivot string="Production Report">
+                <field name="date_start" type="row" interval="day"/>
+                <field name="mrp_id" type="col"/>
+                <field name="duration" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="tbl_menu_record_hasil_tree_view" model="ir.ui.view">
+        <field name="name">tbl_menu_record_hasil.tree</field>
+        <field name="model">tbl_menu_record_hasil</field>
+        <field name="arch" type="xml">
+            <tree string="Production Report">
+                <field name="date_planned_start"/>
+                <field name="date_start"/>
+                <field name="mrp_id"/>
+                <field name="wo_id"/>
+                <field name="wo_product_id"/>
+                <field name="target_qty"/>
+                <field name="out_good"/>
+                <field name="out_no_good"/>
+                <field name="rty"/>
+                <field name="prf"/>
+                <field name="user_id"/>
+
+                <field name="duration" string="Duration (minutes)" sum="Duration"/>
+            </tree>
+        </field>
+    </record>
+
+
+        <record model="ir.actions.act_window" id="mrp_workcenter_laporan_produksi_report">
+            <field name="name">Production report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tbl_menu_record_hasil</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,pivot,tree</field>
+        </record>
+
+    <menuitem id="menu_laporan_produksi_report"
+          parent="mrp.menu_mrp_reporting"
+          action="mrp_workcenter_laporan_produksi_report"
+
+          sequence="15"/>
+
+
+
+
+
+
+
+
+
+    </data>
+</odoo>

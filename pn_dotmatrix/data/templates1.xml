@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <delete model="mail.template" search="[('id','in',(
+	    	ref('vit_dotmatrix.template_dotmatrix_po'),
+	    	ref('vit_dotmatrix.template_dotmatrix_picking'),
+	    	ref('vit_dotmatrix.template_dotmatrix_so')
+	    ))]"/>
+	</data>
+    <record id="vit_dotmatrix.template_dotmatrix_invoice" model="mail.template">
+            <field name="body_html"><![CDATA[<condensed>
+% if len(object.invoice_line_ids) <= 8:
+${'Faktur Penjualan'.center(134,' ')}
+
+% if object.partner_id.is_npwp_pribadi
+${object.get_company().get('name').ljust((77-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}
+${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('alamat_npwp_pribadi')}
+${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'NPWP '}${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${'NPWP '} ${object.get_company().get('vat').ljust((72-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${'Kirim  '} ${object.get_shipping().get('display_name')}
+${''.rjust(87)}${object.get_shipping().get('street')}
+${''.rjust(87)}${object.get_shipping().get('street2')} ${object.get_shipping().get('city')}
+% endif
+% if not object.partner_id.is_npwp_pribadi
+${object.get_company().get('name').ljust((77-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('display_name')}
+${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('street')}
+${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')} ${object.get_partner().get('city')} ${'NPWP '}${object.get_partner().get('vat')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${'NPWP '} ${object.get_company().get('vat').ljust((72-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${'Kirim  '} ${object.get_shipping().get('display_name')}
+${''.rjust(87)}${object.get_shipping().get('street')}
+${''.rjust(87)}${object.get_shipping().get('street2')} ${object.get_shipping().get('city')}
+
+% endif
+${'Nomor'} ${object.number or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
+${''.rjust(134,'-')}
+${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
+${''.rjust(134,'-')}
+% for l in object.get_data():
+${str(l['no']).rjust(2)} ${str(l['product']).ljust(l['space_length_p'])} ${"{:>.2f}".format(l['qty']).rjust(10)} ${l['uom'].ljust(9)} ${"{0:>,.2f}".format(l['price_unit']).rjust(15)} ${"{0:>,.2f}".format(l['discount']).rjust(11)} ${"{0:>,.2f}".format(l['price_subtotal']).rjust(15)} ${"{0:>,.2f}".format(l['price_total']).rjust(15)}
+% endfor
+
+${''.rjust(134,'-')}
+${'Terbilang: '}${object.terbilang_with_tag()}
+${'----------------------------'.rjust(134)}
+${'Total :'.rjust(113)}  ${"{0:,.2f}".format(object.amount_total).rjust(14)}
+${'----------------------------'.rjust(134)}
+
+${'      Harga sudah termasuk PPN'} ${''.rjust(52)} ${'Barang sudah diterima dengan baik dan benar'}
+
+${'Cap dan Tanda Tangan'.rjust(115)}
+${''.rjust(134,'-')}
+${object.get_bank().center(134,' ')}
+
+% endif
+% if len(object.invoice_line_ids) > 8:            
+% for a in object.get_datas():
+${'Faktur Penjualan'.center(134,' ')}
+
+% if object.partner_id.is_npwp_pribadi
+${object.get_company().get('name').ljust((77-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}
+${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('alamat_npwp_pribadi')}
+${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'NPWP '}${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${'NPWP '} ${object.get_company().get('vat').ljust((72-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${'Kirim  '} ${object.get_shipping().get('display_name')}
+${''.rjust(87)}${object.get_shipping().get('street')}
+${''.rjust(87)}${object.get_shipping().get('street2')} ${object.get_shipping().get('city')}
+% endif
+% if not object.partner_id.is_npwp_pribadi
+${object.get_company().get('name').ljust((77-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('display_name')}
+${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('street')}
+${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')} ${object.get_partner().get('city')} ${'NPWP '}${object.get_partner().get('vat')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${'NPWP '} ${object.get_company().get('vat').ljust((72-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${'Kirim  '} ${object.get_shipping().get('display_name')}
+${''.rjust(87)}${object.get_shipping().get('street')}
+${''.rjust(87)}${object.get_shipping().get('street2')} ${object.get_shipping().get('city')}
+
+% endif
+${'Nomor'} ${object.number or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
+${''.rjust(134,'-')}
+${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
+${''.rjust(134,'-')}
+% for l in object.get_data():
+${str(l['no']).rjust(2)} ${str(l['product']).ljust(l['space_length_p'])} ${"{:>.2f}".format(l['qty']).rjust(10)} ${l['uom'].ljust(9)} ${"{0:>,.2f}".format(l['price_unit']).rjust(15)} ${"{0:>,.2f}".format(l['discount']).rjust(11)} ${"{0:>,.2f}".format(l['price_subtotal']).rjust(15)} ${"{0:>,.2f}".format(l['price_total']).rjust(15)}
+% endfor
+
+${''.rjust(134,'-')}           
+% if a['count'] == a['row']:
+${'Terbilang: '}${object.terbilang_with_tag()}
+${'----------------------------'.rjust(134)}
+${'Total :'.rjust(113)}  ${"{0:,.2f}".format(object.amount_total).rjust(14)}
+${'----------------------------'.rjust(134)}
+% endif
+${'      Harga sudah termasuk PPN'} ${''.rjust(52)} ${'Barang sudah diterima dengan baik dan benar'}
+
+${'Cap dan Tanda Tangan'.rjust(115)}
+${''.rjust(134,'-')}
+${object.get_bank().center(134,' ')}
+            
+          
+            	
+% endfor
+% endif        
+</condensed>
+]]></field>
+	</record>
+</odoo>
+
+

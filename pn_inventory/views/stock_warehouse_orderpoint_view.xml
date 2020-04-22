@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="stock_warehouse_orderpoint_pivot_view" model="ir.ui.view">
+		<field name="name">stock.warehouse.orderpoint.pivot.view</field>
+		<field name="model">stock.warehouse.orderpoint</field>
+		<field name="arch" type="xml">
+			<pivot string="Reordering Rules">
+				<field name="location_id"/>
+				<field name="product_id"/>
+				<field name="product_min_qty" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+    <record id="stock.action_orderpoint_form" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,pivot,form</field>
+    </record>
+</odoo>

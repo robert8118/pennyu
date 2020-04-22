@@ -1,0 +1,21 @@
+<odoo>
+	<data>
+	
+        <record id="view_category_property_form11" model="ir.ui.view">
+            <field name="name">product.category.stock.property.form.inherit11</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                <group name="account_stock_property" position="after">
+                    <group name="account_stock_adjusment" string="Account Stock Adjusment" groups="account.group_account_user">
+                        <field name="property_stock_adjustment_in" domain="[('deprecated', '=', False)]" attrs="{'required':[ ('property_valuation', '=', 'real_time')]}" />
+                        <field name="property_stock_adjustment_out" domain="[('deprecated', '=', False)]" attrs="{'required':[ ('property_valuation', '=', 'real_time')]}" />
+
+                    </group>
+                </group>
+
+            </field>
+        </record>
+	
+	</data>
+</odoo>

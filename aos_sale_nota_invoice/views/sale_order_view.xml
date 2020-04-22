@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="sale_order_form_view_pennyu" model="ir.ui.view">
+		<field name="name">sale.order.form.view</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='print_quotation']" position="after">
+				<button name="print_nota" string="Print Nota" attrs="{'invisible': [('invoice_status','!=','to invoice')]}" type="object" class="btn-primary o_sale_print"/>
+			</xpath>
+			<xpath expr="//field[@name='date_order']" position="after">
+				<field name="date_due"/>
+			</xpath>
+		</field>
+	</record>
+	
+</odoo>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_pennyu" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-extend="PosTicket">
+		
+		<!--Header @ user -->
+		<t t-jquery="div.pos-center-align" t-operation="replace">
+		</t>
+		<t t-jquery="t[t-esc*='widget.pos.company.name']" t-operation="after">
+			<br/><t t-esc="receipt.header"/>
+		</t>
+		<t t-jquery="div.receipt-user" t-operation="after">
+			<div class="receipt-vat">
+				NPWP: <t t-if="widget.pos.company.vat">
+					<t t-esc="widget.pos.company.vat"/>
+					</t>
+				<br/>
+			</div>
+		</t>
+		<t t-jquery="t[t-if*='receipt.header']" t-operation="replace">
+    	</t>
+
+		<t t-jquery="div.receipt-vat" t-operation="after">
+			<t t-esc="order.formatted_validation_date"/> <t t-esc="order.name"/>
+    	</t>
+		
+		<!-- Orderline -->
+		<t t-jquery="table.receipt-orderlines" t-operation="replace">
+		<br/>
+			<table class='receipt-orderlines'>
+				<t t-foreach="orderlines" t-as="orderline">
+					<tr>
+						<td colspan="5" style="width:100%">
+							<t t-esc="orderline.get_product().display_name"/>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:5%">
+							<t t-if="orderline.get_discount()">
+							 disc <t t-esc="orderline.get_discount()"/>%
+							 </t>
+						</td>
+						<td style="width:3%; text-align:center;">
+							<t t-esc="orderline.quantity"/>
+						</td>
+						<td style="width:20% text-align:center;">
+							<t t-esc="orderline.price"/>
+						</td>
+						<td colspan="2" style="width:67%; text-align:right;">
+							<t t-esc="widget.format_currency_no_comma(orderline.get_display_price())"/>
+						</td>
+					</tr>
+				</t>
+			</table>
+			
+			
+		</t>
+
+		<!-- Total receipt -->
+		<t t-jquery="table.receipt-total" t-operation="replace">
+			<table class='receipt-total'>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency_no_comma(order.get_total_without_tax())"/>
+                    </td>
+                </tr>
+                <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                    <tr>
+                        <td><t t-esc="taxdetail.name" /></td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency_no_comma(taxdetail.amount)" />
+                        </td>
+                    </tr>
+                </t>
+                <tr>
+                    <t t-if="order.get_total_discount() > 0">
+                        <td>Discount:</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency_no_comma(order.get_total_discount())"/>
+                        </td>
+                    </t>
+                </tr>
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency_no_comma(order.get_total_with_tax())"/>
+                    </td>
+                </tr>
+            </table>
+		</t>
+		
+		<!-- Payment Receipt -->
+		<t t-jquery="table.receipt-paymentlines" t-operation="replace">
+			<table class='receipt-paymentlines'>
+                <t t-foreach="paymentlines" t-as="line">
+                  <tr>
+                      <td>
+                          <t t-esc="line.name"/>
+                      </td>
+                      <td class="pos-right-align">
+                          <t t-esc="widget.format_currency_no_comma(line.get_amount())"/>
+                      </td>
+                  </tr>
+                </t>
+            </table>
+		</t>
+		<!-- Change Receipt -->
+		<t t-jquery="table.receipt-change" t-operation="replace">
+			<table class='receipt-change'>
+                <tr><td>Change:</td><td class="pos-right-align">
+                    <t t-esc="widget.format_currency_no_comma(order.get_change())"/>
+                    </td></tr>
+            </table>
+		</t>
+
+    </t>
+	<!-- POS BOX RECRIPT REDESIGN -->
+    <t t-extend="XmlReceipt">
+    	<t t-jquery="receipt" t-operation="replace">
+    		<receipt width='40' value-thousands-separator='' >
+				<div class="pos-sale-ticket">
+					<t t-esc="receipt.company.name"/><br/>
+					<t t-if="receipt.header">
+						<t t-esc="receipt.header"/><br/>
+					</t>
+					Phone: <t t-esc="receipt.company.phone || ''"/><br/>
+					User: <t t-esc="receipt.cashier"/><br/>
+					NPWP: <t t-esc="receipt.company.vat || ''"/><br/>
+					<div>
+						<t t-esc='receipt.date.localestring.slice(0,(receipt.date.localestring.length-2))'/>
+						<t t-esc='receipt.name.slice(5)'/>
+					</div>
+					<br/>
+					<!-- Orderlines -->
+					<div>
+						<t t-foreach='receipt.orderlines' t-as='line'>
+							<t t-esc="line.product_name"/><br/>
+									<t t-if="line.discount">
+										disc <t t-esc="line.discount"/>%
+									</t>
+									<t t-esc="line.quantity"/>x
+									<t t-esc="line.price"/>
+									<t t-esc="line.price_display.toLocaleString('en')"/>
+								<br/>
+						</t>
+					</div>
+					<br/>
+					<!-- TOTAL-->
+					<div align="right">
+						Subtotal : <t t-esc="receipt.subtotal.toLocaleString('en')"/><br/>
+						Tax 	 : <t t-esc="receipt.total_tax.toLocaleString('en')"/><br/>
+						TOTAL 	 : <t t-esc="receipt.total_with_tax.toLocaleString('en')"/><br/> 
+					</div>
+					
+					<!-- Payment Lines -->
+					<div align="right">
+						<t t-foreach='paymentlines' t-as='pay_line'>
+			                <t t-esc='pay_line.name' />: <br/>
+		                    <t t-esc="pay_line.get_amount().toLocaleString('en')"/>
+		                    <br/>
+			            </t>
+			            CHANGE : <t t-esc="receipt.change.toLocaleString('en')"/>
+			            <br/>
+					</div>
+					<!-- FOOTER -->
+					<div align="center">
+						<t t-if='receipt.footer_xml'>
+			                <t t-raw='receipt.footer_xml' />
+			            </t>
+			
+			            <t t-if='!receipt.footer_xml and receipt.footer'>
+			                <br/>
+			                <t t-esc='receipt.footer' />
+			                <br/>
+			                <br/>
+			            </t>
+		            </div>
+				</div>
+			</receipt>
+		</t>
+		
+    </t>
+    
+</templates>

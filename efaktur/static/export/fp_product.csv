@@ -1,0 +1,37 @@
+OB,KODE_OBJEK,NAMA,HARGA_SATUAN
+OB,C-Case,Computer Case,25.0
+OB,CARD,Graphics Card,885.0
+OB,CONS_DEL01,Server,60000.0
+OB,CONS_DEL02,Little server,40000.0
+OB,CONS_DEL03,Basic Computer,23500.0
+OB,CPUi5,Processor Core i5 2.70 Ghz,2100.0
+OB,E-COM01,iPad Retina Display,750.0
+OB,E-COM02,iPad Retina Display,750.0
+OB,E-COM03,iPad Retina Display,750.0
+OB,E-COM05,Bose Mini Bluetooth Speaker,247.0
+OB,E-COM06,Custom Computer (kit),147.0
+OB,E-COM07,iPad Mini,320.0
+OB,E-COM08,Apple In-Ear Headphones,79.0
+OB,E-COM09,iMac,1799.0
+OB,E-COM10,Apple Wireless Keyboard,47.0
+OB,E-COM11,"Mouse, Optical",14.0
+OB,E-COM12,iPod,16.5
+OB,E-COM13,iPod,16.5
+OB,HDD-SH1,HDD SH-1,975.0
+OB,LAP-CUS,Laptop Customized,3645.0
+OB,LAP-E5,Laptop E5023,2950.0
+OB,M-Wir,"Mouse, Wireless",12.5
+OB,MBi9,Motherboard I9P57,1950.0
+OB,PCSC234,Computer SC234,450.0
+OB,PROD_DEL,"Switch, 24 ports",70.0
+OB,PROD_DEL02,Datacard,40.0
+OB,PROD_ORDER,Zed+ Antivirus,280.0
+OB,RAM-SR5,RAM SR5,85.0
+OB,SERV_COST,External Audit,180.0
+OB,SERV_DEL,Cost-plus Contract,180.0
+OB,SERV_ORDER,Prepaid Consulting,90.0
+OB,,Cleaning,16.5
+OB,,GAP Analysis Service,30.75
+OB,,Parts Replacement,147.0
+OB,,Repair,320.0
+OB,,Support Services,38.25

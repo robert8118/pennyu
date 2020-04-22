@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_saleorder_document">
+    <t t-call="web.basic_layout">
+        <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+        <div class="header">
+
+             <div style="text-align:center;margin-bottom:8px">
+                 <span style="font-size:16px;">Sales Order</span>
+             </div>
+            <div class="row">
+                    <div class="col-xs-6" style="font-size:12px">
+                        <table>
+                            <tr>
+                                <td><span style="font-weight:bold" t-esc="doc.company_id.name"/></td>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.company_id.street">
+                                	<td><span t-esc="doc.company_id.street"/></td>
+                                </t>
+                                <t t-if="not doc.company_id.street">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.company_id.city">
+                                	<td><span t-esc="doc.company_id.city"/></td>
+                                </t>
+                                <t t-if="not doc.company_id.city">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.company_id.state_id">
+                                	<td><span t-esc="doc.company_id.state_id.name"/></td>
+                                </t>
+                                <t t-if="not doc.company_id.state_id">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.company_id.zip">
+                                	<td><span t-esc="doc.company_id.zip"/></td>
+                                </t>
+                                <t t-if="not doc.company_id.zip">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.company_id.zip">
+                                	<td>NPWP : <span t-esc="doc.company_id.zip"/></td>
+                                </t>
+                                <t t-if="not doc.company_id.zip">
+                                	<td>NPWP : <![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-xs-6" style="font-size:12px">
+                        <table>
+                            <tr>
+                                <td rowspan="6">Pembeli<![CDATA[&nbsp;]]></td>
+                                <td>:<![CDATA[&nbsp;]]><span t-esc="doc.partner_id.name"/></td>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.partner_id.street">
+                                	<td><span t-esc="doc.partner_id.street"/></td>
+                                </t>
+                                <t t-if="not doc.partner_id.street">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+                            	<t t-if="doc.partner_id.city">
+                                	<td><span t-esc="doc.partner_id.city"/></td>
+                                </t>
+                                <t t-if="not doc.partner_id.city">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+								<t t-if="doc.partner_id.state_id">
+                                	<td><span t-esc="doc.partner_id.state_id.name"/></td>
+                                </t>
+                                <t t-if="not doc.partner_id.state_id">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+								<t t-if="doc.partner_id.zip">
+                                	<td><span t-esc="doc.partner_id.zip"/></td>
+                                </t>
+                                <t t-if="not doc.partner_id.zip">
+                                	<td><![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                            <tr>
+								<t t-if="doc.partner_id.npwp">
+                                	<td>NPWP : <span t-esc="doc.partner_id.npwp"/></td>
+                                </t>
+                                <t t-if="not doc.partner_id.npwp">
+                                	<td>NPWP : <![CDATA[&nbsp;]]></td>
+                                </t>
+                            </tr>
+                        </table>
+                        <br/>
+                    </div>
+
+                
+                <table width="100%" style="border-bottom:1px solid black;">
+                    <tr>
+                        <td width="4%"><![CDATA[&nbsp;&nbsp;&nbsp;]]></td>
+                        <td width="24%">No :  <span t-field="doc.name"/></td>
+                        <td width="24%">Order Ref : <span t-field="doc.client_order_ref"/></td>
+                        <td width="24%">Tanggal : <span t-field="doc.date_order" t-field-options='{"format": "dd-MM-yyyy"}'/></td>
+                        <td width="24%">Tempo : <span t-field="doc.payment_term_id.name"/></td>
+                        <td width="2%"></td>
+                    </tr>
+                </table>
+
+                <!-- Is there a discount on at least one line? -->
+            <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="oe_structure"/>
+
+<div class="row">
+            <t t-foreach="doc.order_lines_layouted()" t-as="page">
+                <t t-set="i" t-value="1"/>
+                <t t-set="j" t-value="0"/>
+                <t t-set="num" t-value="1"/>
+                
+                <table width="100%">
+                    <thead style="border-top: 1px solid black;border-bottom: 1px solid black;padding:5px">
+                        <tr>
+                            <th width="4%"><![CDATA[&nbsp;&nbsp;&nbsp;]]></th>
+                            <th width="4%">No</th>
+                            <th width="48%">Nama Produk</th>
+                            <th width="10%">Satuan</th>
+                            <th width="4%"  class="text-right">QTY</th>
+                            <th width="20%" class="text-right">Harga Satuan</th>
+                            <th width="20%" class="text-right">Total</th>
+                            <th width="4%"><![CDATA[&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;]]></th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                        <t t-foreach="page" t-as="layout_category">
+                            <t t-foreach="layout_category['lines']" t-as="l">
+                                <t t-set="num" t-value="num+1"/>
+                            </t>
+
+
+                            <!-- Lines associated -->
+                            <t t-foreach="layout_category['lines']" t-as="l">
+                                <tr>
+                                    <td width="4%"><![CDATA[&nbsp;&nbsp;&nbsp;]]></td>
+                                    <td width="4%" style="padding:2px"  ><span t-esc="i"/>.</td>
+                                    <td width="48%">
+                                        <span t-field="l.product_id.name"/>
+
+                                    </td>
+                                    <td width="10%">
+                                        <span t-field="l.product_uom"/>
+
+                                    </td>
+                                    <td width="4%" class="text-right">
+                                        <span t-field="l.product_uom_qty"/>
+                                    </td>
+                                    <td width="20%" class="text-right">
+                                        <span t-field="l.price_unit"/>
+                                    </td>
+                                    <td width="20%" class="text-right">
+                                        <span t-esc="'{:,.2f}'.format(l.price_subtotal)" />
+                                    </td>
+                                    <td width="4%"><![CDATA[&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;]]></td>
+                                </tr>
+                                <t t-set="i" t-value="i+1"/>
+                                <t t-set="j" t-value="j+1"/>
+                                <t t-if="i%14==0"> 
+                                    <![CDATA[
+                                        </tbody>
+                                    </table>
+                                    ]]>
+                                <t t-if="num&lt;15">
+                                    <div class="row"><br/>
+                                        <div class="col-xs-8"><span>Terbilang  : # <span t-esc="doc.total_terbilang(doc.amount_total)"/> Rupiah # </span></div>
+                                        <div class="col-xs-4 text-right" style="padding-right:30px">Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/></div>
+                                    </div>
+                                </t>
+                                <t t-if="num&gt;=15">
+                                    <![CDATA[
+                                    <p style="page-break-before:always;"> </p>
+                                    
+                                        ]]>
+                                        
+                                    <![CDATA[
+                                    <table width="100%">
+                                        <thead style="border-top: 1px solid black;border-bottom: 1px solid black;padding:5px">
+                                        <tr>
+                                   ]]> 
+                                            <![CDATA[<th width="4%">  ]]><![CDATA[&nbsp;&nbsp;&nbsp;]]><![CDATA[</th>]]>
+                                            <![CDATA[<th width="4%">No</th>
+                                            <th width="48%">Nama Produk</th>
+                                            <th width="10%">Satuan</th>
+                                            <th width="4%"  class="text-right">QTY</th>
+                                            <th width="20%" class="text-right">Harga Satuan</th>
+                                            <th width="20%" class="text-right">Total</th>]]>
+                                            <![CDATA[<th width="4%">]]><![CDATA[&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;]]><![CDATA[</th>  
+                                        </tr>
+                                   </thead>]]>
+                                </t>
+                                    
+
+
+
+                                </t>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+<br/>
+<t t-if="num&gt;=15">
+                <div class="row">
+                    <div class="col-xs-8"><span>Terbilang : # <span t-esc="doc.total_terbilang(doc.amount_total)"/> Rupiah # </span></div>
+                    <div class="col-xs-4 text-right" style="padding-right:30px">Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/></div>
+                </div>
+</t>
+
+
+            </t>
+
+
+            
+            
+            <div class="oe_structure"/>
+
+            <div class="footer">
+                <div class="row">
+                    <table width="100%">
+                        <tr>
+                            <td style="border-bottom:1px solid black"></td>
+                        </tr>
+                    </table>
+                    <div class="col-xs-8 pull-left">
+                        <small>
+                            Dicetak : <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                        </small>
+                    </div>
+                    <div class="col-xs-2 pull-right">
+                        <small>
+                            <span>Halaman</span>
+                            <span class="page" />
+                            dari
+                            <span class="topage" />
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </t>
+</template>
+
+
+<template id="report_saleorder_custom">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="pn_sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+</odoo>

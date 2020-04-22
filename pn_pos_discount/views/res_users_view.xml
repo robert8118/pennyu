@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_users_pos_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.pos.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pos_security_pin']" position="after">
+                	<field name="authorize_discount_pos"/>
+					<field name="authorize_password" 
+					 attrs="{'invisible':[('authorize_discount_pos', '=', False)]}"/>
+                </xpath>
+	        </field>
+        </record>
+	</data>
+</odoo>

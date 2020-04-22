@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	<record id="ict_picking_form_inherit_id" model="ir.ui.view">
+            <field name="name">ict.picking.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="location_id" position="after">
+                    	<field name="ict_id" readonly="1"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="ict_picking_tree_inherit_id" model="ir.ui.view">
+            <field name="name">ict.picking.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+               <field name="name" position="after">
+               	<field name="location_id" group="stock.group_stock_multi_locations"/>
+               </field>
+            </field>
+        </record>
+	</data>
+</odoo>
+       

@@ -1,0 +1,169 @@
+ <odoo>
+
+     <menuitem name="Collection" id="menu_finance_collection" parent="account.menu_finance" sequence="5"/>
+
+
+     <record model="ir.ui.view" id="tbl_msi_collection_tree">
+        <field name="name">tbl_msi_collection.tree</field>
+        <field name="model">tbl_msi_collection</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="date"/>
+            	<field name="name"/>	
+            	<field name="collector"/>
+            	<field name="state"/>	
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="tbl_msi_collection_form">
+        <field name="name">tbl_msi_collection.form</field>
+        <field name="model">tbl_msi_collection</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+                    <button name="action_get_data" string="Get Data" type="object" states="draft,appr"/>
+                    <button name="action_confirm" string="Confirm" type="object" states="appr"/>
+                    <button name="action_submit" string="Submit" type="object" states="submit"/>
+                    <button name="action_print_daftar" string="Print Daftar Faktur" type="object" states="print"/>
+                    <button name="action_print_faktur" string="Print Serah Terima Faktur" type="object" states="print"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+		                	<field name="date"/>
+		                	<field name="collector"/>
+		                	<field name="partner_id"/>
+
+		                </group>
+		                <group>
+		                	<field name="ket"/>
+
+		               </group>
+			</group>
+
+
+
+
+	     <notebook>
+
+                        <page string="Detail">
+
+		            		<field name="detail_id">
+				            	<tree string="Detail Action" editable="bottom">
+				                	<field name="to_collect"/>
+				                	<field name="name" readonly="1"/>
+				                	<field name="tgl_inv" readonly="1"/>
+				            		<field name="due_inv" readonly="1"/>
+				                	<field name="partner_id" readonly="1"/>
+				                	<field name="nominal_inv" readonly="1"/>
+				                </tree>
+				            </field>
+                        </page>
+
+	     </notebook>
+
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_collection">
+        <field name="name">Daftar Penagihan</field> 
+        <field name="res_model">tbl_msi_collection</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_collection" id="menu_collection" parent="menu_finance_collection" sequence="10"/>
+
+     <record model="ir.ui.view" id="tbl_msi_collection_detail_tree">
+        <field name="name">tbl_msi_collection_detail.tree</field>
+        <field name="model">tbl_msi_collection_detail</field>
+        <field name="arch" type="xml">
+            <tree string="Teknisi" >
+                <field name="tgl_inv"/>
+                <field name="name"/>
+
+                <field name="due_inv"/>
+                <field name="partner_id"/>
+                <field name="nominal_inv"/>
+            	<field name="status"/>	
+            	<field name="ket"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="tbl_msi_collection_detail_form">
+        <field name="name">tbl_msi_collection_detail.form</field>
+        <field name="model">tbl_msi_collection_detail</field>
+        <field name="arch" type="xml">
+            <form string="Teknisi">
+                <header>
+
+                    <button name="action_submit" string="Done" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+			<div class="oe_title">
+				<h1>
+		        	<field name="name"/>
+				</h1>
+			</div>
+                	<group>
+                		<group>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="nominal_inv"/>
+		                </group>
+		                <group>
+                <field name="tgl_inv"/>
+                <field name="due_inv"/>
+            	<field name="status"/>	
+            	<field name="ket"/>
+		               </group>
+			</group>
+
+
+
+
+	     <notebook>
+
+                        <page string="Detail">
+		            		<field name="detail_line">
+				            	<tree string="Detail Action" editable="bottom">
+
+				                	<field name="tgl"/>
+				                	<field name="collector"/>
+            	<field name="status"/>	
+            	<field name="ket"/>
+				                </tree>
+				            </field>
+                        </page>
+
+	     </notebook>
+
+			</sheet>
+			</form>
+		</field>
+	</record>
+
+    <record model="ir.actions.act_window" id="action_collection_detail">
+        <field name="name">Colection Detail</field> 
+        <field name="res_model">tbl_msi_collection_detail</field> 
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+        <menuitem action="action_collection_detail" id="menu_collection_detail" parent="menu_finance_collection" sequence="20"/>
+
+</odoo>
