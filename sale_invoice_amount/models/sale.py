@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('invoice_ids.state')
     def _compute_invoice_amount(self):
-        sale = self.sudo():
+        sale = self.sudo()
         invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
             lambda x: x.state in ('open', 'paid') and x.type == 'out_invoice'))
         sale.invoiced_amount = invoiced_amount
