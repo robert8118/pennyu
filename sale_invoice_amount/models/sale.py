@@ -21,10 +21,13 @@ class SaleOrder(models.Model):
         string='Balance', store=True, readonly=True, compute='_compute_invoice_amount')
 
     @api.one
-    @api.depends('invoice_ids.state')
+    @api.depends('order_line.qty_invoiced')
     def _compute_invoice_amount(self):
         sale = self.sudo()
         invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
             lambda x: x.state in ('open', 'paid') and x.type == 'out_invoice'))
-        sale.invoiced_amount = invoiced_amount
-        sale.balance_amount = sale.amount_total - invoiced_amount
+        if invoiced_amount:
+            sale.invoiced_amount = invoiced_amount
+            sale.balance_amount = sale.amount_total - invoiced_amount
+        else:
+            sale.balance_amount = sale.amount_total
