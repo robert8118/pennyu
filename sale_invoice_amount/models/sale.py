@@ -20,11 +20,11 @@ class SaleOrder(models.Model):
     balance_amount = fields.Monetary(
         string='Balance', store=True, readonly=True, compute='_compute_invoice_amount')
 
-    @api.multi
+    @api.one
     @api.depends('invoice_ids.state')
     def _compute_invoice_amount(self):
-        for sale in self.sudo():
-            invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
-                lambda x: x.state in ('open', 'paid') and x.type == 'out_invoice'))
-            sale.invoiced_amount = invoiced_amount
-            sale.balance_amount = sale.amount_total - invoiced_amount
+        sale = self.sudo():
+        invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
+            lambda x: x.state in ('open', 'paid') and x.type == 'out_invoice'))
+        sale.invoiced_amount = invoiced_amount
+        sale.balance_amount = sale.amount_total - invoiced_amount
