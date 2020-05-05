@@ -1,15 +1,4 @@
 from odoo import models, fields, tools, api, _
-from odoo.tools.float_utils import float_compare, float_round, float_is_zero
-from odoo.exceptions import UserError
-from odoo.addons import decimal_precision as dp
-
-import time
-import math
-from datetime import datetime
-from datetime import time as datetime_time
-from dateutil import relativedelta
-
-import babel
 
 
 class SaleOrder(models.Model):
