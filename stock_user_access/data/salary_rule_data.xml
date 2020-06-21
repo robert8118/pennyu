@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="salary_rule_category_fee" model="hr.salary.rule.category">
+			<field name="name">Fee</field>
+			<field name="code">FEE</field>
+		</record>
+
+		<record id="salary_rule_fee" model="hr.salary.rule">
+			<field name="name">Fee</field>
+			<field name="category_id" ref="sale_fee.salary_rule_category_fee" />
+			<field name="code">FEE/</field>
+			<field name="sequence">5</field>
+			<field name="amount_select">code</field>
+			<field name="amount_python_compute">result = employee.get_fee_amount(payslip)</field>
+		</record>
+	</data>
+</odoo>

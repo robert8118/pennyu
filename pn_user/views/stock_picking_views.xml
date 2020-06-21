@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>        
-	 <record id="picking_form_view" model="ir.ui.view">
-       <field name="name">stock.picking.view.form</field>
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//button[@name='button_validate']" position="attributes">
-                  <attribute name="groups">stock.group_stock_user,pn_user.group_portal_rws, pn_user.group_stock_inv_user</attribute>
-            </xpath>
-            <xpath expr="//button[@name='action_cancel']" position="attributes">
-                  <attribute name="groups">base.group_user,pn_user.group_portal_rws, pn_user.group_stock_inv_user</attribute>
-            </xpath>
-            <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
-                  <attribute name="groups">base.group_user,pn_user.group_portal_rws, pn_user.group_stock_inv_user</attribute>
-            </xpath>
-        </field>
-	 </record>
+      <record id="picking_form_view" model="ir.ui.view">
+            <field name="name">stock.picking.view.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//button[@name='button_validate']" position="attributes">
+                        <attribute name="groups">stock.group_stock_user,pn_user.group_portal_rws,pn_user.group_stock_inv_user,pn_user.group_cust_stock_user</attribute>
+                  </xpath>
+                  <xpath expr="//button[@name='action_cancel']" position="attributes">
+                        <attribute name="groups">base.group_user,pn_user.group_portal_rws, pn_user.group_stock_inv_user</attribute>
+                  </xpath>
+                  <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
+                        <attribute name="groups">base.group_user,pn_user.group_portal_rws, pn_user.group_stock_inv_user,pn_user.group_cust_stock_user</attribute>
+                  </xpath>
+            </field>
+      </record>
+
+      <record id="stock.menu_stock_inventory_control" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('base.group_user'))]"/>
+      </record>
 </odoo>  

@@ -18,12 +18,21 @@
     v 1.3
         author : Yusuf Danny \n
         * Create new group "Transporter"
+    v 1.4
+        author : Joenan Arkana \n
+        * Create new group "Customer Inventory, Customer Payment, Customer All"
     """,
     'category': 'Generic Modules',
-    'author': "Portcities Ltd",
-    'website': "http://www.portcities.net",
+    'author': "Portcities Ltd, Arkana",
+    'website': "https://arkana.co.id",
     'depends': [
-        'sale_management', 'helpdesk', 'survey', 'account', 'sale_stock', 'stock_account', 'stock'
+        'sale_management', 
+        'helpdesk', 
+        'survey', 
+        'sale_stock', 
+        'stock_account', 
+        'mrp',
+        'stock_user_access',
     ],
     'data': [
         "security/portal_user_security.xml",
@@ -31,7 +40,7 @@
         "views/account_invoice_views.xml",
         "views/stock_picking_views.xml",
         "views/product_template_views.xml",
-         "views/sale_view.xml"
+        "views/sale_view.xml",
     ],
     'installable': True,
     'application': False,
