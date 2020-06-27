@@ -9,4 +9,4 @@ class StockBackorderConfirmation(models.TransientModel):
 
     @api.one
     def _process(self, cancel_backorder=False):
-        return super(StockBackorderConfirmation, self).sudo()._process(cancel_backorder)
+        return super(StockBackorderConfirmation, self.sudo())._process(cancel_backorder)
