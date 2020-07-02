@@ -20,6 +20,10 @@ class HomePage(Home):
             return http.local_redirect('/web', query=request.params, keep_hash=True)
         if user_login.has_group('pn_user.group_stock_inv_user'):
             return http.local_redirect('/web', query=request.params, keep_hash=True)
+        if user_login.has_group('pn_user.group_cust_stock_user'):
+            return http.local_redirect('/web', query=request.params, keep_hash=True)
+        if user_login.has_group('pn_user.group_cust_sale_user'):
+            return http.local_redirect('/web', query=request.params, keep_hash=True)
         return super(HomePage, self).index(*args, **kw)
 
     def _login_redirect(self, uid, redirect=None):
@@ -31,5 +35,9 @@ class HomePage(Home):
         if user_login.has_group('pn_user.group_portal_transporter'):
             return redirect if redirect else '/web'
         if user_login.has_group('pn_user.group_stock_inv_user'):
+            return redirect if redirect else '/web'
+        if user_login.has_group('pn_user.group_cust_stock_user'):
+            return redirect if redirect else '/web'
+        if user_login.has_group('pn_user.group_cust_sale_user'):
             return redirect if redirect else '/web'
         return super(HomePage, self)._login_redirect(uid, redirect=redirect)

@@ -7,7 +7,7 @@
     'author': 'Arkana, Joenan <joenan@arkana.co.id>',
     'website': 'https://www.arkana.co.id',
     'description': """Set default return picking to as refund""",
-    'depends': ['stock'],
+    'depends': ['stock_account'],
     'data': [
     ],
     'demo': [],
