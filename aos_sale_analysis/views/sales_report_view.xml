@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_report_branch_search" model="ir.ui.view">
+        <field name="name">sale.report.address.search</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[1]" position="after">
+                <filter name='group_by_inv_city' string="Invoice City" context="{'group_by':'customer_invoice_city'}"/>
+                <filter name='group_by_inv_state' string="Invoice State" context="{'group_by':'customer_invoice_state'}"/>
+                <filter name='group_by_dlv_city' string="Delivery City" context="{'group_by':'customer_dlv_city'}"/>
+                <filter name='group_by_dlv_state' string="Delivery State" context="{'group_by':'customer_dlv_state'}"/>
+                <filter name='group_by_customer_tags' string="Partner Tags" context="{'group_by':'customer_tags'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
