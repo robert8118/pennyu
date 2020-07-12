@@ -10,7 +10,7 @@ class SaleOrder(models.Model):
         string='Balance', store=True, readonly=True, compute='_compute_invoice_amount')
 
     @api.one
-    @api.depends('order_line.qty_invoiced')
+    @api.depends('order_line.qty_invoiced', 'invoice_ids.state')
     def _compute_invoice_amount(self):
         sale = self.sudo()
         invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
