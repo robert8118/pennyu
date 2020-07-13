@@ -3,6 +3,9 @@
 from odoo import api, fields, models, _
 from openerp.exceptions import Warning
 from odoo.addons import decimal_precision as dp
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -47,6 +50,7 @@ class SaleOrder(models.Model):
         for sale in self:
             partner_id = sale.partner_id
             payment_term_id = partner_id.property_payment_term_id
+            _logger.warning('MASUK PAK EKO!!!!!!!!!!!!!!!!!!!!!')
             if payment_term_id and payment_term_id.id != sale.payment_term_id.id:
                 raise Warning("Cannot change Payment Term!")
         return res
