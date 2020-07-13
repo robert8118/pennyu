@@ -1,5 +1,7 @@
 from odoo import models, fields, tools, api, _
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -13,6 +15,7 @@ class SaleOrder(models.Model):
     @api.depends('order_line.qty_invoiced')
     def _compute_invoice_amount(self):
         sale = self.sudo()
+        _logger.warning('MASUK PAK EKO!!!!!!!!!!!!!!!!!!!!!')
         invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
             lambda x: x.state in ('draft', 'open', 'paid') and x.type == 'out_invoice'))
         if invoiced_amount:
