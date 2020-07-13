@@ -50,8 +50,7 @@ class SaleOrder(models.Model):
         for sale in self:
             partner_id = sale.partner_id
             payment_term_id = partner_id.property_payment_term_id
-            payment = payment_term_id and payment_term_id.id
-            _logger.warning("Payment term %s: %s", payment, sale.payment_term_id.id)
+            _logger.warning("Payment term %s, %s: %s", partner_id.name, payment_term_id and payment_term_id.name, sale.payment_term_id.name)
             if payment_term_id and payment_term_id.id != sale.payment_term_id.id:
                 raise Warning("Cannot change Payment Term!")
         return res
