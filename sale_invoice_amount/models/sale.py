@@ -15,8 +15,8 @@ class SaleOrder(models.Model):
     @api.depends('order_line.qty_invoiced')
     def _compute_invoice_amount(self):
         sale = self.sudo()
-        invoiced_amount = sum(inv.sudo().amount_total for inv in sale.invoice_ids.filtered(
-            lambda x: x.state in ('draft', 'open', 'paid') and x.type == 'out_invoice'))
+        invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
+            lambda x: x.sudo().state in ('draft', 'open', 'paid') and x.sudo().type == 'out_invoice'))
         if invoiced_amount:
             sale.invoiced_amount = invoiced_amount
             sale.balance_amount = sale.amount_total - invoiced_amount
