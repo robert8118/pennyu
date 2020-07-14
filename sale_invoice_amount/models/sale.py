@@ -15,10 +15,10 @@ class SaleOrder(models.Model):
     @api.depends('order_line.qty_invoiced')
     def _compute_invoice_amount(self):
         sale = self.sudo()
-        _logger.warning('MASUK PAK EKO!!!!!!!!!!!!!!!!!!!!!')
         invoiced_amount = sum(inv.amount_total for inv in sale.invoice_ids.filtered(
             lambda x: x.state in ('draft', 'open', 'paid') and x.type == 'out_invoice'))
         if invoiced_amount:
+            _logger.warning('Invoiced Amount: %s', len(invoiced_amount))
             sale.invoiced_amount = invoiced_amount
             sale.balance_amount = sale.amount_total - invoiced_amount
         else:
