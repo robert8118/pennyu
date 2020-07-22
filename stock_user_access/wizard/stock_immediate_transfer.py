@@ -7,6 +7,5 @@ from odoo import api, fields, models, _
 class StockImmediateTransfer(models.TransientModel):
     _inherit = 'stock.immediate.transfer'
 
-    @api.one
     def process(self):
         return super(StockImmediateTransfer, self.sudo()).process()
