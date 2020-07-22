@@ -15,6 +15,7 @@
     'data': [
         'security/security.xml',
         'views/user_view.xml',
+        'views/stock_view.xml',
     ],
     'demo': [],
     'test': [
