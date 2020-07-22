@@ -8,5 +8,5 @@ class StockImmediateTransfer(models.TransientModel):
     _inherit = 'stock.immediate.transfer'
 
     @api.one
-    def process(self, cancel_backorder=False):
-        return super(StockImmediateTransfer, self.sudo()).process(cancel_backorder)
+    def process(self):
+        return super(StockImmediateTransfer, self.sudo()).process()
