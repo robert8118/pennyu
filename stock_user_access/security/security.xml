@@ -1,15 +1,20 @@
 <odoo>
     <!-- Operation Type -->
-    <record id="filter_user_stock_type_allowed" model="ir.rule">
+    <!-- <record id="filter_user_stock_type_allowed" model="ir.rule">
         <field name="name">User Allowed Operation Type</field>
         <field name="model_id" search="[('model','=','stock.picking.type')]" model="ir.model"/>
         <field name="domain_force">[('warehouse_id','in',user.warehouse_ids.ids)]</field>
-    </record>
+    </record> -->
 
     <!-- Warehouse -->
-    <record id="filter_user_stock_warehouse_allowed" model="ir.rule">
+    <!-- <record id="filter_user_stock_warehouse_allowed" model="ir.rule">
         <field name="name">User Allowed Warehouse</field>
         <field name="model_id" search="[('model','=','stock.warehouse')]" model="ir.model"/>
         <field name="domain_force">[('id','in',user.warehouse_ids.ids)]</field>
+    </record> -->
+
+    <!-- Dashboard Action -->
+    <record id="stock.stock_picking_type_action" model="ir.actions.act_window">
+        <field name="domain">[('warehouse_id.wh_user_ids','in',[uid])]</field>
     </record>
 </odoo>
