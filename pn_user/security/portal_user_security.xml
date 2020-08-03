@@ -315,8 +315,6 @@
                                         (4,ref('hr_expense.property_rule_expense_employee')),
                                         (4,ref('calendar.calendar_event_rule_employee')),
                                         (4,ref('base.res_partner_rule_private_employee')),
-                                        (4,ref('stock_user_access.filter_user_stock_type_allowed')),
-                                        (4,ref('stock_user_access.filter_user_stock_warehouse_allowed')),
                                         ]"/>
         <field name="menu_access" eval="[
                                         (4, ref('stock.all_picking')),
@@ -378,8 +376,6 @@
                                         (4,ref('calendar.calendar_event_rule_employee')),
                                         (4,ref('base.res_partner_rule_private_employee')),
 								 		(4, ref('sale.sale_order_personal_rule')),
-                                        (4,ref('stock_user_access.filter_user_stock_type_allowed')),
-                                        (4,ref('stock_user_access.filter_user_stock_warehouse_allowed')),
                                         ]"/>
         <field name="menu_access" eval="[
                                         (4, ref('sale.sale_menu_root')),

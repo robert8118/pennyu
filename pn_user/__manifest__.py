@@ -32,7 +32,6 @@
         'sale_stock', 
         'stock_account', 
         'mrp',
-        'stock_user_access',
     ],
     'data': [
         "security/portal_user_security.xml",
