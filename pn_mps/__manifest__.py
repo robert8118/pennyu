@@ -9,9 +9,9 @@
     'description': """
     """,
     'data': [
-
+        'views/stock_warehouse_view.xml',
     ],
-    'depends': ['mrp', 'sale', 'purchase'],
+    'depends': ['mrp', 'sale', 'purchase', 'stock'],
     'auto_install': False,
     'installable': True,
     'application': False,
