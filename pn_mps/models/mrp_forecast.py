@@ -63,9 +63,10 @@ class ProcurementGroupExtend(models.Model):
                               order='route_sequence, sequence', limit=1)
         if not res:
             product_routes = product_id.route_ids
-            if not product_routes:
+            res = Pull.search(expression.AND([[('route_id', 'in', product_routes.ids)], domain]),
+                              order='route_sequence, sequence', limit=1)
+            if not res:
                 product_routes = product_id.categ_id.total_route_ids
-            if product_routes:
                 res = Pull.search(expression.AND([[('route_id', 'in', product_routes.ids)], domain]),
                                   order='route_sequence, sequence', limit=1)
         if not res:
