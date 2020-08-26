@@ -29,7 +29,7 @@ class SaleReport(models.Model):
                 left join res_partner deliv_addr on (s.partner_shipping_id=deliv_addr.id)
                 left join res_partner_res_partner_category_rel pr_ct on (partner.id=pr_ct.partner_id)
                 left join res_partner_category categ on (pr_ct.category_id=categ.id)
-                left join stock_picking deliv on (s.id=deliv.procurement_group.sale_id and deliv.state not in ('cancel','draft'))
+                left join stock_picking deliv on (s.id=deliv.sale_id and deliv.state not in ('cancel','draft'))
         """
         return from_str
     
