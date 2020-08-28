@@ -14,7 +14,7 @@
                 <!-- <filter name='group_by_customer_tags' string="Partner Tags" context="{'group_by':'customer_tags'}"/> -->
                 <filter name='group_by_dlv_state' string="Delivery Status" context="{'group_by':'deliv_state'}"/>
             </xpath>
-            <field name="user_id" position="after"/>
+            <field name="user_id" position="after">
                 <field name="customer_tags"/>
             </field>
         </field>
