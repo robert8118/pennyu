@@ -7,7 +7,8 @@ class SaleReport(models.Model):
     customer_invoice_state = fields.Many2one('res.country.state',string="Invoice State")
     customer_dlv_city = fields.Char(string="Delivery City") 
     customer_dlv_state = fields.Many2one('res.country.state',string="Delivery State") 
-    customer_tags = fields.Many2one('res.partner.category', string="Partner Tags")
+    # customer_tags = fields.Many2one('res.partner.category', string="Partner Tags")
+    customer_tags = fields.Many2many('res.partner.category', related='partner_id.category_id', string="Partner Tags")
     deliv_state = fields.Selection([('draft','Draft'),('waiting','Waiting another Operation'),('confirmed','Waiting'),('assigned','Ready'),('done','Done'),('cancel','Cancelled')], string="Delivery Status")
 
 
@@ -17,7 +18,6 @@ class SaleReport(models.Model):
                         invoice_addr.state_id as customer_invoice_state, 
                         deliv_addr.city as customer_dlv_city, 
                         deliv_addr.state_id as customer_dlv_state,
-                        categ.id as customer_tags,
                         deliv.state as deliv_state
         """
         return select_str
@@ -27,8 +27,6 @@ class SaleReport(models.Model):
         from_str += """
                 left join res_partner invoice_addr on (s.partner_invoice_id=invoice_addr.id)
                 left join res_partner deliv_addr on (s.partner_shipping_id=deliv_addr.id)
-                left join res_partner_res_partner_category_rel pr_ct on (partner.id=pr_ct.partner_id)
-                left join res_partner_category categ on (pr_ct.category_id=categ.id)
                 left join stock_picking deliv on (s.id=deliv.sale_id and deliv.state not in ('cancel','draft'))
         """
         return from_str
@@ -39,7 +37,6 @@ class SaleReport(models.Model):
                         invoice_addr.state_id, 
                         deliv_addr.city, 
                         deliv_addr.state_id,
-                        categ.id,
                         deliv.state
                         """
         return group_by_str
