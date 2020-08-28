@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # © 2018 Eficent (https://www.eficent.com)
 # @author Jordi Ballester <jordi.ballester@eficent.com.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
