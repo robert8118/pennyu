@@ -1,16 +1,20 @@
 from odoo import fields, models
 
+
 class SaleReport(models.Model):
     _inherit = 'sale.report'
 
     customer_invoice_city = fields.Char(string="Invoice City")
-    customer_invoice_state = fields.Many2one('res.country.state',string="Invoice State")
-    customer_dlv_city = fields.Char(string="Delivery City") 
-    customer_dlv_state = fields.Many2one('res.country.state',string="Delivery State") 
+    customer_invoice_state = fields.Many2one(
+        'res.country.state', string="Invoice State")
+    customer_dlv_city = fields.Char(string="Delivery City")
+    customer_dlv_state = fields.Many2one(
+        'res.country.state', string="Delivery State")
     # customer_tags = fields.Many2one('res.partner.category', string="Partner Tags")
-    customer_tags = fields.Many2many('res.partner.category', related='partner_id.category_id', string="Partner Tags")
-    deliv_state = fields.Selection([('draft','Draft'),('waiting','Waiting another Operation'),('confirmed','Waiting'),('assigned','Ready'),('done','Done'),('cancel','Cancelled')], string="Delivery Status")
-
+    customer_tags = fields.Many2many(
+        'res.partner.category', related='partner_id.category_id', string="Partner Tags")
+    deliv_state = fields.Selection([('draft', 'Draft'), ('waiting', 'Waiting another Operation'), (
+        'confirmed', 'Waiting'), ('assigned', 'Ready'), ('done', 'Done'), ('cancel', 'Cancelled')], string="Delivery Status")
 
     def _select(self):
         select_str = super(SaleReport, self)._select()
@@ -30,7 +34,7 @@ class SaleReport(models.Model):
                 left join stock_picking deliv on (s.id=deliv.sale_id and deliv.state not in ('cancel','draft'))
         """
         return from_str
-    
+
     def _group_by(self):
         group_by_str = super(SaleReport, self)._group_by()
         group_by_str += """ ,invoice_addr.city, 
