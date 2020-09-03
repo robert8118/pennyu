@@ -10,6 +10,7 @@
     """,
     'data': [
         'views/stock_warehouse_view.xml',
+        'views/product_template_view.xml',
     ],
     'depends': ['mrp', 'sale', 'purchase', 'stock'],
     'auto_install': False,
