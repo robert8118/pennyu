@@ -224,7 +224,7 @@
                     <div class="col-xs-4 text-right" style="padding-right:30px">Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/></div>
                 </div>
 </t>
-            
+	</t>            
             <div class="oe_structure"/>
 
             <div class="footer">
