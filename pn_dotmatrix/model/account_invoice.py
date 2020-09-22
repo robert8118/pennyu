@@ -19,7 +19,16 @@ class AccountInvoice(models.Model):
             'display_name': self.partner_id.display_name or '-',
             'street': self.partner_id.street or '-',
             'street2': self.partner_id.street2 or '-',
+            'blok': self.partner_id.blok or '-',
+            'nomor': self.partner_id.nomor or '-',
+            'rt': self.partner_id.rt or '-',
+            'rw': self.partner_id.rw or '-',
+            'kelurahan': self.partner_id.kelurahan_id.name or '-',
+            'kecamatan': self.partner_id.kecamatan_id.name or '-',
+            'kabupaten': self.partner_id.kabupaten_id.name or '-',
             'city': self.partner_id.city or '-',
+            'state': self.partner_id.state_id.name or '-',
+            'zip': self.partner_id.zip or '-',
             'country': self.partner_id.country_id.name or ' ',
             'vat': self.partner_id.vat or ' ',
             'is_npwp_pribadi': self.partner_id.is_npwp_pribadi or ' ',
@@ -30,12 +39,22 @@ class AccountInvoice(models.Model):
 
     def get_shipping(self):
         return {
-            'display_name': self.partner_shipping_id.display_name or '-',
-            'street': self.partner_shipping_id.street or '-',
-            'street2': self.partner_shipping_id.street2 or '-',
-            'city': self.partner_shipping_id.city or '-',
-            'country': self.partner_shipping_id.country_id.name or '-',
-            'vat': self.partner_shipping_id.vat or '-'
+            'display_name': self.partner_id.display_name or '-',
+            'street': self.partner_id.street or '-',
+            'street2': self.partner_id.street2 or '-',
+            'blok': self.partner_id.blok or '-',
+            'nomor': self.partner_id.nomor or '-',
+            'rt': self.partner_id.rt or '-',
+            'rw': self.partner_id.rw or '-',
+            'kelurahan': self.partner_id.kelurahan_id.name or '-',
+            'kecamatan': self.partner_id.kecamatan_id.name or '-',
+            'kabupaten': self.partner_id.kabupaten_id.name or '-',
+            'city': self.partner_id.city or '-',
+            'state': self.partner_id.state_id.name or '-',
+            'zip': self.partner_id.zip or '-',
+            'country': self.partner_id.country_id.name or '-',
+            'vat': self.partner_id.vat or '-',
+            'npwp': self.partner_id.npwp or ' ',
         }
 
 
