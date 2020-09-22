@@ -22,7 +22,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 		% if object.partner_id.street2:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')}
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city: 
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
@@ -38,7 +38,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% endif				
 			% else:
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -47,11 +47,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -60,7 +60,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -69,11 +69,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif				
 				% endif				
@@ -81,22 +81,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}															
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}						
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}										
 					% endif
 				% endif
@@ -108,7 +108,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -117,11 +117,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif	
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif				
 				% endif		
@@ -129,22 +129,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${''.rjust(88)}${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -155,22 +155,22 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 				% if object.partner_id.kelurahan or object.partner_id.kecamatan or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}											
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -179,25 +179,25 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))}
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -232,7 +232,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 		% if object.partner_id.street2:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')}
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city: 
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
@@ -248,7 +248,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% endif				
 			% else:
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -257,11 +257,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -270,7 +270,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -279,11 +279,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif				
 				% endif				
@@ -291,22 +291,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}															
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}						
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}										
 					% endif
 				% endif
@@ -318,7 +318,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -327,11 +327,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif	
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif				
 				% endif		
@@ -339,22 +339,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${''.rjust(88)}${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -365,22 +365,22 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 				% if object.partner_id.kelurahan or object.partner_id.kecamatan or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}											
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -389,25 +389,25 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))}
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -465,7 +465,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 		% if object.partner_id.street2:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')}
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city: 
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
@@ -481,7 +481,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% endif				
 			% else:
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -490,11 +490,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -503,7 +503,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -512,11 +512,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif				
 				% endif				
@@ -524,22 +524,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}															
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}						
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}										
 					% endif
 				% endif
@@ -551,7 +551,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -560,11 +560,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif	
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif				
 				% endif		
@@ -572,22 +572,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${''.rjust(88)}${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -598,22 +598,22 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 				% if object.partner_id.kelurahan or object.partner_id.kecamatan or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}											
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -622,25 +622,25 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))}
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -675,7 +675,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 		% if object.partner_id.street2:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('street2')}
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city: 
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
@@ -691,7 +691,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% endif				
 			% else:
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -700,11 +700,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
@@ -713,7 +713,7 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -722,11 +722,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${'NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif				
 				% endif				
@@ -734,22 +734,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}															
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} ${' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}						
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} 						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}										
 					% endif
 				% endif
@@ -761,7 +761,7 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 			% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${'Blok '}${object.get_partner().get('blok')} ${','} ${'No.'}${object.get_partner().get('nomor')}${', RT/RW '}${object.get_partner().get('rt')}${'/'}${object.get_partner().get('rw')}
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 					
@@ -770,11 +770,11 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 					% endif	
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif				
 				% endif		
@@ -782,22 +782,22 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 				% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}										
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${''.rjust(88)}${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -808,22 +808,22 @@ ${object.get_company().get('street').ljust((80-len(object.get_company().get('str
 				% if object.partner_id.kelurahan or object.partner_id.kecamatan or object.partner_id.city:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}					
 					
 					% else:
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}											
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp: 
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}						
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}						
 					% endif
 				% endif
@@ -832,25 +832,25 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('kelurahan')}${', '}${object.get_partner().get('kecamatan')}${', '}${object.get_partner().get('city')}
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((65-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% else:
 					% if object.partner_id.state or object.partner_id.zip or object.partner_id.npwp:
 ${object.get_company().get('street').ljust((80-len(object.get_company().get('street')))+len(object.get_company().get('street')))} ${object.get_partner().get('state')}${', '}${object.get_partner().get('zip')} {' NPWP '} ${object.get_partner().get('npwp')}
 ${object.get_company().get('city').ljust((80-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					
 					% else:
 ${object.get_company().get('street').ljust((87-len(object.get_company().get('street')))+len(object.get_company().get('street')))}
 ${object.get_company().get('city').ljust((87-len(object.get_company().get('city')))+len(object.get_company().get('city')))}
-${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((54-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
+${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().get('phone').ljust((58-(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))+(len(object.get_company().get('country'))+len(object.get_company().get('phone'))))}
 ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().get('vat')))+len(object.get_company().get('vat')))}
 					% endif
 				% endif
