@@ -38,8 +38,10 @@ class StockPicking(models.Model):
     @api.multi
     def get_datetime_to_date(self, dt):
         #tmp = '2015-10-28 16:09:59'
-        dtd = datetime.strptime(dt,'%Y-%m-%d %H:%M:%S')
-        dd = dtd.date()
+        dd = ''
+        if dt:
+            dtd = datetime.strptime(dt,'%Y-%m-%d %H:%M:%S')
+            dd = dtd.date()
         return dd
     
     @api.multi
@@ -90,7 +92,17 @@ class StockPicking(models.Model):
         return {
             'name': self.company_id.name or '-',
             'street': self.company_id.street or '-',
+            'street2': self.company_id.street2 or '-',
+            'blok': self.company_id.blok or '-',
+            'nomor': self.company_id.nomor or '-',
+            'rt': self.company_id.rt or '-',
+            'rw': self.company_id.rw or '-',
+            'kelurahan': self.partner_id.company_id.name or '-',
+            'kecamatan': self.partner_id.company_id.name or '-',
+            'kabupaten': self.partner_id.company_id.name or '-',
             'city': self.company_id.city or '-',
+            'state': self.company_id.state_id.name or '-',
+            'zip': self.company_id.zip or '-',
             'country': self.company_id.country_id.name or '-',
             'phone': self.company_id.phone or '-',
             'vat': self.company_id.vat or '-'
@@ -101,7 +113,16 @@ class StockPicking(models.Model):
             'display_name': self.partner_id.display_name or '-',
             'street': self.partner_id.street or '-',
             'street2': self.partner_id.street2 or '-',
+            'blok': self.partner_id.blok or '-',
+            'nomor': self.partner_id.nomor or '-',
+            'rt': self.partner_id.rt or '-',
+            'rw': self.partner_id.rw or '-',
+            'kelurahan': self.partner_id.kelurahan_id.name or '-',
+            'kecamatan': self.partner_id.kecamatan_id.name or '-',
+            'kabupaten': self.partner_id.kabupaten_id.name or '-',
             'city': self.partner_id.city or '-',
+            'state': self.partner_id.state_id.name or '-',
+            'zip': self.partner_id.zip or '-',
             'country': self.partner_id.country_id.name or ' ',
             'vat': self.partner_id.vat or ' ',
             'is_npwp_pribadi': self.partner_id.is_npwp_pribadi or ' ',
@@ -115,9 +136,19 @@ class StockPicking(models.Model):
             'display_name': self.partner_id.display_name or '-',
             'street': self.partner_id.street or '-',
             'street2': self.partner_id.street2 or '-',
+            'blok': self.partner_id.blok or '-',
+            'nomor': self.partner_id.nomor or '-',
+            'rt': self.partner_id.rt or '-',
+            'rw': self.partner_id.rw or '-',
+            'kelurahan': self.partner_id.kelurahan_id.name or '-',
+            'kecamatan': self.partner_id.kecamatan_id.name or '-',
+            'kabupaten': self.partner_id.kabupaten_id.name or '-',
             'city': self.partner_id.city or '-',
+            'state': self.partner_id.state_id.name or '-',
+            'zip': self.partner_id.zip or '-',
             'country': self.partner_id.country_id.name or '-',
-            'vat': self.partner_id.vat or '-'
+            'vat': self.partner_id.vat or '-',
+            'npwp': self.partner_id.npwp or ' ',
         }
 
 
@@ -147,13 +178,13 @@ class StockPicking(models.Model):
                 'no': i,
                 'product': product_1[:length_p],
                 'product_name': product_name1[18:],
-                'qty': line.quantity_done,
-                'prod_name': line.name,
-                'uom': line.product_uom.name,
-                'price_unit': line.sale_line_id.price_unit,
+                'qty': line.quantity_done or 0.00,
+                'prod_name': line.name or '-',
+                'uom': line.product_uom.name or '-',
+                'price_unit': line.sale_line_id.price_unit or 0.00,
                 'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
-                'discount': line.sale_line_id.discount,
-                'price_total': line.price_total,
+                'discount': line.sale_line_id.discount or 0.00,
+                'price_total': line.price_total or 0.00,
                 'space_length_p': space_length_p,
                 'space_length_u': space_length_u
             })
@@ -185,13 +216,13 @@ class StockPicking(models.Model):
                 'no': i,
                 'product': product_2[:length_p],
                 'product_name': product_name1[18:],
-                'qty': line.quantity_done,
-                'uom': line.product_uom.name,
-                'prod_name': line.name,
-                'price_unit': line.sale_line_id.price_unit,
-                'price_subtotal': line.price_subtotal,
-                'discount': line.sale_line_id.discount,
-                'price_total': line.price_total,
+                'qty': line.quantity_done or 0.00,
+                'uom': line.product_uom.name or '-',
+                'prod_name': line.name or '-',
+                'price_unit': line.sale_line_id.price_unit or 0.00,
+                'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
+                'discount': line.sale_line_id.discount or 0.00,
+                'price_total': line.price_total or 0.00,
                 'space_length_p': space_length_p,
                 'space_length_u': space_length_u
             })
@@ -270,7 +301,7 @@ class StockPicking(models.Model):
         return split
 
     def terbilang_with_tag(self):
-        print ('----amount_delivered_total---',self.amount_delivered_total)
+        # print ('----amount_delivered_total---',self.amount_delivered_total)
         return '#'+self.total_terbilang(self.amount_delivered_total)+'#'
 
 
