@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_margin_form_pn" model="ir.ui.view">
+        <field name="name">product.margin.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product_margin.view_product_margin_form"/>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page//field[@name='total_margin']" position="after">
+                <field name="actual_margin"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
