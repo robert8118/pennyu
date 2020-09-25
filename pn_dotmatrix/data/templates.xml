@@ -9,7 +9,7 @@
 	</data>
     <record id="vit_dotmatrix.template_dotmatrix_invoice" model="mail.template">
             <field name="body_html"><![CDATA[<condensed>
-% if len(object.invoice_line_ids) == 8:
+% if len(object.invoice_line_ids) >= 8:
 ${'Faktur Penjualan'.center(134,' ')}
 
 % if object.partner_id.is_npwp_pribadi:
