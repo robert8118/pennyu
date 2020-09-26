@@ -9,6 +9,9 @@
             <xpath expr="//page//field[@name='total_margin']" position="after">
                 <field name="actual_margin"/>
             </xpath>
+            <xpath expr="//page//field[@name='turnover']" position="after">
+                <field name="actual_cost"/>
+            </xpath>
         </field>
     </record>
 </odoo>

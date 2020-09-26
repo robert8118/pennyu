@@ -7,6 +7,8 @@ class ProductProduct(models.Model):
 
     actual_margin = fields.Float(compute='_compute_product_margin_fields_values', string='Actual Margin',
                                  help="Turnover - Total actual cost")
+    actual_cost = fields.Float(compute='_compute_product_margin_fields_values', string='Actual Cost',
+                                 help="Get cost from HPP")
 
     def _compute_product_margin_fields_values(self, field_names=None):
         res = super(ProductProduct, self)._compute_product_margin_fields_values(field_names=None)
@@ -50,7 +52,8 @@ class ProductProduct(models.Model):
             self.env.cr.execute(sqlstr_cost, (val.id, states, invoice_types, date_from, date_to, company_id))
             result_cost = self.env.cr.fetchall()[0]
 
-            res[val.id]['actual_margin'] = res[val.id]['turnover'] - result_cost[0] if result_cost[0] else 0
+            res[val.id]['actual_cost'] = result_cost[0] if result_cost[0] else 0
+            res[val.id]['actual_margin'] = res[val.id]['turnover'] - res[val.id]['actual_cost']
             for k, v in res[val.id].items():
                 setattr(val, k, v)
         return res
