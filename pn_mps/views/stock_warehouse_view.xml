@@ -10,6 +10,9 @@
                 <field name="product_categs_to_manufacture"
                        attrs="{'invisible': True}" widget="many2many_tags"/>
             </xpath>
+            <xpath expr="//notebook//field[@name='resupply_wh_ids']" position="attributes">
+                <attribute name="widget">many2many_tags</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
