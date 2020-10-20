@@ -21,8 +21,7 @@ class SaleReport(models.Model):
         select_str += """ ,invoice_addr.city as customer_invoice_city, 
                         invoice_addr.state_id as customer_invoice_state, 
                         deliv_addr.city as customer_dlv_city, 
-                        deliv_addr.state_id as customer_dlv_state,
-                        deliv.state as deliv_state
+                        deliv_addr.state_id as customer_dlv_state
         """
         return select_str
 
@@ -31,7 +30,6 @@ class SaleReport(models.Model):
         from_str += """
                 left join res_partner invoice_addr on (s.partner_invoice_id=invoice_addr.id)
                 left join res_partner deliv_addr on (s.partner_shipping_id=deliv_addr.id)
-                left join stock_picking deliv on (s.id=deliv.sale_id and deliv.state not in ('cancel','draft'))
         """
         return from_str
 
@@ -40,7 +38,6 @@ class SaleReport(models.Model):
         group_by_str += """ ,invoice_addr.city, 
                         invoice_addr.state_id, 
                         deliv_addr.city, 
-                        deliv_addr.state_id,
-                        deliv.state
+                        deliv_addr.state_id
                         """
         return group_by_str

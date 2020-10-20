@@ -12,10 +12,11 @@
                 <filter name='group_by_dlv_city' string="Delivery City" context="{'group_by':'customer_dlv_city'}"/>
                 <filter name='group_by_dlv_state' string="Delivery State" context="{'group_by':'customer_dlv_state'}"/>
                 <!-- <filter name='group_by_customer_tags' string="Partner Tags" context="{'group_by':'customer_tags'}"/> -->
-                <filter name='group_by_dlv_state' string="Delivery Status" context="{'group_by':'deliv_state'}"/>
+                <!-- <filter name='group_by_dlv_state' string="Delivery Status" context="{'group_by':'deliv_state'}"/> -->
             </xpath>
             <field name="user_id" position="after">
                 <field name="customer_tags"/>
+                <field name="deliv_state"/>
             </field>
         </field>
     </record>
