@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="shift1" model="mrp.shift">
+            <field name="name">Shift 1</field>
+            <field name="start_time">7</field>
+            <field name="end_time">15</field>
+            <field name="active">1</field>
+        </record>
+        <record id="shift2" model="mrp.shift">
+            <field name="name">Shift 2</field>
+            <field name="start_time">15</field>
+            <field name="end_time">23</field>
+            <field name="active">1</field>
+        </record>
+        <record id="shift3" model="mrp.shift">
+            <field name="name">Shift 3</field>
+            <field name="start_time">23</field>
+            <field name="end_time">7</field>
+            <field name="active">1</field>
+        </record>
+    </data>
+</odoo>
