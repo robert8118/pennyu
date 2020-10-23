@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_pn_mrp_shift" model="ir.ui.view">
+        <field name="name">mrp.production.tree</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='company_id']" position="after">
+                <field name="mo_shift" widget="selection"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

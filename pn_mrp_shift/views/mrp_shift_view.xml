@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_shift_tree" model="ir.ui.view">
+        <field name="name">mrp.shift.tree</field>
+        <field name="model">mrp.shift</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+                <field name="note"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_shift_form" model="ir.ui.view">
+        <field name="name">mrp.shift.form</field>
+        <field name="model">mrp.shift</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="start_time" widget="float_time"/>
+                        <field name="end_time" widget="float_time"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_shift" model="ir.actions.act_window">
+        <field name="name">Shift</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.shift</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">['|', ('active', '=', True), ('active', '=', False)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_mrp_shift"
+              action="action_mrp_shift"
+              groups="base.group_no_one"
+              parent="mrp.menu_mrp_configuration"/>
+
+</odoo>
