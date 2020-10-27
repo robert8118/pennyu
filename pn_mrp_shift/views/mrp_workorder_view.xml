@@ -20,7 +20,11 @@
                 <field name="mo_shift"/>
             </xpath>
             <xpath expr="//div[@class='oe_kanban_content']" position="inside">
-                <span><t t-esc="record.mo_shift.value"/></span>
+                <strong>
+                    <span>
+                        <t t-esc="record.mo_shift.value"/>
+                    </span>
+                </strong>
             </xpath>
         </field>
     </record>
