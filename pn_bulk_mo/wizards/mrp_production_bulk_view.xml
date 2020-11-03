@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+
+        <record id="mrp_production_bulk_view" model="ir.ui.view">
+            <field name="name">mrp.production.bulk</field>
+            <field name="model">mrp.production.bulk</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Input MO Bulk" editable="bottom">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_produce"/>
+                                <field name="mo_shift" widget="selection"/>
+                                <field name="user_id" options="{'no_create': True, 'no_edit':True}"/>
+                            </group>
+                            <group>
+                                <field name="company_id" options="{'no_create': True, 'no_edit':True}"/>
+                                <field name="picking_type_id" domain="[('code', '=', 'mrp_operation')]"
+                                       options="{'no_create': True, 'no_edit':True}"/>
+                                <field name="location_src_id" domain="[('usage', '=', 'internal')]"
+                                       options="{'no_create': True, 'no_edit':True}"/>
+                                <field name="location_dest_id" domain="[('usage', '=', 'internal')]"
+                                       options="{'no_create': True, 'no_edit':True}"/>
+                            </group>
+
+                        </group>
+                        <group>
+                            <notebook>
+                                <page string="List MO">
+                                    <field name="lines_id">
+                                        <tree editable="bottom">
+                                            <field name="product_id" options="{'no_create': True, 'no_edit':True}"
+                                                   required="True"/>
+                                            <field name="product_qty" required="True"/>
+                                            <field name="bom_related" invisible="1"/>
+                                            <field name="bom_id" domain="[('id', 'in', bom_related)]"
+                                                   options="{'no_create': True, 'no_edit':True}" required="True"/>
+                                            <field name="routing_id" options="{'no_create': True, 'no_edit':True}"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+
+                    <footer>
+                        <button name="create_bulk_mo" string="Create" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_mrp_production_bulk" model="ir.actions.act_window">
+            <field name="name">MO Bulk</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production.bulk</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mrp_production_bulk_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_mrp_production_bulk" name="Input Bulk MO" action="action_mrp_production_bulk"
+                  parent="mrp.menu_mrp_manufacturing"/>
+
+    </data>
+</odoo>
