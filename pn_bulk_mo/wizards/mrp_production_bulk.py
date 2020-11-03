@@ -1,5 +1,21 @@
 from odoo import api, fields, models
-from odoo.exceptions import AccessError, UserError
+
+
+class MailFollowers(models.Model):
+    _inherit = 'mail.followers'
+
+    @api.model
+    def create(self, vals):
+        @api.model
+        def create(self, vals):
+            if 'res_model' in vals and 'res_id' in vals and 'partner_id' in vals:
+                dups = self.env['mail.followers'].search([('res_model', '=', vals.get('res_model')),
+                                                          ('res_id', '=', vals.get('res_id')),
+                                                          ('partner_id', '=', vals.get('partner_id'))])
+                if len(dups):
+                    for p in dups:
+                        p.unlink()
+            return super(MailFollowers, self).create(vals)
 
 
 class MrpProductionBulk(models.TransientModel):
@@ -45,7 +61,8 @@ class MrpProductionBulk(models.TransientModel):
             data['product_uom_id'] = line.product_uom_id.id
             data['bom_id'] = line.bom_id.id
             data['routing_id'] = line.routing_id.id
-            mp.create(data)
+            data['name'] = self.env['ir.sequence'].next_by_code('mrp.production')
+            cr_mp = mp.create(data)
 
 
 class MrpProductionBulkLine(models.TransientModel):
@@ -73,23 +90,26 @@ class MrpProductionBulkLine(models.TransientModel):
             rec.product_uom_id = rec.product_id.product_tmpl_id.uom_id
 
     def get_bom_related(self):
-        domain = [('product_tmpl_id', '=', self.product_id.product_tmpl_id.id)]
-        filtered_data = self.env['mrp.bom'].search(domain)
-        filtered_list = filtered_data.mapped('id')
-        return filtered_list
+        for rec in self:
+            domain = [('product_tmpl_id', '=', rec.product_id.product_tmpl_id.id)]
+            filtered_data = self.env['mrp.bom'].search(domain)
+            filtered_list = filtered_data.mapped('id')
+            return filtered_list
 
     @api.multi
     @api.depends('product_id')
     def load_bom_related(self):
-        self.bom_related = [(6, 0, self.get_bom_related())]
+        for rec in self:
+            rec.bom_related = [(6, 0, rec.get_bom_related())]
 
     @api.onchange('product_id')
     def onchange_bom_id(self):
-        res = {}
-        bom_ids = self.get_bom_related()
-        if not bom_ids:
-            res['domain'] = {'bom_related': []}
-        else:
-            self.bom_id = bom_ids[0]
-            res['domain'] = {'bom_related': [('id', 'in', self.get_bom_related())]}
-        return res
+        for rec in self:
+            res = {}
+            bom_ids = rec.get_bom_related()
+            if not bom_ids:
+                res['domain'] = {'bom_related': []}
+            else:
+                rec.bom_id = bom_ids[0]
+                res['domain'] = {'bom_related': [('id', 'in', rec.get_bom_related())]}
+            return res
