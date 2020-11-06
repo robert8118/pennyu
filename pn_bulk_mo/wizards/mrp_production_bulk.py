@@ -69,7 +69,7 @@ class MrpProductionBulkLine(models.TransientModel):
     _name = 'mrp.production.bulk.line'
 
     product_id = fields.Many2one('product.product', 'Produk')
-    product_qty = fields.Integer('Qty')
+    product_qty = fields.Float('Qty')
     product_uom_id = fields.Many2one('product.uom', 'UoM', compute='compute_product_uom_id')
     bom_id = fields.Many2one('mrp.bom', 'Bill of Material')
     routing_id = fields.Many2one('mrp.routing', 'Routing', compute='_compute_routing')

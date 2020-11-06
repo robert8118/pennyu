@@ -8,7 +8,8 @@
     'category': 'Manufacture',
     'depends': ['base', 'mrp', 'pn_mrp_shift'],
     'data': [
-        'wizards/mrp_production_bulk_view.xml'
+        'views/mrp_production_view.xml',
+        'wizards/mrp_production_bulk_view.xml',
     ],
     'demo': [],
     'auto_install': False,
