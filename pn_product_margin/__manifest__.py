@@ -11,7 +11,7 @@
     'data': [
         'views/product_product_view.xml'
     ],
-    'depends': ['product_margin'],
+    'depends': ['product_margin', 'point_of_sale'],
     'auto_install': False,
     'installable': True,
     'application': False,

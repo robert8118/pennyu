@@ -12,6 +12,16 @@
             <xpath expr="//page//field[@name='turnover']" position="after">
                 <field name="actual_cost"/>
             </xpath>
+
+            <xpath expr="//page//field[@name='sale_expected']" position="after">
+                <separator string="POS Orders" colspan="4"/>
+                <field name="pos_avg_price"/>
+                <field name="list_price"/>
+                <field name="pos_num_invoiced"/>
+                <field name="pos_gap"/>
+                <field name="pos_turnover"/>
+                <field name="pos_expected"/>
+            </xpath>
         </field>
     </record>
 </odoo>
