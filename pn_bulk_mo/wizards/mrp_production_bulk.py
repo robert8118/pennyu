@@ -75,6 +75,7 @@ class MrpProductionBulkLine(models.TransientModel):
     routing_id = fields.Many2one('mrp.routing', 'Routing', compute='_compute_routing')
     line_id = fields.Many2one('mrp.production.bulk')
     bom_related = fields.Many2many('mrp.bom', 'BoM related', compute='load_bom_related')
+    wo_user_id = fields.Many2one('res.users', string='Operator')
 
     @api.multi
     @api.depends('bom_id.routing_id', 'bom_id.routing_id.operation_ids')
