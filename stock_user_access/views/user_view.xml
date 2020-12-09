@@ -8,6 +8,7 @@
 				<page id="stock" string="Inventory">
 					<group>
 						<field name="warehouse_ids" widget="many2many_tags"/>
+`						<field name="work_center_ids" widget="many2many_tags" options="{'no_create': True}"/>
 					</group>
 				</page>
 			</notebook>
