@@ -49,13 +49,14 @@ class MrpProductionBulk(models.TransientModel):
         mp = self.env['mrp.production']
         data = {
             'mo_shift': self.mo_shift.id,
-            'user_id': self.user_id.id,
+            'spv_id': self.user_id.id,
             'picking_type_id': self.picking_type_id.id,
             'company_id': self.company_id.id,
             'location_src_id': self.location_src_id.id,
             'location_dest_id': self.location_dest_id.id
         }
         for line in self.lines_id:
+            data['user_id'] = line.wo_user_id.id
             data['product_id'] = line.product_id.id
             data['product_qty'] = line.product_qty
             data['product_uom_id'] = line.product_uom_id.id
