@@ -10,12 +10,13 @@
     'website': 'https://www.arkana.co.id',
     'description': """User Warehouse""",
     'depends': [
-        'stock',
+        'stock', 'mrp'
     ],
     'data': [
         'security/security.xml',
         'views/user_view.xml',
         'views/stock_view.xml',
+        'views/mrp_view.xml'
     ],
     'demo': [],
     'test': [

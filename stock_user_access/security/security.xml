@@ -17,4 +17,12 @@
     <record id="stock.stock_picking_type_action" model="ir.actions.act_window">
         <field name="domain">[('warehouse_id.wh_user_ids','in',[uid])]</field>
     </record>
+
+    <record id="mrp.mrp_workcenter_kanban_action" model="ir.actions.act_window">
+        <field name="domain">[('wc_user_ids','in',[uid])]</field>
+    </record>
+
+<!--    <record id="mrp.mrp_workorder_todo" model="ir.actions.act_window">-->
+<!--        <field name="domain">[('wo_user_id','in',[uid])]</field>-->
+<!--    </record>-->
 </odoo>

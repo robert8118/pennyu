@@ -1,0 +1,16 @@
+<odoo>
+	<record model="ir.ui.view" id="view_work_center_user">
+		<field name="name">mrp.workcenter.kanban</field>
+		<field name="model">mrp.workcenter</field>
+		<field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+		<field name="arch" type="xml">
+            <notebook position="inside">
+				<page id="user" string="Access Rights">
+					<group>
+						<field name="wc_user_ids" widget="many2many_tags"/>
+					</group>
+				</page>
+			</notebook>
+		</field>
+	</record>
+</odoo>
