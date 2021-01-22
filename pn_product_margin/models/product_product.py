@@ -8,7 +8,12 @@ class ProductProduct(models.Model):
     actual_margin = fields.Float(compute='_compute_product_margin_fields_values', string='Actual Margin',
                                  help="Turnover - Total actual cost")
     actual_cost = fields.Float(compute='_compute_product_margin_fields_values', string='Actual Cost',
-                                 help="Get cost from HPP")
+                               help="Get cost from HPP")
+    pos_avg_price = fields.Float(compute='_compute_product_margin_fields_values', string='Avg. Unit Price')
+    pos_num_invoiced = fields.Float(compute='_compute_product_margin_fields_values', string='# Posted in POS Order')
+    pos_gap = fields.Float(compute='_compute_product_margin_fields_values', string='POS Order Gap')
+    pos_turnover = fields.Float(compute='_compute_product_margin_fields_values', string='Turnover')
+    pos_expected = fields.Float(compute='_compute_product_margin_fields_values', string='Expected Sale')
 
     def _compute_product_margin_fields_values(self, field_names=None):
         res = super(ProductProduct, self)._compute_product_margin_fields_values(field_names=None)
@@ -54,6 +59,34 @@ class ProductProduct(models.Model):
 
             res[val.id]['actual_cost'] = result_cost[0] if result_cost[0] else 0
             res[val.id]['actual_margin'] = res[val.id]['turnover'] - res[val.id]['actual_cost']
+
+            sqlstr_pos = """
+                            select
+                                sum(pol.qty) as pos_num_invoiced,
+                                sum(pol.price_unit * pol.qty)/nullif(sum(pol.qty),0) as pos_avg_price,
+                                sum(pol.qty * pt.list_price) as pos_expected,
+                                sum(pol.qty * (pol.price_subtotal/(nullif(pol.qty,0)))) as pos_turnover
+                            from pos_order_line pol
+                            left join product_product pp on (pp.id=pol.product_id)
+                            left join product_template pt on (pt.id = pp.product_tmpl_id)
+                            where pol.product_id = %s
+                            """
+
+            self.env.cr.execute(sqlstr_pos, (val.id,))
+            result_pos = self.env.cr.fetchall()[0]
+
+            res[val.id]['pos_num_invoiced'] = result_pos[0] if result_pos[0] else 0
+            res[val.id]['pos_avg_price'] = result_pos[1] if result_pos[1] else 0
+            res[val.id]['pos_expected'] = result_pos[2] if result_pos[2] else 0
+            res[val.id]['pos_turnover'] = result_pos[3] if result_pos[3] else 0
+            res[val.id]['pos_gap'] = res[val.id]['pos_expected'] - res[val.id]['pos_turnover']
+
             for k, v in res[val.id].items():
                 setattr(val, k, v)
         return res
+
+
+class PosOrderLine(models.Model):
+    _inherit = 'pos.order.line'
+
+    price_subtotal = fields.Float(compute='_compute_amount_line_all', digits=0, string='Subtotal w/o Tax', store=True)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="mrp_production_pn_bulk_mo" model="ir.ui.view">
-        <field name="name">mrp.production.tree</field>
+        <field name="name">mrp.production.form</field>
         <field name="model">mrp.production</field>
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
@@ -12,6 +12,9 @@
                     <field name="uom_qty_target" readonly="1" options="{'no_open':True,'no_create':True}"/>
                 </div>
             </xpath>
+            <field name="user_id" position="before">
+                <field name="spv_id"/>
+            </field>
         </field>
     </record>
 </odoo>

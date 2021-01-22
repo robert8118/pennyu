@@ -12,7 +12,7 @@
                             <group>
                                 <field name="date_produce"/>
                                 <field name="mo_shift" widget="selection"/>
-                                <field name="user_id" options="{'no_create': True, 'no_edit':True}"/>
+                                <field name="user_id" options="{'no_create': True, 'no_edit':True}" string="Supervisor"/>
                             </group>
                             <group>
                                 <field name="company_id" options="{'no_create': True, 'no_edit':True}"/>
@@ -37,6 +37,8 @@
                                             <field name="bom_id" domain="[('id', 'in', bom_related)]"
                                                    options="{'no_create': True, 'no_edit':True}"/>
                                             <field name="routing_id" options="{'no_create': True, 'no_edit':True}"/>
+                                            <field name="wo_user_id" options="{'no_create': True, 'no_edit':True}"
+                                                   domain="[('work_center_ids', '!=', False)]" string="Responsible"/>
                                         </tree>
                                     </field>
                                 </page>
