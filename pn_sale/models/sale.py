@@ -49,15 +49,25 @@ class SaleOrder(models.Model):
         for sale in self:
             partner_id = sale.partner_id
             payment_term_id = partner_id.property_payment_term_id
-            _logger.warning("Payment term %s, %s: %s", partner_id.name, payment_term_id and payment_term_id.name, sale.payment_term_id.name)
+            sale_term_id = sale.payment_term_id
+            _logger.warning("Payment term %s, %s: %s", partner_id.name, payment_term_id and payment_term_id.name,
+                            sale_term_id.name)
             if sale.env.user.company_id != sale.company_id:
                 actual_term = self.env['res.partner'].with_context(force_company=sale.company_id.id).browse(
                     partner_id.id).property_payment_term_id
                 if actual_term and actual_term.id != sale.payment_term_id.id:
                     raise Warning("Cannot change Payment Term!")
             else:
-                if payment_term_id and payment_term_id.id != sale.payment_term_id.id:
-                    raise Warning("Cannot change Payment Term!")
+                if payment_term_id and payment_term_id.id != sale_term_id.id:
+                    actual_term = self.env['res.partner'].with_context(force_company=sale.company_id.id).browse(
+                        partner_id.id).property_payment_term_id
+                    if actual_term and actual_term.id != sale_term_id.id:
+                        if vals.get('payment_term_id'):
+                            if actual_term.id != vals.get('payment_term_id'):
+                                raise Warning("Cannot change Payment Term!")
+                        else:
+                            raise Warning("Cannot change Payment Term!")
+
         res = super(SaleOrder, self).write(vals)
 
         return res
