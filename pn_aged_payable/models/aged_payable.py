@@ -5,9 +5,12 @@ class AgedPayableColumn(models.AbstractModel):
     _inherit = 'account.aged.partner'
 
     def get_columns_name(self, options):
+        due_date_cols = {'name': 'Due Date', 'class': 'text', 'style': 'white-space:nowrap;'}
+
         columns = super(AgedPayableColumn, self).get_columns_name(options)
-        columns.append({'name': 'Due Date', 'class': 'number', 'style': 'white-space:nowrap;'})
-        return columns
+        columns2 = columns[:]
+        columns2.insert(1, due_date_cols)
+        return columns2
 
     @api.model
     def get_lines(self, options, line_id=None):
@@ -21,10 +24,16 @@ class AgedPayableColumn(models.AbstractModel):
         info_by_id = build_dict(lines, key="id")
 
         for line in lines:
+            idx = info_by_id.get(line['id']).get('index')
             if not line.get('unfoldable') and line.get('name').strip() != 'Total':
                 sml = self.env['account.move.line'].browse(line['id'])
-                idx = info_by_id.get(line['id']).get('index')
-                lines2[idx]['columns'].append({'name': sml.date_maturity})
+                old_cols = lines[idx]['columns']
+                lines2[idx]['columns'] = [{'name': sml.date_maturity}]
+                lines2[idx]['columns'].extend(old_cols)
+            else:
+                old_cols = lines[idx]['columns']
+                lines2[idx]['columns'] = [{'name': ''}]
+                lines2[idx]['columns'].extend(old_cols)
 
         return lines2
 
