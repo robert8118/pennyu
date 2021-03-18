@@ -17,6 +17,8 @@
 		"view/stock_picking.xml",
 		#"view/sale_order.xml",
 		"data/templates.xml",
+		"data/nota_pennyu_templates.xml",
+		"data/surat_jalan_templates.xml",
 		"security/dotmatrix_security.xml"
 	],
 	"installable": True,
