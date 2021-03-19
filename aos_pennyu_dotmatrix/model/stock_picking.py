@@ -82,13 +82,13 @@ class StockPicking(models.Model):
         data = tpl.render_template(tpl.body_html, 'stock.picking', self.id)
         self.printer_data_surat_jalan = data
     
-    @api.multi
-    def action_cancel(self):
-        res = super(picking, self).action_cancel()
-        self.printer_data=''
-        self.printer_data_nota_pennyu=''
-        self.printer_data_surat_jalan=''
-        return res
+#     @api.multi
+#     def action_cancel(self):
+#         res = super(picking, self).action_cancel()
+#         self.printer_data=''
+#         self.printer_data_nota_pennyu=''
+#         self.printer_data_surat_jalan=''
+#         return res
     
     @api.multi        
     def get_dataso(self, sale_id):
@@ -212,7 +212,7 @@ class StockPicking(models.Model):
             product_2 = product_1.replace('"','')
             product_name1 = line.name.replace("'",'')
             space_length_name = (length_p - len(product_name1)) + len(product_name1)
-            space_length_p = (length_p - len(product_1)) + len(product_1)
+            space_length_p = (length_p - len(product_2)) + len(product_2)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
             line_inv.append({
                 'no': i,
@@ -249,7 +249,7 @@ class StockPicking(models.Model):
             product_2 = product_1.replace('"','')
             product_name1 = line.name.replace("'",'')
             product_name2 = product_name1.replace('"','')
-            space_length_name = (length_p - len(product_name1)) + len(product_name1)
+            space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_1)) + len(product_1)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
             line_inv.append({

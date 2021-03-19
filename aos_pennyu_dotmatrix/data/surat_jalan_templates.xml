@@ -311,7 +311,7 @@ ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
 % for l in object.get_data():
-${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82-len(l['product_name']))} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
+${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82)} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
 % endfor
 ${''.rjust(134,'-')}
 
@@ -625,7 +625,7 @@ ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
 % for l in object.get_data():
-${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82-len(l['product_name']))} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
+${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(92-len(str(l['product_name'])))} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
 % endfor
 ${''.rjust(134,'-')}
 
