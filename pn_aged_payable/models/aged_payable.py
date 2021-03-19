@@ -27,6 +27,7 @@ class AgedPayableColumn(models.AbstractModel):
             idx = info_by_id.get(line['id']).get('index')
             if not line.get('unfoldable') and line.get('name').strip() != 'Total':
                 sml = self.env['account.move.line'].browse(line['id'])
+                lines2[idx]['due_date'] = sml.date_maturity
                 old_cols = lines[idx]['columns']
                 lines2[idx]['columns'] = [{'name': sml.date_maturity}]
                 lines2[idx]['columns'].extend(old_cols)
@@ -34,6 +35,22 @@ class AgedPayableColumn(models.AbstractModel):
                 old_cols = lines[idx]['columns']
                 lines2[idx]['columns'] = [{'name': ''}]
                 lines2[idx]['columns'].extend(old_cols)
+
+        def sort_by_due_date(i):
+            return i['due_date']
+
+        idx_forbid_to_changed = [i for i, v in enumerate(lines2) if
+                                 v.get('unfoldable') or v.get('name').strip() == 'Total']
+        range_idx_need_to_sort = []
+        for i, v in enumerate(idx_forbid_to_changed):
+            if i != len(idx_forbid_to_changed) - 1:
+                if not idx_forbid_to_changed[i + 1] - 1 == v:
+                    range_idx_need_to_sort.append([v + 1, idx_forbid_to_changed[i + 1]])
+
+        for i in range_idx_need_to_sort:
+            sorted_list = lines2[i[0]:i[1]]
+            sorted_list.sort(key=sort_by_due_date, reverse=True)
+            lines2[i[0]:i[1]] = sorted_list
 
         return lines2
 
