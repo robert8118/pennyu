@@ -211,13 +211,14 @@ class StockPicking(models.Model):
             product_1 = line.product_id.name.replace("'",'')
             product_2 = product_1.replace('"','')
             product_name1 = line.name.replace("'",'')
-            space_length_name = (length_p - len(product_name1)) + len(product_name1)
+            product_name2 = product_name1.replace('"','')
+            space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_2)) + len(product_2)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
             line_inv.append({
                 'no': i,
                 'product': product_1[:length_p],
-                'product_name': product_name1[18:],
+                'product_name': product_name2[18:],
                 'qty': line.quantity_done or 0.00,
                 'prod_name': line.name or '-',
                 'uom': line.product_uom.name or '-',
@@ -255,7 +256,7 @@ class StockPicking(models.Model):
             line_inv.append({
                 'no': i,
                 'product': product_2[:length_p],
-                'product_name': product_name1[18:],
+                'product_name': product_name2[18:],
                 'qty': line.quantity_done or 0.00,
                 'uom': line.product_uom.name or '-',
                 'prod_name': line.name or '-',
