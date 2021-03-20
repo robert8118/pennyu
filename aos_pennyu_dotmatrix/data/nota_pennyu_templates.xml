@@ -13,7 +13,7 @@
             <field name="subject">Dot Matrix Template for Nota Pennyu</field>
             <field name="body_html"><![CDATA[
 % if object.get_move_lines(object.move_lines) == 8:
-${'Nota Pennyu'.center(134,' ')}
+${'Nota Pennyuku'.center(134,' ')}
 
 % if object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}
@@ -456,7 +456,7 @@ ${object.get_bank().center(134,' ')}
 % endif
 % if object.get_move_lines(object.move_lines) > 8:            
 % for a in object.get_datas():
-${'Nota Pennyu'.center(134,' ')}
+${'Nota Pennyuku'.center(134,' ')}
 
 % if object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}

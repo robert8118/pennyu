@@ -306,7 +306,7 @@ ${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().g
 % endif
 ${''.rjust(81)}
 ${''.rjust(81)}
-${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(20)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Sale Order'} ${object.sale_id.name or '-'}
+${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(20)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.client_order_ref or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
@@ -620,12 +620,12 @@ ${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().g
 % endif
 ${''.rjust(81)}
 ${''.rjust(81)}
-${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(20)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Sale Order'} ${object.sale_id.name or '-'}
+${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(20)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.client_order_ref or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
-% for l in object.get_data():
-${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(92-len(str(l['product_name'])))} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
+% for l in a.line:
+${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82)} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
 % endfor
 ${''.rjust(134,'-')}
 
