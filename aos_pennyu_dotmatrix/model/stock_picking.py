@@ -218,7 +218,7 @@ class StockPicking(models.Model):
             line_inv.append({
                 'no': i,
                 'product': product_1[:length_p],
-                'product_name': product_2[18:],
+                'product_name': product_2,
                 'qty': line.quantity_done or 0.00,
                 'prod_name': line.name or '-',
                 'uom': line.product_uom.name or '-',
@@ -256,7 +256,7 @@ class StockPicking(models.Model):
             line_inv.append({
                 'no': i,
                 'product': product_2[:length_p],
-                'product_name': product_2[18:],
+                'product_name': product_2,
                 'qty': line.quantity_done or 0.00,
                 'uom': line.product_uom.name or '-',
                 'prod_name': line.name or '-',
