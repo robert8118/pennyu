@@ -5,6 +5,7 @@
     "author": "Alphasoft",
     "category": "Utilities",
     'website': 'https://www.alphasoft.co.id',
+    'images':  ['images/main_screenshot.png'],
     'summary': 'Thermal Reporting',
     "description": """""",
     "data": [
