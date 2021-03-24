@@ -41,16 +41,18 @@
                 			<strong>Tanda Terima Pembayaran :</strong>
                 		</div>
                 		<div t-if="o.name" class="col-auto" name="div_name">
-                            <p t-field="o.name"/>
+                            <span t-field="o.name"/>  <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
+                            <p></p>
                         </div>
                         <div t-else="">
                         	<p></p>
                         </div>
                         <div>
                         	<strong>Dari :</strong>
+                            <span style="margin:0;" t-field="o.partner_id.name"/>
                         </div>
                         <div t-if="o.partner_id" class="col-auto" name="div_partner">
-                            <p t-field="o.partner_id.name"/>
+                            <p style="margin-top:0;" t-field="o.partner_id.city"/>
                         </div>
                         <div t-else="">
                         	<p></p>
@@ -77,7 +79,7 @@
                         	<strong>Pembayaran Untuk Nota :</strong>
                         	<t t-set="lines" t-value="o.invoice_ids"/>
                         	<t t-foreach="lines" t-as="invoice">
-                                <span t-field="invoice.number"/>-<span t-field="invoice.date_due"/>
+                                <span t-field="invoice.number"/>-<span t-field="invoice.date_due" t-field-options='{"format": "dd/MM/yy"}'/>
                                 <p style="margin:0;" t-esc="o._get_invoice_payment_amount(invoice)" t-options="{'widget': 'monetary', 'display_currency': invoice.currency_id}"/>
                                 <p style="margin:0;">Saldo</p>
                                 <p style="margin:0;">Rp. <span t-field="invoice.residual"/></p>
