@@ -172,7 +172,7 @@
                                         <span t-field="l.price_unit"/>
                                     </td>
                                     <td width="20%" class="text-right">
-                                        <span t-esc="'{:,.2f}'.format(l.price_subtotal)" />
+                                        <span t-esc="'{:,.2f}'.format(l.price_total)" />
                                     </td>
                                     <td width="4%"><![CDATA[&nbsp;]]><![CDATA[&nbsp;&nbsp;&nbsp;]]></td>
                                 </tr>
