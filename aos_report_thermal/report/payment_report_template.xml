@@ -40,12 +40,10 @@
                 		<div>
                 			<strong>Tanda Terima Pembayaran :</strong>
                 		</div>
-                		<div t-if="o.name" class="col-auto" name="div_name">
-                            <span t-field="o.name"/>  <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
+                		<div class="col-auto" name="div_name">
+                            <span t-if="o.name"><span t-field="o.name"/></span>  
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
                             <p></p>
-                        </div>
-                        <div t-else="">
-                        	<p></p>
                         </div>
                         <div>
                         	<strong>Dari :</strong>
