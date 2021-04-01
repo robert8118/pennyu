@@ -10,7 +10,10 @@
     "description": """""",
     "data": [
         "report/payment_report.xml",
-        "report/payment_report_template.xml",
+#         "report/payment_report_template.xml",
+        "report/new_template.xml",
+#         "view/account_payment.xml",
+#         "wizard/account_payment_transient.xml",
     ],
     "installable": True,
     "auto_install": False,

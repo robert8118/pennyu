@@ -2,13 +2,14 @@
 <odoo>
     <data>
         <report
-            string="Print Payment"
-            id="account_payment.action_report_payment"
+            string="Print TT Pembayaran"
+            id="action_report_payment_admin"
             model="account.payment"
             report_type="qweb-pdf"
             menu="True"
-            name="aos_report_thermal.report_payment"
-            file="aos_report_thermal.report_payment"
+            name="aos_report_thermal.attendance_recap_report_view"
+            file="aos_report_thermal.attendance_recap_report_view"
+            print_report_name = "('TT_'+object.partner_id.name)"
         />
         
         <record id="paperformat_lowmargin_account_payment" model="report.paperformat">
@@ -26,7 +27,7 @@
 		    <field name="header_spacing">40</field>
 		</record>
 		
-		<record id="account_payment.action_report_payment" model="ir.actions.report">
+		<record id="action_report_payment_admin" model="ir.actions.report">
 		    <field name="paperformat_id" ref="aos_report_thermal.paperformat_lowmargin_account_payment" />
 		</record>
     </data>
