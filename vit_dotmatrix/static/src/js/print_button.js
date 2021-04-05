@@ -35,6 +35,60 @@ form_widget.include({
                 return;
             }
 
+            if(node.attrs.custom === "print_notapennyu"){
+                var url = "http://localhost/dotmatrix/print.php";
+                var printer_data = self.state.data.printer_data_nota_pennyu;                
+                if (!printer_data){
+                    alert('No data to print. Please click Update Printer Data');
+                    return;
+                }
+                console.log(printer_data);
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        printer_data : printer_data
+                    },
+                    success: function(data) {
+                        alert('Success');
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        alert('Failed');   
+                        console.log(data);
+                    },
+                });
+                return;
+            }
+
+            if(node.attrs.custom === "print_suratjalan"){
+                var url = "http://localhost/dotmatrix/print.php";
+                var printer_data = self.state.data.printer_data_surat_jalan;                
+                if (!printer_data){
+                    alert('No data to print. Please click Update Printer Data');
+                    return;
+                }
+                console.log(printer_data);
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        printer_data : printer_data
+                    },
+                    success: function(data) {
+                        alert('Success');
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        alert('Failed');   
+                        console.log(data);
+                    },
+                });
+                return;
+            }
+
             //just code old may use super
             self.trigger_up('button_clicked', {
                 attrs: node.attrs,
