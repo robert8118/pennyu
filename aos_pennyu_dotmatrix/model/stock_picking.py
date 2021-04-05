@@ -1,6 +1,9 @@
 from odoo import models, api, fields
 from datetime import datetime, date, time, timedelta
 import math
+from odoo.exceptions import UserError
+import logging
+_logger = logging.getLogger(__name__)
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -25,6 +28,15 @@ class StockPicking(models.Model):
     amount_delivered_tax = fields.Float(string='Taxes Delivered', readonly=True, compute='_amount_delivered_all')
     amount_delivered_total = fields.Float(string='Total Delivered', readonly=True, compute='_amount_delivered_all', track_visibility='always')
     due_date = fields.Datetime("Due Date", compute="_compute_due_date")
+    printer_data_nota_pennyu = fields.Text(string="Printer Data Nota Pennyu", required=False, readonly=True)
+    printer_data_surat_jalan = fields.Text(string="Printer Data Surat Jalan", required=False, readonly=True)
+
+    @api.multi
+    def generate_printer_data(self):
+        tpl = self.env['mail.template'].search([('name', '=', 'Dot Matrix Picking')])
+        data = tpl.render_template(tpl.body_html, 'stock.picking', self.id)
+        self.printer_data = data
+    
 
     def _compute_due_date(self):
         due_date = ''
@@ -57,6 +69,34 @@ class StockPicking(models.Model):
         tpl = self.env['mail.template'].search([('name', '=', 'Dot Matrix Nota')])
         data = tpl.render_template(tpl.body_html, 'stock.picking', self.id)
         self.printer_data = data
+        
+    @api.multi
+    def generate_printer_data_nota_pennyu(self):
+        tpl = self.env['mail.template'].search([('name', '=', 'Dot Matrix Nota Pennyu')])
+        data = tpl.render_template(tpl.body_html, 'stock.picking', self.id)
+        self.printer_data_nota_pennyu = data
+        
+    @api.multi
+    def generate_printer_data_surat_jalan(self):
+        tpl = self.env['mail.template'].search([('name', '=', 'Dot Matrix Surat Jalan')])
+        data = tpl.render_template(tpl.body_html, 'stock.picking', self.id)
+        self.printer_data_surat_jalan = data
+    
+#     @api.multi
+#     def action_cancel(self):
+#         res = super(picking, self).action_cancel()
+#         self.printer_data=''
+#         self.printer_data_nota_pennyu=''
+#         self.printer_data_surat_jalan=''
+#         return res
+    
+    @api.multi        
+    def get_dataso(self, sale_id):
+        so = ''
+        data = self.env['sale.order'].search([('id', '=', sale_id)])
+        if data.name:
+            so = data.name
+        return so
         
     @api.multi
     def total_terbilang(self, amount_total):
@@ -171,13 +211,14 @@ class StockPicking(models.Model):
             product_1 = line.product_id.name.replace("'",'')
             product_2 = product_1.replace('"','')
             product_name1 = line.name.replace("'",'')
-            space_length_name = (length_p - len(product_name1)) + len(product_name1)
-            space_length_p = (length_p - len(product_1)) + len(product_1)
+            product_name2 = product_name1.replace('"','')
+            space_length_name = (length_p - len(product_name2)) + len(product_name2)
+            space_length_p = (length_p - len(product_2)) + len(product_2)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
             line_inv.append({
                 'no': i,
                 'product': product_1[:length_p],
-                'product_name': product_name1[18:],
+                'product_name': product_2,
                 'qty': line.quantity_done or 0.00,
                 'prod_name': line.name or '-',
                 'uom': line.product_uom.name or '-',
@@ -209,13 +250,13 @@ class StockPicking(models.Model):
             product_2 = product_1.replace('"','')
             product_name1 = line.name.replace("'",'')
             product_name2 = product_name1.replace('"','')
-            space_length_name = (length_p - len(product_name1)) + len(product_name1)
+            space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_1)) + len(product_1)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
             line_inv.append({
                 'no': i,
                 'product': product_2[:length_p],
-                'product_name': product_name1[18:],
+                'product_name': product_2,
                 'qty': line.quantity_done or 0.00,
                 'uom': line.product_uom.name or '-',
                 'prod_name': line.name or '-',

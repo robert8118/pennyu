@@ -7,13 +7,13 @@
 	    	ref('vit_dotmatrix.template_dotmatrix_so')
 	    ))]"/>
 	</data> -->
-    <record id="template_dotmatrix_picking_proforma" model="mail.template">
-            <field name="name">Dot Matrix Nota</field>
+    <record id="template_dotmatrix_picking_nota_pennyu" model="mail.template">
+            <field name="name">Dot Matrix Nota Pennyu</field>
             <field name="model_id" ref="stock.model_stock_picking"/>
-            <field name="subject">Dot Matrix Template for Nota</field>
+            <field name="subject">Dot Matrix Template for Nota Pennyu</field>
             <field name="body_html"><![CDATA[
 % if object.get_move_lines(object.move_lines) == 8:
-${'Nota'.center(134,' ')}
+${'Nota Pennyuku'.center(134,' ')}
 
 % if object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}
@@ -436,10 +436,10 @@ ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping
 % endif
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(8)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
 ${''.rjust(134,'-')}
-${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
+${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.rjust(10)}  ${'Harga Net'.rjust(20)} ${'Sub Total'.rjust(29)}
 ${''.rjust(134,'-')}
 % for l in object.get_data():
-${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(l['space_length_p'])} ${"{:4,.2f}".format(l['qty']).rjust(10)} ${l['uom'].ljust(9)} ${"{:4,.2f}".format(l['price_unit']).rjust(15)} ${"{:4,.3f}".format(l['discount']).rjust(11)} ${"{:4,.2f}".format(l['price_subtotal']).rjust(15)} ${"{:4,.2f}".format(l['price_total']).rjust(15)}
+${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(l['space_length_p'])} ${"{:4,.2f}".format(l['qty']).rjust(11)}  ${l['uom'].rjust(11)}  ${"{:4,.2f}".format(l['price_subtotal']).rjust(19)}  ${"{:4,.2f}".format(l['price_total']).rjust(28)}
 % endfor
 
 ${''.rjust(134,'-')}
@@ -456,7 +456,7 @@ ${object.get_bank().center(134,' ')}
 % endif
 % if object.get_move_lines(object.move_lines) > 8:            
 % for a in object.get_datas():
-${'Nota'.center(134,' ')}
+${'Nota Pennyuku'.center(134,' ')}
 
 % if object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('nama_npwp_pribadi')}
@@ -877,12 +877,13 @@ ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping
 	% endif
 
 % endif
+
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'} ${''.rjust(8)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
 ${''.rjust(134,'-')}
-${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
+${'No'}  ${'Nama Product'.ljust(49)} ${'Qtyy'.rjust(16)}  ${'Satuan'.ljust(6)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
 ${''.rjust(134,'-')}
 % for l in a.line:
-${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(l['space_length_p'])} ${"{:4,.2f}".format(l['qty']).rjust(10)} ${l['uom'].ljust(9)} ${"{:4,.2f}".format(l['price_unit']).rjust(15)} ${"{:4,.3f}".format(l['discount']).rjust(11)} ${"{:4,.2f}".format(l['price_subtotal']).rjust(15)} ${"{:4,.2f}".format(l['price_total']).rjust(15)}
+${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(l['space_length_p'])} ${"{:4,.2f}".format(l['qty']).rjust(10)} ${l['uom'].ljust(9)} ${"{:4,.2f}".format(l['price_subtotal']).rjust(15)} ${"{:4,.2f}".format(l['price_total']).rjust(15)}
 % endfor
 
 ${''.rjust(134,'-')}           

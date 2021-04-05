@@ -7,15 +7,33 @@
             <field name="inherit_id" ref="pn_dotmatrix.view_picking_form_dot"/>
             <field name="arch" type="xml">
                 <header position="inside">
-                    <button type="action" string="Dot Matrix" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" custom="print" 
+                    <button type="action" string="Dot Matrix Nota" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" custom="print" 
                         attrs="{'invisible': [('state','not in','done')]}"/>
-                    <button string="Refresh Printer Data" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" type="object" name="generate_printer_data"
-                        attrs="{'invisible': [('state','not in','done')]}"/>                      
+                    <button type="action" string="Dot Matrix Nota Pennyuku" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" custom="print_notapennyu" 
+                        attrs="{'invisible': [('state','not in','done')]}"/>
+                    <button type="action" string="Dot Matrix Surat Jalan" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" custom="print_suratjalan" 
+                        attrs="{'invisible': [('state','not in','done')]}"/>                                                            
                 </header>
                 <notebook position="inside">
-                    <page string="Dot Matrix" groups="aos_pennyu_dotmatrix.group_dotmatrix" attrs="{'invisible': [('state','not in','done')]}">
+                    <page string="Dot Matrix Nota" groups="aos_pennyu_dotmatrix.group_dotmatrix" attrs="{'invisible': [('state','not in','done')]}">
+                    	<button string="Refresh Printer Data" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" type="object" name="generate_printer_data"
+                        attrs="{'invisible': [('state','not in','done')]}"/>
                         <pre>
                             <field name="printer_data"/>
+                        </pre>
+                    </page>
+                    <page string="Dot Matrix Nota Pennyuku" groups="aos_pennyu_dotmatrix.group_dotmatrix" attrs="{'invisible': [('state','not in','done')]}">
+                    	<button string="Refresh Printer Data" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" type="object" name="generate_printer_data_nota_pennyu"
+                        attrs="{'invisible': [('state','not in','done')]}"/>
+                        <pre>
+                            <field name="printer_data_nota_pennyu"/>
+                        </pre>
+                    </page>
+                    <page string="Dot Matrix Surat Jalan" groups="aos_pennyu_dotmatrix.group_dotmatrix" attrs="{'invisible': [('state','not in','done')]}">
+                    	<button string="Refresh Printer Data" icon="fa-print" groups="aos_pennyu_dotmatrix.group_dotmatrix" type="object" name="generate_printer_data_surat_jalan"
+                        attrs="{'invisible': [('state','not in','done')]}"/>
+                        <pre>
+                            <field name="printer_data_surat_jalan"/>
                         </pre>
                     </page>
                 </notebook>
