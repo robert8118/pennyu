@@ -46,6 +46,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                         'memo_invoice' : record.communication,
                         'saldo' : line.residual - record.amount,
                         'currency_id' : line.currency_id,
+                        'total_pembayaran' : record.amount,
                     }
             
             nomor = nomor+1
