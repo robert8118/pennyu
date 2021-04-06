@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dev_customer_credit_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-28 11:06+0000\n"
+"PO-Revision-Date: 2018-09-28 11:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "<span> Credit Limit Exceeded</span>"
+msgstr "<span> Kredi Limiti Aşıldı</span> "
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Cancel"
+msgstr "İptal etmek"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_partner_check_credit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_users_check_credit
+msgid "Check Credit"
+msgstr "Çek kredisi"
+
+#. module: dev_customer_credit_limit
+#: model:res.groups,name:dev_customer_credit_limit.credit_limit_config
+msgid "Config Credit Limit On partners"
+msgstr "Yapı Kredi Limitli İş Ortakları"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "Confirm"
+msgstr "Onaylamak"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Confirm Sale"
+msgstr "Satış Onayı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_res_partner
+msgid "Contact"
+msgstr "Temas"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_create_uid
+msgid "Created by"
+msgstr "Tarafından yaratıldı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_create_date
+msgid "Created on"
+msgstr "Üzerinde düzenlendi"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_credit_readonly_partner_form
+msgid "Credit"
+msgstr "Kredi"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit_limit
+msgid "Credit Limit"
+msgstr "Kredi limiti"
+
+#. module: dev_customer_credit_limit
+#: model:ir.actions.act_window,name:dev_customer_credit_limit.action_credit_limit
+#: model:ir.ui.menu,name:dev_customer_credit_limit.menu_credit_limit_sale_order
+msgid "Credit Limit Sale Order"
+msgstr "Kredi Limit Satış Siparişi"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit_limit_on_hold
+msgid "Credit Limit on Hold"
+msgstr "Kredi Limiti Beklemede"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_partner_credit_limit_on_hold
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_users_credit_limit_on_hold
+msgid "Credit limit on hold"
+msgstr "Kredi limiti beklemede"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_current_sale
+msgid "Current Quotation"
+msgstr "Mevcut Teklif"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_partner_id
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: dev_customer_credit_limit
+#: model:ir.actions.act_window,name:dev_customer_credit_limit.action_customer_limit_wizard
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "Customer Credit Limit"
+msgstr "Müşteri Kredi Limiti"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_display_name
+msgid "Display Name"
+msgstr "Ekran adı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_exceeded_amount
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_sale_order_exceeded_amount
+msgid "Exceeded Amount"
+msgstr "Aşılmış Miktar"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_id
+msgid "ID"
+msgstr "İD"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_invoices
+msgid "Invoices"
+msgstr "Faturalar"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard___last_update
+msgid "Last Modified on"
+msgstr "Son değiştirilme tarihi"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleme"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Print"
+msgstr "baskı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_sale_order
+msgid "Quotation"
+msgstr "alıntı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_sale_orders
+msgid "Sale Orders"
+msgstr "Satış Emirleri"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit
+msgid "Total Receivable"
+msgstr "Toplam Alacak"
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_customer_limit_wizard
+msgid "customer.limit.wizard"
+msgstr "müşteri.limit.sihirbazı"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "or"
+msgstr "veya"
+
