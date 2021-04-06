@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dev_customer_credit_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-28 11:19+0000\n"
+"PO-Revision-Date: 2018-09-28 11:19+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "<span> Credit Limit Exceeded</span>"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Cancel"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_partner_check_credit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_users_check_credit
+msgid "Check Credit"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:res.groups,name:dev_customer_credit_limit.credit_limit_config
+msgid "Config Credit Limit On partners"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "Confirm"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Confirm Sale"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_credit_readonly_partner_form
+msgid "Credit"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit_limit
+msgid "Credit Limit"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.actions.act_window,name:dev_customer_credit_limit.action_credit_limit
+#: model:ir.ui.menu,name:dev_customer_credit_limit.menu_credit_limit_sale_order
+msgid "Credit Limit Sale Order"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit_limit_on_hold
+msgid "Credit Limit on Hold"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_partner_credit_limit_on_hold
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_res_users_credit_limit_on_hold
+msgid "Credit limit on hold"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_current_sale
+msgid "Current Quotation"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_partner_id
+msgid "Customer"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.actions.act_window,name:dev_customer_credit_limit.action_customer_limit_wizard
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "Customer Credit Limit"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_exceeded_amount
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_sale_order_exceeded_amount
+msgid "Exceeded Amount"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_id
+msgid "ID"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_invoices
+msgid "Invoices"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_sale_order_confirm_inherit_form
+msgid "Print"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_sale_order
+msgid "Quotation"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_sale_orders
+msgid "Sale Orders"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model.fields,field_description:dev_customer_credit_limit.field_customer_limit_wizard_credit
+msgid "Total Receivable"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.model,name:dev_customer_credit_limit.model_customer_limit_wizard
+msgid "customer.limit.wizard"
+msgstr ""
+
+#. module: dev_customer_credit_limit
+#: model:ir.ui.view,arch_db:dev_customer_credit_limit.view_customer_limit_wizard_form
+msgid "or"
+msgstr ""
+
