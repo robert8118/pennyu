@@ -27,8 +27,8 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['invoice_ids'] = record.invoice_ids
             docs['currency_id'] = record.currency_id
             docs['company_image'] = record.company_id.logo
-            print(record.company_id.logo)
-            print("xxxxxxaaaaxxxxxxxx")
+#             print(record.company_id.logo)
+#             print("xxxxxxaaaaxxxxxxxx")
             docs['nomor'] = nomor
             for line in record.invoice_ids:
                 total_pembayaran = total_pembayaran+record.amount
@@ -69,5 +69,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         return {
             'doc_ids': docss.ids,
             'doc_model': 'account.payment',
-            'docs': docs
+            'docs': docs,
+            'docss': docss,
         }
