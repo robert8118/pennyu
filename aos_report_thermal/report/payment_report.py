@@ -7,7 +7,7 @@ from datetime import datetime, date, time, timedelta
 
 class AccountPaymentReportAdmin(models.AbstractModel):
     _name = 'report.aos_report_thermal.attendance_recap_report_view'
-
+        
     @api.multi
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
@@ -16,6 +16,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         total_pembayaran = 0.0
         nomor = 0
         docs["listinvoices"] = {}
+        dataidinvoices = []
         partner_id = 0
         for x in docids:
             record = self.env['account.payment'].browse(x)
@@ -27,10 +28,9 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['invoice_ids'] = record.invoice_ids
             docs['currency_id'] = record.currency_id
             docs['company_image'] = record.company_id.logo
-#             print(record.company_id.logo)
-#             print("xxxxxxaaaaxxxxxxxx")
             docs['nomor'] = nomor
             for line in record.invoice_ids:
+                dataidinvoices.append(line.id)
                 total_pembayaran = total_pembayaran+record.amount
                 saldo = line.residual - record.amount
                 due_date = line.date_due
@@ -50,19 +50,25 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     }
             
             nomor = nomor+1
-
-        data_invoice = self.env['account.invoice'].search([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')], limit=1)
-        info_due_date = data_invoice.date_due
-        if info_due_date:
-            info_due_date = datetime.strptime(info_due_date, '%Y-%m-%d').strftime('%d/%m/%y')
-        else:
-            info_due_date = ""
+        
+        nomor2 = 0
+        docs["infosaldo"] = {}
+        data_invoice = self.env['account.invoice'].search([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
+        for x in data_invoice:
+            if x.id not in dataidinvoices:
+                info_due_date = x.date_due
+                if info_due_date:
+                    info_due_date = datetime.strptime(info_due_date, '%Y-%m-%d').strftime('%d/%m/%y')
+                else:
+                    info_due_date = ""
+                    
+                docs["infosaldo"][nomor2] = {
+                        'nomor_invoice' : x.number,
+                        'due_date_invoice' : info_due_date,
+                        'total_invoice' : x.residual
+                    }
             
-        docs["infosaldo"] = {
-                'nomor_invoice' : data_invoice.number,
-                'due_date_invoice' : info_due_date,
-                'total_invoice' : data_invoice.residual,
-            }
+                nomor2 = nomor2+1
           
         docs['total_pembayaran'] = total_pembayaran
         
