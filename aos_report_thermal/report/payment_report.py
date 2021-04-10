@@ -12,6 +12,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
         
+        paper_height = 160
         docs = {}
         total_pembayaran = 0.0
         nomor = 0
@@ -69,9 +70,17 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     }
             
                 nomor2 = nomor2+1
+                paper_height = paper_height+15
           
         docs['total_pembayaran'] = total_pembayaran
         
+        
+        
+#         Thermal Printer For Payment Report
+        datapaper = self.env['report.paperformat'].search([('name', '=', 'Thermal Printer For Payment Report')])
+        datapaper.write({'page_height': paper_height})
+        
+#         update([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
         return {
             'doc_ids': docss.ids,
             'doc_model': 'account.payment',
