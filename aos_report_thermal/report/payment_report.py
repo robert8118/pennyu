@@ -70,7 +70,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     }
             
                 nomor2 = nomor2+1
-                paper_height = paper_height+15
+                paper_height = paper_height+10
           
         docs['total_pembayaran'] = total_pembayaran
         
