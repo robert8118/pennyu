@@ -170,6 +170,8 @@ class StockPicking(models.Model):
                 'nama_npwp_pribadi': self.sale_id.partner_id.nama_npwp_pribadi or ' ',
                 'alamat_npwp_pribadi': self.sale_id.partner_id.alamat_npwp_pribadi or ' ',
                 'npwp': self.sale_id.partner_id.npwp or ' ',
+                'phone': self.sale_id.partner_id.phone or ' ',
+                'mobile': self.partner_id.mobile or ' ',
             }
         else:
             return {
@@ -192,6 +194,8 @@ class StockPicking(models.Model):
                 'nama_npwp_pribadi': self.partner_id.nama_npwp_pribadi or ' ',
                 'alamat_npwp_pribadi': self.partner_id.alamat_npwp_pribadi or ' ',
                 'npwp': self.partner_id.npwp or ' ',
+                'phone': self.partner_id.phone or ' ',
+                'mobile': self.partner_id.mobile or ' ',
             }
 
     def get_shipping(self):
@@ -213,6 +217,8 @@ class StockPicking(models.Model):
                 'country': self.sale_id.partner_shipping_id.country_id.name or '-',
                 'vat': self.sale_id.partner_shipping_id.vat or '-',
                 'npwp': self.sale_id.partner_shipping_id.npwp or ' ',
+                'phone': self.sale_id.partner_shipping_id.phone or ' ',
+                'mobile': self.sale_id.partner_shipping_id.mobile or ' ',
             }
         else:
             return {
@@ -232,6 +238,8 @@ class StockPicking(models.Model):
                 'country': self.partner_id.country_id.name or '-',
                 'vat': self.partner_id.vat or '-',
                 'npwp': self.partner_id.npwp or ' ',
+                'phone': self.partner_id.phone or ' ',
+                'mobile': self.partner_id.mobile or ' ',
             }
 
 

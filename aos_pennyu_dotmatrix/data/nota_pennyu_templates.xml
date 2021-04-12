@@ -206,20 +206,20 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 	% endif
 
 ${''.rjust(73)}${'Kirim  '} ${object.get_shipping().get('display_name')}
-	% if object.partner_id.street:
+	% if object.sale_id.partner_shipping_id.street:
 ${''.rjust(81)}${object.get_shipping().get('street')}
 	% endif
-	% if object.partner_id.street2:
+	% if object.sale_id.partner_shipping_id.street2:
 ${''.rjust(81)}${object.get_shipping().get('street2')}
 	% endif
-	% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
+	% if object.sale_id.partner_shipping_id.blok or object.sale_id.partner_shipping_id.nomor or object.sale_id.partner_shipping_id.rt or object.sale_id.partner_shipping_id.rw:
 ${''.rjust(81)}${'Blok '}${object.get_shipping().get('blok')} ${','} ${'No.'}${object.get_shipping().get('nomor')}${', RT/RW '}${object.get_shipping().get('rt')}${'/'}${object.get_shipping().get('rw')}
 	% endif 
-	% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
+	% if object.sale_id.partner_shipping_id.kelurahan_id or object.sale_id.partner_shipping_id.kecamatan_id or object.sale_id.partner_shipping_id.city:
 ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_shipping().get('kecamatan')}${', '}${object.get_shipping().get('city')}
 	% endif
-	% if object.partner_id.zip:
-${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
+	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
+${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
 
 	% endif
 
@@ -416,20 +416,20 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 	% endif
 
 ${''.rjust(73)}${'Kirim  '} ${object.get_shipping().get('display_name')}
-	% if object.partner_id.street:
+	% if object.sale_id.partner_shipping_id.street:
 ${''.rjust(81)}${object.get_shipping().get('street')}
 	% endif
-	% if object.partner_id.street2:
+	% if object.sale_id.partner_shipping_id.street2:
 ${''.rjust(81)}${object.get_shipping().get('street2')}
 	% endif
-	% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
+	% if object.sale_id.partner_shipping_id.blok or object.sale_id.partner_shipping_id.nomor or object.sale_id.partner_shipping_id.rt or object.sale_id.partner_shipping_id.rw:
 ${''.rjust(81)}${'Blok '}${object.get_shipping().get('blok')} ${','} ${'No.'}${object.get_shipping().get('nomor')}${', RT/RW '}${object.get_shipping().get('rt')}${'/'}${object.get_shipping().get('rw')}
 	% endif 
-	% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
+	% if object.sale_id.partner_shipping_id.kelurahan_id or object.sale_id.partner_shipping_id.kecamatan_id or object.sale_id.partner_shipping_id.city:
 ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_shipping().get('kecamatan')}${', '}${object.get_shipping().get('city')}
 	% endif
-	% if object.partner_id.zip:
-${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
+	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
+${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
 
 	% endif
 
@@ -649,20 +649,20 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 	% endif
 
 ${''.rjust(73)}${'Kirim  '} ${object.get_shipping().get('display_name')}
-	% if object.partner_id.street:
+	% if object.sale_id.partner_shipping_id.street:
 ${''.rjust(81)}${object.get_shipping().get('street')}
 	% endif
-	% if object.partner_id.street2:
+	% if object.sale_id.partner_shipping_id.street2:
 ${''.rjust(81)}${object.get_shipping().get('street2')}
 	% endif
-	% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
+	% if object.sale_id.partner_shipping_id.blok or object.sale_id.partner_shipping_id.nomor or object.sale_id.partner_shipping_id.rt or object.sale_id.partner_shipping_id.rw:
 ${''.rjust(81)}${'Blok '}${object.get_shipping().get('blok')} ${','} ${'No.'}${object.get_shipping().get('nomor')}${', RT/RW '}${object.get_shipping().get('rt')}${'/'}${object.get_shipping().get('rw')}
 	% endif 
-	% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
+	% if object.sale_id.partner_shipping_id.kelurahan_id or object.sale_id.partner_shipping_id.kecamatan_id or object.sale_id.partner_shipping_id.city:
 ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_shipping().get('kecamatan')}${', '}${object.get_shipping().get('city')}
 	% endif
-	% if object.partner_id.zip:
-${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
+	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
+${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
 
 	% endif
 
@@ -859,20 +859,20 @@ ${'NPWP '} ${object.get_company().get('vat').ljust((74-len(object.get_company().
 	% endif
 
 ${''.rjust(73)}${'Kirim  '} ${object.get_shipping().get('display_name')}
-	% if object.partner_id.street:
+	% if object.sale_id.partner_shipping_id.street:
 ${''.rjust(81)}${object.get_shipping().get('street')}
 	% endif
-	% if object.partner_id.street2:
+	% if object.sale_id.partner_shipping_id.street2:
 ${''.rjust(81)}${object.get_shipping().get('street2')}
 	% endif
-	% if object.partner_id.blok or object.partner_id.nomor or object.partner_id.rt or object.partner_id.rw:
+	% if object.sale_id.partner_shipping_id.blok or object.sale_id.partner_shipping_id.nomor or object.sale_id.partner_shipping_id.rt or object.sale_id.partner_shipping_id.rw:
 ${''.rjust(81)}${'Blok '}${object.get_shipping().get('blok')} ${','} ${'No.'}${object.get_shipping().get('nomor')}${', RT/RW '}${object.get_shipping().get('rt')}${'/'}${object.get_shipping().get('rw')}
 	% endif 
-	% if object.partner_id.kelurahan_id or object.partner_id.kecamatan_id or object.partner_id.city:
+	% if object.sale_id.partner_shipping_id.kelurahan_id or object.sale_id.partner_shipping_id.kecamatan_id or object.sale_id.partner_shipping_id.city:
 ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_shipping().get('kecamatan')}${', '}${object.get_shipping().get('city')}
 	% endif
-	% if object.partner_id.zip:
-${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
+	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
+${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
 
 	% endif
 
