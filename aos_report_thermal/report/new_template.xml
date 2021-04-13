@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<template id="attendance_recap_report_view">
+	    <t t-call="web.html_container">
+	        <div class="header" style="margin:0;">
+	        </div>
+	        <div class="article">
+	        	<div style="text-align:center;">
+      				<img t-if="docs['company_image']" t-att-src="'data:image/png;base64,%s' % to_text(docs['company_image'])" style="width:180px; height:180px;"/>
+      			</div>
+	            <div class="page" style="font-size:17px">
+		        	<div class="row mt32 mb32">
+						<div>
+							<strong>Tanda Terima Pembayaran :</strong>
+						</div>
+						<div class="col-auto" name="div_name"> 
+						    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
+						    <p></p>
+						</div>
+						<div>
+							<strong>Dari :</strong>
+						    <span style="margin:0;" t-esc="docs['partner_name']"/>
+						</div>
+						<div class="col-auto" name="div_partner">
+						    <p style="margin-top:0;" t-esc="docs['partner_city']"/>
+						    <p></p>
+						</div>
+						<div>
+	                    	<strong>Total Pembayaran :</strong>
+	                        <p style="margin:0;" t-esc="docs['total_pembayaran']" t-options="{'widget': 'monetary', 'display_currency': docs['currency_id']}"/>
+	                    	<p></p>
+	                    </div>
+	                    <div>
+	                    	<strong>Pembayaran Untuk Nota :</strong>
+	                    	<t t-set="lines" t-value="docs['listinvoices']"/>
+	                    	<t t-foreach="lines" t-as="inv">
+	                            <div style="margin:0;"><span t-esc="lines[inv]['nomor_invoice']"/>-<span t-esc="lines[inv]['due_date_invoice']"/></div>
+	                            <p style="margin:0;" t-esc="lines[inv]['total_pembayaran']" t-options="{'widget': 'monetary', 'display_currency': lines[inv]['currency_id']}"/>
+	                            <p style="margin:0;">Memo : <span t-esc="lines[inv]['memo_invoice']"/></p>
+	                            <p style="margin:0;">Saldo : <span t-esc="lines[inv]['saldo']" t-options="{'widget': 'monetary', 'display_currency': lines[inv]['currency_id']}"/></p>
+	                            <p></p>
+	                    	</t>
+	                    </div>
+	                    <div>
+	                       	<strong>Info Saldo Nota :</strong>
+	                       	<t t-set="lines" t-value="docs['infosaldo']"/>
+	                       	<t t-foreach="lines" t-as="inv2"> 
+	                            <p style="margin:0;"><span t-esc="lines[inv2]['nomor_invoice']"/>-<span t-esc="lines[inv2]['due_date_invoice']"/></p>
+	                            <p style="margin:0;" t-esc="lines[inv2]['total_invoice']" t-options="{'widget': 'monetary', 'display_currency': docs['currency_id']}"/>
+	                            <p></p>
+	                        </t>
+	                    </div>
+		        	</div>
+		        </div>
+	        </div>
+	        <div class="footer" style="margin:0;"></div>
+	    </t>
+	</template>
+	
+</odoo>

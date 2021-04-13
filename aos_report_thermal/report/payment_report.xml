@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Print TT Pembayaran"
+            id="action_report_payment_admin"
+            model="account.payment"
+            report_type="qweb-pdf"
+            menu="True"
+            name="aos_report_thermal.attendance_recap_report_view"
+            file="aos_report_thermal.attendance_recap_report_view"
+            print_report_name = "('TT_'+object.partner_id.name)"
+        />
+        
+        <record id="paperformat_lowmargin_account_payment" model="report.paperformat">
+		    <field name="name">Thermal Printer For Payment Report</field>
+		    <field name="default" eval="True" />
+		    <field name="format">custom</field>
+		    <field name="page_height">145</field>
+		    <field name="page_width">58</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">0</field>
+		    <field name="margin_bottom">0</field>
+		    <field name="margin_left">1</field>
+		    <field name="margin_right">1</field>
+		    <field name="header_line" eval="False" />
+		    <field name="header_spacing">1</field>
+		</record>
+		
+		<record id="action_report_payment_admin" model="ir.actions.report">
+		    <field name="paperformat_id" ref="aos_report_thermal.paperformat_lowmargin_account_payment" />
+		</record>
+    </data>
+</odoo>

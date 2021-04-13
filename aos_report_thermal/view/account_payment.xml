@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		 <record id="wizard_for_report" model="ir.ui.view">
+	        <field name="name">report.thermal.account.payment</field>
+	        <field name="model">account.payment</field>
+	        <field name="arch" type="xml">
+	            <form string="">
+	                <button name="printReportThermal" string="Generate Report" type="object" class="oe_highlight" />
+	            </form>
+	        </field>
+	    </record>
+	    
+		<act_window
+            id="action_account_payment_transient"
+            name="test Payment"
+            res_model="account.payment.transient"
+            src_model="account.payment"
+            view_mode="form"
+        	view_type="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"
+	        view_id="aos_report_thermal.wizard_for_report" 
+        />
+        
+       
+    </data>
+</odoo>

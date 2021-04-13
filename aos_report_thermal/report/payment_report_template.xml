@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="external_layout_account_payment">
+	    <t t-if="not o" t-set="o" t-value="doc"/>
+	
+	    <t t-if="not company">
+	        <t t-if="company_id">
+	            <t t-set="company" t-value="company_id"/>
+	        </t>
+	        <t t-elif="o and 'company_id' in o">
+	            <t t-set="company" t-value="o.company_id.sudo()"/>
+	        </t>
+	        <t t-else="else">
+	            <t t-set="company" t-value="res_company"/>
+	        </t>
+	    </t>
+	    <t t-call="aos_report_thermal.external_layout_standard_account_payment"><t t-raw="0"/></t>
+	
+	</template>
+	
+	<template id="external_layout_standard_account_payment">
+	    <div class="header">
+	        <div class="row">
+	        	
+	        </div>
+	    </div>
+	
+		<div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+	        <t t-raw="0"/>
+	    </div>
+	</template>
+	
+    <template id="report_payment_document">
+        <t t-call="web.html_container">
+            <t t-call="aos_report_thermal.external_layout_account_payment">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" style="margin:0"/>
+                <span t-field="o.company_id.logo" t-field-options='{"widget": "image"}'/>
+                <div class="page">
+                	<div class="row mt32 mb32">
+                		<div>
+                			<strong>Tanda Terima Pembayaran :</strong>
+                		</div>
+                		<div class="col-auto" name="div_name">
+                            <span t-if="o.name"><span t-field="o.name"/></span>  
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
+                            <p></p>
+                        </div>
+                        <div>
+                        	<strong>Dari :</strong>
+                            <span style="margin:0;" t-field="o.partner_id.name"/>
+                        </div>
+                        <div t-if="o.partner_id" class="col-auto" name="div_partner">
+                            <p style="margin-top:0;" t-field="o.partner_id.city"/>
+                        </div>
+                        <div t-else="">
+                        	<p></p>
+                        </div>
+                        <div>
+                        	<strong>Total Pembayaran :</strong>
+                        </div>
+                        <div t-if="o.amount" class="col-auto" name="div_amount">
+                            <p t-field="o.amount"/>
+                        </div>
+                        <div t-else="">
+                        	<p></p>
+                        </div>
+                        <div>
+                        	<strong>Memo :</strong>
+                        </div>
+                        <div t-if="o.communication" class="col-auto" name="div_memo">
+                            <p t-field="o.communication"/>
+                        </div>
+                        <div t-else="">
+                        	<p></p>
+                        </div>
+                        <div>
+                        	<strong>Pembayaran Untuk Nota :</strong>
+                        	<t t-set="lines" t-value="o.invoice_ids"/>
+                        	<t t-foreach="lines" t-as="invoice">
+                                <span t-field="invoice.number"/>-<span t-field="invoice.date_due" t-field-options='{"format": "dd/MM/yy"}'/>
+                                <p style="margin:0;" t-esc="o._get_invoice_payment_amount(invoice)" t-options="{'widget': 'monetary', 'display_currency': invoice.currency_id}"/>
+                                <p style="margin:0;">Saldo</p>
+                                <p style="margin:0;">Rp. <span t-field="invoice.residual"/></p>
+                                <p></p>
+                        	</t>
+                        </div>
+                        <div>
+                        	<strong>Info Saldo Nota :</strong>
+                        	<t t-set="lines" t-value="o.invoice_ids"/>
+                        	<t t-foreach="lines" t-as="invoice">
+                                <span t-field="invoice.number"/>-<span t-field="invoice.date_due"/>
+                                <p style="margin:0;" t-field="invoice.amount_total"/>
+                                <p></p>
+                        	</t>
+                        </div>
+                	</div>
+                </div>
+            </t>
+         </t>
+    </template>
+
+    <template id="report_payment">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="aos_report_thermal.report_payment_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+</odoo>
