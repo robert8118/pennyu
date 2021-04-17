@@ -84,3 +84,13 @@ class StockBackorderConfirmation(models.TransientModel):
         if self.pick_ids.picking_type_id.code in ['incoming']:
             self.env['stock.picking'].auto_invoice(self.pick_ids)
         return res
+
+
+class StockImmediateTransfer(models.TransientModel):
+    _inherit = 'stock.immediate.transfer'
+
+    def process(self):
+        res = super(StockImmediateTransfer, self).process()
+        if self.pick_ids.picking_type_id.code in ['incoming']:
+            self.env['stock.picking'].auto_invoice(self.pick_ids)
+        return res
