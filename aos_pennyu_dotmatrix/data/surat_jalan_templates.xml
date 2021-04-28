@@ -314,6 +314,7 @@ ${''.rjust(134,'-')}
 ${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82)} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
 % endfor
 ${''.rjust(134,'-')}
+${'Tracking Reference:'} ${object.carrier_tracking_ref or '-'}
 
 
 
@@ -628,6 +629,7 @@ ${''.rjust(134,'-')}
 ${str(l['no']).rjust(2)} ${str(l['product_name']).ljust(82)} ${"{:4,.2f}".format(l['qty']).rjust(15)}  ${l['uom'].rjust(26)}
 % endfor
 ${''.rjust(134,'-')}
+${'Tracking Reference:'} ${object.carrier_tracking_ref or '-'}
 
 
 
