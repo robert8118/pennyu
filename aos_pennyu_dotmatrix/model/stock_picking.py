@@ -258,6 +258,7 @@ class StockPicking(models.Model):
         i = 1
         length_p = 50
         length_u = 10
+        price_unit_fix = 0.00
         for line in self.move_lines:
             product_1 = line.product_id.name.replace("'",'')
             product_2 = product_1.replace('"','')
@@ -266,6 +267,10 @@ class StockPicking(models.Model):
             space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_2)) + len(product_2)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
+            print('xxxxxx11xxxxxxx')
+            print(line.sale_line_id.product_uom.id)
+            print('xxxxxx22xxxxxxx')
+            print(line.product_id.uom_id.id)
             line_inv.append({
                 'no': i,
                 'product': product_1[:length_p],
@@ -273,7 +278,8 @@ class StockPicking(models.Model):
                 'qty': line.quantity_done or 0.00,
                 'prod_name': line.name or '-',
                 'uom': line.product_uom.name or '-',
-                'price_unit': line.sale_line_id.price_unit or 0.00,
+                'price_unit': price_unit_fix,
+#                 'price_unit': line.sale_line_id.price_unit or 0.00,
                 'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
                 'discount': line.sale_line_id.discount or 0.00,
                 'price_total': line.price_total or 0.00,
@@ -295,6 +301,7 @@ class StockPicking(models.Model):
         count_lines = float(len(self.move_lines))
         count_lines = int(math.ceil(count_lines/8))
         index = 1
+        price_unit_fix = 0.00
         # set value of invoice line in list
         for line in self.move_lines:
             product_1 = line.product_id.name.replace("'",'')
@@ -304,6 +311,15 @@ class StockPicking(models.Model):
             space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_1)) + len(product_1)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
+            print('xxxxxx11xxxxxxx')
+            print(line.sale_line_id.product_uom.id)
+            print('xxxxxx22xxxxxxx')
+            print(line.product_id.uom_id.id)
+            if line.product_id.uom_id.id == line.sale_line_id.product_uom.id:
+                price_unit_fix = line.sale_line_id.price_unit or 0.00
+            else:
+                price_unit_fix = line.product_id.lst_price
+                
             line_inv.append({
                 'no': i,
                 'product': product_2[:length_p],
@@ -311,7 +327,8 @@ class StockPicking(models.Model):
                 'qty': line.quantity_done or 0.00,
                 'uom': line.product_uom.name or '-',
                 'prod_name': line.name or '-',
-                'price_unit': line.sale_line_id.price_unit or 0.00,
+                'price_unit': price_unit_fix,            
+#                 'price_unit': line.sale_line_id.price_unit or 0.00,
                 'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
                 'discount': line.sale_line_id.discount or 0.00,
                 'price_total': line.price_total or 0.00,
