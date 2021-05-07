@@ -2,7 +2,7 @@
 {
     'name': 'Pennyu Auto Invoice',
     'version': '11.0.1.0.0',
-    'author': 'Amirul',
+    'author': 'PT. Arkana Solusi Bisnis',
     'summary': 'Pennyu Auto Invoice',
     'website': 'https://arkana.co.id/',
     'category': 'Accounting',
