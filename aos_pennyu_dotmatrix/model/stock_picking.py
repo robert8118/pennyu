@@ -23,7 +23,7 @@ class StockPicking(models.Model):
                     amount_delivered_untaxed += line.price_subtotal
                     amount_delivered_tax += line.price_tax
                 else:
-                    amount_delivered_untaxed += line.sale_line_id.price_unit or 0.00
+                    amount_delivered_untaxed += (line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)) * line.quantity_done or 0.00
                     amount_delivered_tax += sum(t.get('amount', 0.0) for t in taxes.get('taxes', []))
                 
                 
@@ -286,7 +286,7 @@ class StockPicking(models.Model):
             else:
                 price_subtotal_fix = line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
                 price_unit_fix = line.product_id.lst_price or 0.00
-                price_total_fix = line.sale_line_id.price_unit or 0.00
+                price_total_fix = price_subtotal_fix * line.quantity_done
             
             line_inv.append({
                 'no': i,
@@ -340,7 +340,7 @@ class StockPicking(models.Model):
             else:
                 price_subtotal_fix = line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
                 price_unit_fix = line.product_id.lst_price or 0.00
-                price_total_fix = line.sale_line_id.price_unit or 0.00
+                price_total_fix = price_subtotal_fix * line.quantity_done
                 
             line_inv.append({
                 'no': i,
