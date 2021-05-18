@@ -17,11 +17,14 @@ class StockPicking(models.Model):
             amount_delivered_untaxed = amount_delivered_tax = 0.0
             for line in order.move_lines:
                 price_subtotal = line.product_id.lst_price or 0.00
+                price_subtotal_diff = line.sale_line_id.price_unit or 0.00
+                
                 taxes = line.sale_line_id.tax_id.compute_all(price_subtotal, line.sale_line_id.currency_id, line.quantity_done, product=line.product_id, partner=line.sale_line_id.order_id.partner_shipping_id)
+                taxes_diff = line.sale_line_id.tax_id.compute_all(price_subtotal_diff, line.sale_line_id.currency_id, line.quantity_done, product=line.product_id, partner=line.sale_line_id.order_id.partner_shipping_id)
                  
                 if line.product_id.uom_id.id == line.sale_line_id.product_uom.id:
-                    amount_delivered_untaxed += line.price_subtotal
-                    amount_delivered_tax += line.price_tax
+                    amount_delivered_untaxed += (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)) * line.quantity_done or 0.00
+                    amount_delivered_tax += sum(t.get('amount', 0.0) for t in taxes_diff.get('taxes', []))
                 else:
                     amount_delivered_untaxed += (line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)) * line.quantity_done or 0.00
                     amount_delivered_tax += sum(t.get('amount', 0.0) for t in taxes.get('taxes', []))
@@ -30,7 +33,7 @@ class StockPicking(models.Model):
             order.update({
                 'amount_delivered_untaxed': order.sale_id and order.sale_id.pricelist_id.currency_id.round(amount_delivered_untaxed),
                 'amount_delivered_tax': order.sale_id and order.sale_id.pricelist_id.currency_id.round(amount_delivered_tax),
-                'amount_delivered_total': amount_delivered_untaxed + amount_delivered_tax,
+                'amount_delivered_total': amount_delivered_untaxed,
             })
 
     amount_delivered_untaxed = fields.Float(string='Untaxed Amount Delivered', readonly=True, compute='_amount_delivered_all', track_visibility='onchange')
