@@ -16,12 +16,24 @@ class StockPicking(models.Model):
         for order in self:
             amount_delivered_untaxed = amount_delivered_tax = 0.0
             for line in order.move_lines:
-                amount_delivered_untaxed += line.price_subtotal
-                amount_delivered_tax += line.price_tax
+                price_subtotal = line.product_id.lst_price or 0.00
+                price_subtotal_diff = line.sale_line_id.price_unit or 0.00
+                
+                taxes = line.sale_line_id.tax_id.compute_all(price_subtotal, line.sale_line_id.currency_id, line.quantity_done, product=line.product_id, partner=line.sale_line_id.order_id.partner_shipping_id)
+                taxes_diff = line.sale_line_id.tax_id.compute_all(price_subtotal_diff, line.sale_line_id.currency_id, line.quantity_done, product=line.product_id, partner=line.sale_line_id.order_id.partner_shipping_id)
+                 
+                if line.product_id.uom_id.id == line.sale_line_id.product_uom.id:
+                    amount_delivered_untaxed += (line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)) * line.quantity_done or 0.00
+                    amount_delivered_tax += sum(t.get('amount', 0.0) for t in taxes_diff.get('taxes', []))
+                else:
+                    amount_delivered_untaxed += (line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)) * line.quantity_done or 0.00
+                    amount_delivered_tax += sum(t.get('amount', 0.0) for t in taxes.get('taxes', []))
+                
+                
             order.update({
                 'amount_delivered_untaxed': order.sale_id and order.sale_id.pricelist_id.currency_id.round(amount_delivered_untaxed),
                 'amount_delivered_tax': order.sale_id and order.sale_id.pricelist_id.currency_id.round(amount_delivered_tax),
-                'amount_delivered_total': amount_delivered_untaxed + amount_delivered_tax,
+                'amount_delivered_total': amount_delivered_untaxed,
             })
 
     amount_delivered_untaxed = fields.Float(string='Untaxed Amount Delivered', readonly=True, compute='_amount_delivered_all', track_visibility='onchange')
@@ -258,6 +270,9 @@ class StockPicking(models.Model):
         i = 1
         length_p = 50
         length_u = 10
+        price_unit_fix = 0.00
+        price_subtotal_fix = 0.00
+        price_total_fix = 0.00
         for line in self.move_lines:
             product_1 = line.product_id.name.replace("'",'')
             product_2 = product_1.replace('"','')
@@ -266,6 +281,16 @@ class StockPicking(models.Model):
             space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_2)) + len(product_2)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
+            
+            if line.product_id.uom_id.id == line.sale_line_id.product_uom.id:
+                price_subtotal_fix = line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                price_unit_fix = line.sale_line_id.price_unit or 0.00
+                price_total_fix = line.price_total or 0.00
+            else:
+                price_subtotal_fix = line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                price_unit_fix = line.product_id.lst_price or 0.00
+                price_total_fix = price_subtotal_fix * line.quantity_done
+            
             line_inv.append({
                 'no': i,
                 'product': product_1[:length_p],
@@ -273,10 +298,13 @@ class StockPicking(models.Model):
                 'qty': line.quantity_done or 0.00,
                 'prod_name': line.name or '-',
                 'uom': line.product_uom.name or '-',
-                'price_unit': line.sale_line_id.price_unit or 0.00,
-                'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
+                'price_unit': price_unit_fix,
+#                 'price_unit': line.sale_line_id.price_unit or 0.00,
+                'price_subtotal': price_subtotal_fix, 
+#                 'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
                 'discount': line.sale_line_id.discount or 0.00,
-                'price_total': line.price_total or 0.00,
+                'price_total': price_total_fix,
+#                 'price_total': line.price_total or 0.00,
                 'space_length_p': space_length_p,
                 'space_length_u': space_length_u
             })
@@ -295,6 +323,9 @@ class StockPicking(models.Model):
         count_lines = float(len(self.move_lines))
         count_lines = int(math.ceil(count_lines/8))
         index = 1
+        price_unit_fix = 0.00
+        price_subtotal_fix = 0.00
+        price_total_fix = 0.00
         # set value of invoice line in list
         for line in self.move_lines:
             product_1 = line.product_id.name.replace("'",'')
@@ -304,17 +335,30 @@ class StockPicking(models.Model):
             space_length_name = (length_p - len(product_name2)) + len(product_name2)
             space_length_p = (length_p - len(product_1)) + len(product_1)
             space_length_u = (length_u - len(line.product_uom.name)) + len(line.product_uom.name)
+
+            if line.product_id.uom_id.id == line.sale_line_id.product_uom.id:
+                price_subtotal_fix = line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                price_unit_fix = line.sale_line_id.price_unit or 0.00
+                price_total_fix = line.price_total or 0.00
+            else:
+                price_subtotal_fix = line.product_id.lst_price * (1 - (line.sale_line_id.discount or 0.0) / 100.0)
+                price_unit_fix = line.product_id.lst_price or 0.00
+                price_total_fix = price_subtotal_fix * line.quantity_done
+                
             line_inv.append({
                 'no': i,
                 'product': product_2[:length_p],
                 'product_name': product_2,
                 'qty': line.quantity_done or 0.00,
                 'uom': line.product_uom.name or '-',
-                'prod_name': line.name or '-',
-                'price_unit': line.sale_line_id.price_unit or 0.00,
-                'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
+                'prod_name': line.name or '-',    
+                'price_unit': price_unit_fix,       
+#                 'price_unit': line.sale_line_id.price_unit or 0.00,
+                'price_subtotal': price_subtotal_fix, 
+#                 'price_subtotal': line.sale_line_id.price_unit * (1 - (line.sale_line_id.discount or 0.0) / 100.0),#line.price_subtotal,
                 'discount': line.sale_line_id.discount or 0.00,
-                'price_total': line.price_total or 0.00,
+                'price_total': price_total_fix,
+#                 'price_total': line.price_total or 0.00,
                 'space_length_p': space_length_p,
                 'space_length_u': space_length_u
             })
