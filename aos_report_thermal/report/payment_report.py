@@ -21,7 +21,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         partner_id = 0
         for x in docids:
             record = self.env['account.payment'].browse(x)
-            partner_id = record.partner_id.id 
+            partner_id = record.partner_id.id
             docs['company_id'] = record.company_id
             docs['partner_id'] = record.partner_id
             docs['partner_name'] = record.partner_id.name
@@ -31,6 +31,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['company_image'] = record.company_id.logo
             docs['nomor'] = nomor
             for line in record.invoice_ids:
+                docs['name'] = line.origin
                 dataidinvoices.append(line.id)
                 total_pembayaran = total_pembayaran+record.amount
                 saldo = line.residual - record.amount
