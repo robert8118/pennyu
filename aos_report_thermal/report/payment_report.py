@@ -31,7 +31,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['company_image'] = record.company_id.logo
             docs['nomor'] = nomor
             for line in record.invoice_ids:
-                docs['name'] = line.origin
                 dataidinvoices.append(line.id)
                 total_pembayaran = total_pembayaran+record.amount
                 saldo = line.residual - record.amount
@@ -42,6 +41,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     due_date = ""
                 
                 docs["listinvoices"][nomor] = {
+                        'name' : line.origin,
                         'nomor_invoice' : line.number,
                         'due_date_invoice' : due_date,
                         'total_invoice' : line.residual,
@@ -65,6 +65,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     info_due_date = ""
                     
                 docs["infosaldo"][nomor2] = {
+                        'origin' : x.origin,
                         'nomor_invoice' : x.number,
                         'due_date_invoice' : info_due_date,
                         'total_invoice' : x.residual
