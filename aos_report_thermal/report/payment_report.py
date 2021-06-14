@@ -21,7 +21,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         partner_id = 0
         for x in docids:
             record = self.env['account.payment'].browse(x)
-            partner_id = record.partner_id.id 
+            partner_id = record.partner_id.id
             docs['company_id'] = record.company_id
             docs['partner_id'] = record.partner_id
             docs['partner_name'] = record.partner_id.name
@@ -41,6 +41,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     due_date = ""
                 
                 docs["listinvoices"][nomor] = {
+                        'name' : line.origin,
                         'nomor_invoice' : line.number,
                         'due_date_invoice' : due_date,
                         'total_invoice' : line.residual,
@@ -64,13 +65,14 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     info_due_date = ""
                     
                 docs["infosaldo"][nomor2] = {
+                        'origin' : x.origin,
                         'nomor_invoice' : x.number,
                         'due_date_invoice' : info_due_date,
                         'total_invoice' : x.residual
                     }
             
                 nomor2 = nomor2+1
-                paper_height = paper_height+13
+                paper_height = paper_height+18
           
         docs['total_pembayaran'] = total_pembayaran
         

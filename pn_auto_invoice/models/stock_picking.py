@@ -113,6 +113,7 @@ class StockPicking(models.Model):
                     move.sale_line_id.update({
                         'invoice_lines': [(4, inv_line.id, 0)]
                     })
+
             inv.compute_taxes()
             return inv
         else:
