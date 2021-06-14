@@ -72,10 +72,10 @@ class StockPicking(models.Model):
                         else:
                             product_name = '%s: %s' % (po.name, move.product_id.name)
 
-                        uom_id = move.purchase_line_id.product_uom.id
+                        uom_id = move.product_uom.id
                         account_id = self.env['account.account'].search(
                             [('code', '=', '202100'), ('company_id', '=', company_id)]).id
-                        price_unit = move.purchase_line_id.price_unit
+                        price_unit = move.purchase_line_id.price_unit * move.purchase_line_id.product_uom.factor
                         data_line.update({
                             'purchase_line_id': move.purchase_line_id.id,
                         })
@@ -88,10 +88,10 @@ class StockPicking(models.Model):
                         else:
                             product_name = '%s' % move.product_id.name
 
-                        uom_id = move.sale_line_id.product_uom.id
+                        uom_id = move.product_uom.id
                         account_id = self.env['account.account'].search(
                             [('code', '=', '400100'), ('company_id', '=', company_id)]).id
-                        price_unit = move.sale_line_id.price_unit
+                        price_unit = move.sale_line_id.price_unit * move.sale_line_id.product_uom.factor
                         tax_ids = [(6, 0, [x.id for x in move.sale_line_id.tax_id])]
                         analytic_account_id = so.analytic_account_id.id
                         data_line.update({
@@ -109,7 +109,11 @@ class StockPicking(models.Model):
                         'account_analytic_id': analytic_account_id,
                         'invoice_line_tax_ids': tax_ids,
                     })
-                    self.env['account.invoice.line'].create(data_line)
+                    inv_line = self.env['account.invoice.line'].create(data_line)
+                    move.sale_line_id.update({
+                        'invoice_lines': [(4, inv_line.id, 0)]
+                    })
+
             inv.compute_taxes()
             return inv
         else:
