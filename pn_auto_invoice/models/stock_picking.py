@@ -110,9 +110,10 @@ class StockPicking(models.Model):
                         'invoice_line_tax_ids': tax_ids,
                     })
                     inv_line = self.env['account.invoice.line'].create(data_line)
-                    move.sale_line_id.update({
-                        'invoice_lines': [(4, inv_line.id, 0)]
-                    })
+                    if sp_id.picking_type_id.code == 'outgoing':
+                        move.sale_line_id.update({
+                            'invoice_lines': [(4, inv_line.id, 0)]
+                        })
 
             inv.compute_taxes()
             return inv
