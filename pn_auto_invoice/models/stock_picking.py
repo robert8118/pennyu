@@ -13,7 +13,7 @@ class StockPicking(models.Model):
             data = {}
             if sp_id.picking_type_id.code == 'incoming':
                 po = self.env['purchase.order'].search([('name', '=', sp_id.group_id.name)])
-                origin = po.name
+                origin = f'{po.name}: {sp_id.name}'
                 payment_term_id = po.payment_term_id.id
                 company_id = po.company_id.id
                 journal_id = self.env['account.journal'].search(
@@ -32,7 +32,7 @@ class StockPicking(models.Model):
                 })
             elif sp_id.picking_type_id.code == 'outgoing':
                 so = self.env['sale.order'].search([('name', '=', sp_id.group_id.name)])
-                origin = so.name
+                origin = f'{so.name}: {sp_id.name}'
                 payment_term_id = so.payment_term_id.id
                 company_id = so.company_id.id
                 journal_id = self.env['account.journal'].search(
