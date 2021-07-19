@@ -149,6 +149,6 @@ class StockImmediateTransfer(models.TransientModel):
 
     def process(self):
         res = super(StockImmediateTransfer, self).process()
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
             self.env['stock.picking'].auto_invoice(self.pick_ids)
         return res
