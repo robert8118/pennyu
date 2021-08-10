@@ -123,7 +123,8 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         res = super(StockPicking, self).button_validate()
-        if not res and self.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = True if 'Return' in self.origin else False
+        if not res and self.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
             self.auto_invoice()
         return res
 
@@ -133,13 +134,15 @@ class StockBackorderConfirmation(models.TransientModel):
 
     def process(self):
         res = super(StockBackorderConfirmation, self).process()
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = True if 'Return' in self.pick_ids.origin else False
+        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
             self.env['stock.picking'].auto_invoice(self.pick_ids)
         return res
 
     def process_cancel_backorder(self):
         res = super(StockBackorderConfirmation, self).process_cancel_backorder()
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = True if 'Return' in self.pick_ids.origin else False
+        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
             self.env['stock.picking'].auto_invoice(self.pick_ids)
         return res
 
@@ -149,6 +152,7 @@ class StockImmediateTransfer(models.TransientModel):
 
     def process(self):
         res = super(StockImmediateTransfer, self).process()
-        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = True if 'Return' in self.pick_ids.origin else False
+        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
             self.env['stock.picking'].auto_invoice(self.pick_ids)
         return res
