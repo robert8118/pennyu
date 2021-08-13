@@ -4,7 +4,7 @@ from odoo import api, fields, models
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    def auto_invoice(self, picking_id=None):
+    def auto_invoice(self, picking_id=None, return_status=False):
         if self:
             sp_id = self
         else:
@@ -65,50 +65,45 @@ class StockPicking(models.Model):
             inv = self.env['account.invoice'].create(data)
             for move in sp_id.move_lines:
                 if move.quantity_done:
-                    data_line = {}
+                    data_line = {
+                        'invoice_id': inv.id,
+                        'product_id': move.product_id.id,
+                        'quantity': move.quantity_done,
+                        'uom_id': move.product_uom.id
+                    }
                     if sp_id.picking_type_id.code == 'incoming':
-                        if move.product_id.default_code:
-                            product_name = '%s: [%s] %s' % (po.name, move.product_id.default_code, move.product_id.name)
-                        else:
-                            product_name = '%s: %s' % (po.name, move.product_id.name)
-
-                        uom_id = move.product_uom.id
+                        product_name = '%s: %s' % (po.name, move.product_id.display_name)
                         account_id = self.env['account.account'].search(
                             [('code', '=', '202100'), ('company_id', '=', company_id)]).id
-                        price_unit = move.purchase_line_id.price_unit * move.purchase_line_id.product_uom.factor
+                        price_unit = move.purchase_line_id.price_unit / move.product_uom.factor * move.purchase_line_id.product_uom.factor
+                        tax_ids = [(6, 0, move.purchase_line_id.taxes_id.mapped('id'))]
+                        analytic_account_id = move.purchase_line_id.account_analytic_id.id
+
                         data_line.update({
                             'purchase_line_id': move.purchase_line_id.id,
                         })
-                        tax_ids = [(6, 0, [x.id for x in move.purchase_line_id.taxes_id])]
-                        analytic_account_id = move.purchase_line_id.account_analytic_id.id
 
                     elif sp_id.picking_type_id.code == 'outgoing':
-                        if move.product_id.default_code:
-                            product_name = '[%s] %s' % (move.product_id.default_code, move.product_id.name)
-                        else:
-                            product_name = '%s' % move.product_id.name
-
-                        uom_id = move.product_uom.id
+                        product_name = '%s: %s' % (so.name, move.product_id.display_name)
                         account_id = self.env['account.account'].search(
                             [('code', '=', '400100'), ('company_id', '=', company_id)]).id
-                        price_unit = move.sale_line_id.price_unit * move.sale_line_id.product_uom.factor
-                        tax_ids = [(6, 0, [x.id for x in move.sale_line_id.tax_id])]
+                        price_unit = move.sale_line_id.price_unit / move.product_uom.factor * move.sale_line_id.product_uom.factor
+
+                        tax_ids = [(6, 0, move.sale_line_id.tax_id.mapped('id'))]
                         analytic_account_id = so.analytic_account_id.id
+
                         data_line.update({
                             'discount': move.sale_line_id.discount
                         })
 
                     data_line.update({
-                        'invoice_id': inv.id,
-                        'product_id': move.product_id.id,
-                        'quantity': move.quantity_done,
-                        'uom_id': uom_id,
-                        'account_id': account_id,
                         'name': product_name,
+                        'account_id': account_id,
                         'price_unit': price_unit,
                         'account_analytic_id': analytic_account_id,
                         'invoice_line_tax_ids': tax_ids,
                     })
+
                     inv_line = self.env['account.invoice.line'].create(data_line)
                     if sp_id.picking_type_id.code == 'outgoing':
                         move.sale_line_id.update({
@@ -124,8 +119,8 @@ class StockPicking(models.Model):
     def button_validate(self):
         res = super(StockPicking, self).button_validate()
         return_status = True if 'Return' in self.origin else False
-        if not res and self.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
-            self.auto_invoice()
+        if not res and self.picking_type_id.code in ['incoming', 'outgoing']:
+            self.auto_invoice(return_status=return_status)
         return res
 
 
@@ -135,15 +130,15 @@ class StockBackorderConfirmation(models.TransientModel):
     def process(self):
         res = super(StockBackorderConfirmation, self).process()
         return_status = True if 'Return' in self.pick_ids.origin else False
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
-            self.env['stock.picking'].auto_invoice(self.pick_ids)
+        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+            self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
     def process_cancel_backorder(self):
         res = super(StockBackorderConfirmation, self).process_cancel_backorder()
         return_status = True if 'Return' in self.pick_ids.origin else False
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
-            self.env['stock.picking'].auto_invoice(self.pick_ids)
+        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+            self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
 
@@ -153,6 +148,6 @@ class StockImmediateTransfer(models.TransientModel):
     def process(self):
         res = super(StockImmediateTransfer, self).process()
         return_status = True if 'Return' in self.pick_ids.origin else False
-        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing'] and not return_status:
-            self.env['stock.picking'].auto_invoice(self.pick_ids)
+        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+            self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
