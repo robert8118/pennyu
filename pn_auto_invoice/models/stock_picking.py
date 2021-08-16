@@ -101,6 +101,7 @@ class StockPicking(models.Model):
                         'quantity': move.quantity_done,
                         'uom_id': move.product_uom.id
                     }
+                    
                     if purchase_status:
                         product_name = '%s: %s' % (po.name, move.product_id.display_name)
                         account_id = self.env['account.account'].search(
