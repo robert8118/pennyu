@@ -13,6 +13,7 @@ class StockPicking(models.Model):
                     ail = ai.invoice_line_ids.filtered(lambda x: x.sale_line_id == move.sale_line_id)
                 if ail:
                     ail.quantity -= move.quantity_done
+        ai.compute_taxes()
 
     def auto_invoice(self, picking_id=None, return_status=False):
         if self:
