@@ -69,7 +69,10 @@ class StockPicking(models.Model):
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'sale'),
                      ('company_id', '=', company_id)])
-                journal_id = journal_id[0].id
+                if journal_id:
+                    journal_id = journal_id[0].id
+                else:
+                    journal_id = False
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'receivable'),
                      ('company_id', '=', company_id),
