@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="credit_limit_view_search" model="ir.ui.view">
+            <field name="name">credit.limit.search</field>
+            <field name="model">credit.limit</field>
+            <field name="arch" type="xml">
+                <search string="Credit Limit">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="active"/>
+                    <field name="is_global"/>
+                    <field name="partner_ids"/>
+                    <filter string="Archived" domain="[('active', '=', False)]" name="inactive"/>
+                    <filter string="All" name="all" domain="['|', ('active', '=', False), ('active', '=', True)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="credit_limit_view_tree" model="ir.ui.view">
+            <field name="name">credit.limit.tree</field>
+            <field name="model">credit.limit</field>
+            <field name="arch" type="xml">
+                <tree string="Credit Limit">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="amount"/>
+                    <field name="currency_id"/>
+                    <field name="count"/>
+                    <field name="active"/>
+                    <field name="is_global"/>
+                    <field name="partner_ids"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="credit_limit_view_form" model="ir.ui.view">
+            <field name="name">credit.limit.form</field>
+            <field name="model">credit.limit</field>
+            <field name="arch" type="xml">
+                <form string="Credit Limit">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <h1>
+                            <field name="name" placeholder="Type title here. ex: Limit by Amount"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="type"/>
+                                <field name="currency_id" attrs="{'invisible': [('type','!=','amount')], 'required': [('type','=','amount')]}"/>
+                            </group>
+                            <group>
+                                <field name="amount" attrs="{'invisible': [('type','!=','amount')], 'required': [('type','=','amount')]}"/>
+                                <field name="count" attrs="{'invisible': [('type','!=','count')], 'required': [('type','=','count')]}"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <group string="Apply Globally">
+                            <group>
+                                <field name="is_global"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <separator string="Customer"/>
+                        <field name="partner_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="credit_limit_action" model="ir.actions.act_window">
+            <field name="name">Credit Limit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.limit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="credit_limit_menu" parent="sale.sale_order_menu" action="credit_limit_action" sequence="4"/>
+
+    </data>
+</odoo>
