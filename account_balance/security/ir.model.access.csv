@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_balance_account_balance,account_balance.account_balance,model_account_balance_account_balance,,1,0,0,0
