@@ -220,11 +220,8 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 	% endif
 	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
-
 	% endif
-
 % endif
-
 %if not object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('display_name')}
 		% if object.partner_id.street:
@@ -430,7 +427,6 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 	% endif
 	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
-
 	% endif
 % endif
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
@@ -663,11 +659,8 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 	% endif
 	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
-
 	% endif
-
 % endif
-
 % if not object.partner_id.is_npwp_pribadi:
 ${object.get_company().get('name').ljust((70-len(object.get_company().get('name')))+len(object.get_company().get('name')))} ${'Pembeli  '} ${object.get_partner().get('display_name')}
 		% if object.partner_id.street:
@@ -873,7 +866,6 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 	% endif
 	% if object.sale_id.partner_shipping_id.zip or object.sale_id.partner_shipping_id.phone:
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}${', '}${'HP/SMS/WA :'}${object.get_shipping().get('phone')}
-
 	% endif
 % endif
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
