@@ -24,4 +24,4 @@ class SaleOrderLine(models.Model):
                 sale_noinvoice = rec.order_id.currency_id.compute(rec.price_total - rec.amt_invoiced, self.env.user.company_id.currency_id)
             rec.amt_noinvoice = sale_noinvoice
 
-    amt_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
+    # amt_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
