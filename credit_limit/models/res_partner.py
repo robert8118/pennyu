@@ -18,7 +18,7 @@ class ResPartner(models.Model):
             invoice_ids = self.env['account.invoice'].search(domain)
             rec.invoice_count = len(invoice_ids)
 
-    @api.depends('sale_order_ids.order_line.amt_noinvoice')
+    # @api.depends('sale_order_ids.order_line.amt_noinvoice')
     def _get_sale_noinvoice(self):
         for rec in self :
             sale_noinvoice = 0
