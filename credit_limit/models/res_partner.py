@@ -41,7 +41,7 @@ class ResPartner(models.Model):
     invoice_count = fields.Integer(
         string='Invoice Count',
         compute='_get_invoice_count')
-    sale_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=False)
+    sale_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
 
     @api.multi
     def check_limit(self, order_id):
