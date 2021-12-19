@@ -18,7 +18,7 @@ class ResPartner(models.Model):
             invoice_ids = self.env['account.invoice'].search(domain)
             rec.invoice_count = len(invoice_ids)
 
-    # @api.depends('sale_order_ids.order_line.amt_noinvoice')
+    @api.depends('sale_order_ids.order_line.amt_noinvoice')
     def _get_sale_noinvoice(self):
         for rec in self :
             sale_noinvoice = 0
@@ -41,7 +41,7 @@ class ResPartner(models.Model):
     invoice_count = fields.Integer(
         string='Invoice Count',
         compute='_get_invoice_count')
-    sale_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
+    sale_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=False)
 
     @api.multi
     def check_limit(self, order_id):
