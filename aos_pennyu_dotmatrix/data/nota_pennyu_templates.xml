@@ -430,7 +430,7 @@ ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping
 	% endif
 % endif
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
-${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
+${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(8)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.rjust(10)}  ${'Harga Net'.rjust(20)} ${'Sub Total'.rjust(29)}
 ${''.rjust(134,'-')}
@@ -869,7 +869,7 @@ ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping
 	% endif
 % endif
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
-${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
+${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(8)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(8)} ${'Tempo-Cash'} ${(object.sale_id or '-') and (object.sale_id.payment_term_id or '-') and (object.sale_id.payment_term_id.name or '-')} ${''.rjust(8)} ${'Max Pelunasan'} ${object.get_datetime_to_date(object.due_date) or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(49)} ${'Qtyy'.rjust(16)}  ${'Satuan'.ljust(6)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
 ${''.rjust(134,'-')}
