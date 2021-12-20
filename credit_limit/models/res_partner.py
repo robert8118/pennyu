@@ -18,6 +18,20 @@ class ResPartner(models.Model):
             invoice_ids = self.env['account.invoice'].search(domain)
             rec.invoice_count = len(invoice_ids)
 
+    @api.depends('sale_order_ids.order_line.amt_noinvoice')
+    def _get_sale_noinvoice(self):
+        for rec in self :
+            sale_noinvoice = 0
+            domain = [
+                ('order_id.partner_id', 'child_of', rec.id),
+                ('order_id.state', 'in', ['sale','done']),
+                ('amt_noinvoice', '>', 0),
+            ]
+            order_line_ids = self.env['sale.order.line'].search(domain)
+            for line in order_line_ids :
+                sale_noinvoice += line.order_id.currency_id.compute(line.amt_noinvoice, self.env.user.company_id.currency_id)
+            rec.sale_noinvoice = sale_noinvoice
+
     limit_ids = fields.Many2many(
         'credit.limit',
         'partner_limit_rel',
@@ -27,6 +41,7 @@ class ResPartner(models.Model):
     invoice_count = fields.Integer(
         string='Invoice Count',
         compute='_get_invoice_count')
+    sale_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
 
     @api.multi
     def check_limit(self, order_id):
@@ -44,8 +59,8 @@ class ResPartner(models.Model):
                 elif limit_id.type == 'amount':
                     limit_amount = limit_id.currency_id.compute(limit_id.amount, self.env.user.company_id.currency_id)
                     current_amount = order_id.pricelist_id.currency_id.compute(order_id.amount_total, self.env.user.company_id.currency_id)
-                    total_amount = current_amount + partner_id.credit
+                    total_amount = current_amount + partner_id.credit + partner_id.sale_noinvoice
                     if total_amount > limit_amount:
-                        message += '\n - %s (receivable: %s. current amount: %s. total: %s. limit: %s)' % (limit_id.display_name, '{:,.2f}'.format(partner_id.credit), '{:,.2f}'.format(current_amount), '{:,.2f}'.format(partner_id.credit + current_amount), '{:,.2f}'.format(limit_amount))
+                        message += '\n - %s (receivable + uninvoiced amount: %s. current amount: %s. total: %s. limit: %s)' % (limit_id.display_name, '{:,.2f}'.format(partner_id.credit + partner_id.sale_noinvoice), '{:,.2f}'.format(current_amount), '{:,.2f}'.format(total_amount), '{:,.2f}'.format(limit_amount))
             if message:
                 raise ValidationError(_('Customer credit limit for %s exceeded. See details below: \n%s' % (partner_id.display_name, message)))
