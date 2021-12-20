@@ -307,7 +307,7 @@ ${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().g
 ${''.rjust(81)}
 ${''.rjust(81)}
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
-${'Salesman:'} ${object.sale_id and object.sale_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.sale_id.client_order_ref or '-'}
+${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.sale_id.client_order_ref or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
@@ -623,7 +623,7 @@ ${object.get_company().get('country')} ${'HP/SMS/WA :'} ${object.get_company().g
 ${''.rjust(81)}
 ${''.rjust(81)}
 ${'Nomor:'} ${object.origin or '-'} ${'DO:'} ${object.name or '-'}
-${'Salesman:'} ${object.sale_id and object.sale_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.sale_id.client_order_ref or '-'}
+${'Salesman:'} ${object.sale_id.user_id and object.sale_id.user_id.name or '-'} ${''.rjust(38)} ${'Tanggal'} ${object.get_datetime_to_date(object.date_done) or '-'} ${''.rjust(20)} ${'Customer Reference'} ${object.sale_id.client_order_ref or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(80)} ${'Qty'.rjust(15)}  ${'Satuan'.rjust(25)}
 ${''.rjust(134,'-')}
