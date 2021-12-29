@@ -48,7 +48,8 @@ class ResPartner(models.Model):
         partner_ids = self.search([('id', 'parent_of', self.id)])
         for partner_id in partner_ids:
             message = ''
-            limit_ids = partner_id.limit_ids + self.env['credit.limit'].search([('is_global', '=', True)])
+            types = partner_id.limit_ids.mapped('type')
+            limit_ids = partner_id.limit_ids + self.env['credit.limit'].search([('is_global', '=', True), ('type', 'not in', types)])
             for limit_id in limit_ids:
                 if limit_id.type == 'overdue' and partner_id.total_due:
                     message += '\n - %s (overdue: %s)' % (
@@ -64,3 +65,14 @@ class ResPartner(models.Model):
                         message += '\n - %s (receivable + uninvoiced amount: %s. current amount: %s. total: %s. limit: %s)' % (limit_id.display_name, '{:,.2f}'.format(partner_id.credit + partner_id.sale_noinvoice), '{:,.2f}'.format(current_amount), '{:,.2f}'.format(total_amount), '{:,.2f}'.format(limit_amount))
             if message:
                 raise ValidationError(_('Customer credit limit for %s exceeded. See details below: \n%s' % (partner_id.display_name, message)))
+
+    @api.constrains('limit_ids')
+    def _check_double_limit(self):
+        for rec in self:
+            for l in rec.limit_ids :
+                other_limit_ids = self.env['credit.limit'].search([
+                    ('partner_ids', 'in', rec.ids),
+                    ('type','=',l.type),
+                ])
+                if len(other_limit_ids) > 1 :
+                    raise ValidationError(_(f'Double credit limit with same type for customer {rec.display_name}: {", ".join(other_limit_ids.mapped("display_name"))}'))
