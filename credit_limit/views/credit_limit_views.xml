@@ -68,7 +68,7 @@
                             <group></group>
                         </group>
                         <separator string="Customer"/>
-                        <field name="partner_ids"/>
+                        <field name="partner_ids" domain="[('customer','=',True),('company_id','=',company_id)]"/>
                     </sheet>
                 </form>
             </field>

@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='trust']" position="after">
-                    <field name="limit_ids" widget="many2many_tags"/>
+                    <field name="limit_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]"/>
                     <field name="sale_noinvoice"/>
                     <field name="credit"/>
                     <field name="total_due"/>

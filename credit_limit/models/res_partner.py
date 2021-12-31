@@ -76,3 +76,7 @@ class ResPartner(models.Model):
                 ])
                 if len(other_limit_ids) > 1 :
                     raise ValidationError(_(f'Double credit limit with same type for customer {rec.display_name}: {", ".join(other_limit_ids.mapped("display_name"))}'))
+
+    @api.onchange('company_id')
+    def onchange_company(self):
+        self.limit_ids = False

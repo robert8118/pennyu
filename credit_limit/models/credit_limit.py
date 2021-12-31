@@ -38,7 +38,7 @@ class CreditLimit(models.Model):
     company_id = fields.Many2one(
         comodel_name='res.company',
         string='Company',
-        required=True,
+        required=False,
         default=lambda self: self.env.user.company_id)
     active = fields.Boolean(
         string='Active',
@@ -48,7 +48,6 @@ class CreditLimit(models.Model):
         'partner_limit_rel',
         'limit_id',
         'partner_id',
-        domain=[('customer','=',True)],
         string='Customer')
     is_global = fields.Boolean(
         string='Is Global?',
@@ -67,3 +66,7 @@ class CreditLimit(models.Model):
                 ])
                 if other_limit_ids :
                     raise ValidationError(_(f'Credit limit with same type for customer {p.display_name} already exist: {", ".join(other_limit_ids.mapped("display_name"))}'))
+
+    @api.onchange('company_id')
+    def onchange_company(self):
+        self.partner_ids = False
