@@ -203,3 +203,6 @@ class StockImmediateTransfer(models.TransientModel):
         if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
+
+    # code belum update di staging
+    # TODO: merge ke staging
