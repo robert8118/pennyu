@@ -13,6 +13,7 @@ class StockPicking(models.Model):
                     ail = ai.invoice_line_ids.filtered(lambda x: x.sale_line_id == move.sale_line_id)
                 if ail:
                     ail.quantity -= move.quantity_done
+        ai.compute_taxes()
 
     def auto_invoice(self, picking_id=None, return_status=False):
         if self:
@@ -68,7 +69,10 @@ class StockPicking(models.Model):
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'sale'),
                      ('company_id', '=', company_id)])
-                journal_id = journal_id[0].id
+                if journal_id:
+                    journal_id = journal_id[0].id
+                else:
+                    journal_id = False
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'receivable'),
                      ('company_id', '=', company_id),
@@ -150,7 +154,11 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         res = super(StockPicking, self).button_validate()
-        return_status = True if 'Return' in self.origin else False
+        origin = self.origin
+        if origin:
+            return_status = True if 'Return' in self.origin else False
+        else:
+            return_status = False
         if not res and self.picking_type_id.code in ['incoming', 'outgoing']:
             self.auto_invoice(return_status=return_status)
         return res
@@ -161,14 +169,22 @@ class StockBackorderConfirmation(models.TransientModel):
 
     def process(self):
         res = super(StockBackorderConfirmation, self).process()
-        return_status = True if 'Return' in self.pick_ids.origin else False
+        origin = self.pick_ids.origin
+        if origin:
+            return_status = True if 'Return' in self.origin else False
+        else:
+            return_status = False
         if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
     def process_cancel_backorder(self):
         res = super(StockBackorderConfirmation, self).process_cancel_backorder()
-        return_status = True if 'Return' in self.pick_ids.origin else False
+        origin = self.pick_ids.origin
+        if origin:
+            return_status = True if 'Return' in self.origin else False
+        else:
+            return_status = False
         if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
@@ -179,7 +195,11 @@ class StockImmediateTransfer(models.TransientModel):
 
     def process(self):
         res = super(StockImmediateTransfer, self).process()
-        return_status = True if 'Return' in self.pick_ids.origin else False
+        origin = self.pick_ids.origin
+        if origin:
+            return_status = True if 'Return' in self.origin else False
+        else:
+            return_status = False
         if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
