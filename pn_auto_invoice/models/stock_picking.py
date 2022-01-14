@@ -49,12 +49,12 @@ class StockPicking(models.Model):
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'purchase'),
                      ('company_id', '=', company_id)])
-                journal_id = journal_id[0].id
+                journal_id = journal_id[:1].id
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'payable'),
                      ('company_id', '=', company_id),
                      ('deprecated', '=', False)])
-                account_id = account_id[0].id
+                account_id = account_id[:1].id
                 inv_type = 'in_invoice' if not return_status else 'in_refund'
                 user_id = self._uid
                 data.update({
@@ -68,12 +68,12 @@ class StockPicking(models.Model):
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'sale'),
                      ('company_id', '=', company_id)])
-                journal_id = journal_id[0].id
+                journal_id = journal_id[:1].id
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'receivable'),
                      ('company_id', '=', company_id),
                      ('deprecated', '=', False)])
-                account_id = account_id[0].id
+                account_id = account_id[:1].id
                 inv_type = 'out_invoice' if not return_status else 'out_refund'
                 user_id = so.user_id.id
                 data.update({
@@ -150,9 +150,13 @@ class StockPicking(models.Model):
     @api.multi
     def button_validate(self):
         res = super(StockPicking, self).button_validate()
-        return_status = True if 'Return' in self.origin else False
-        if not res and self.picking_type_id.code in ['incoming', 'outgoing']:
-            self.auto_invoice(return_status=return_status)
+        return_status = False
+        if self.origin :
+            if 'Return' in self.origin :
+                return_status = True
+        if self.location_id.usage in ('customer','suppplier') or self.location_dest_id.usage in ('customer','suppplier') :
+            if not res :
+                self.auto_invoice(return_status=return_status)
         return res
 
 
@@ -161,15 +165,21 @@ class StockBackorderConfirmation(models.TransientModel):
 
     def process(self):
         res = super(StockBackorderConfirmation, self).process()
-        return_status = True if 'Return' in self.pick_ids.origin else False
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = False
+        if self.pick_ids.origin:
+            if 'Return' in self.pick_ids.origin :
+                return_status = True
+        if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
     def process_cancel_backorder(self):
         res = super(StockBackorderConfirmation, self).process_cancel_backorder()
-        return_status = True if 'Return' in self.pick_ids.origin else False
-        if self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = False
+        if self.pick_ids.origin:
+            if 'Return' in self.pick_ids.origin:
+                return_status = True
+        if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
@@ -179,8 +189,11 @@ class StockImmediateTransfer(models.TransientModel):
 
     def process(self):
         res = super(StockImmediateTransfer, self).process()
-        return_status = True if 'Return' in self.pick_ids.origin else False
-        if not res and self.pick_ids.picking_type_id.code in ['incoming', 'outgoing']:
+        return_status = False
+        if self.pick_ids.origin:
+            if 'Return' in self.pick_ids.origin:
+                return_status = True
+        if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
             self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
         return res
 
