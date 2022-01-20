@@ -100,7 +100,35 @@ class fp_invoice_export(models.TransientModel):
                 'UANG_MUKA_DPP',
                 'UANG_MUKA_PPN',
                 'UANG_MUKA_PPNBM',
-                'REFERENSI']
+                'REFERENSI',
+                'KODE_DOKUMEN_PENDUKUNG']
+        
+    
+    def _get_header_fapr(self, headers):
+        fapr_ids = {
+            'FK': 'FAPR',
+            'KD_JENIS_TRANSAKSI': 'NPWP',
+            'FG_PENGGANTI': 'NAMA',
+            'NOMOR_FAKTUR': 'JALAN',
+            'MASA_PAJAK': 'BLOK',
+            'TAHUN_PAJAK': 'NOMOR',
+            'TANGGAL_FAKTUR': 'RT',
+            'NPWP': 'RW',
+            'NAMA': 'KECAMATAN',
+            'ALAMAT_LENGKAP': 'KELURAHAN',
+            'JUMLAH_DPP': 'KABUPATEN',
+            'JUMLAH_PPN': 'PROPINSI',
+            'JUMLAH_PPNBM': 'KODE_POS',
+            'ID_KETERANGAN_TAMBAHAN': 'NOMOR_TELEPON',
+            'FG_UANG_MUKA': '',
+            'UANG_MUKA_DPP': '',
+            'UANG_MUKA_PPN': '',
+            'UANG_MUKA_PPNBM': '',
+            'REFERENSI': '',
+            'KODE_DOKUMEN_PENDUKUNG': ''
+        }
+        rows = [fapr_ids[l] for l in headers]
+        return rows
         
     def _get_header_lt(self, headers):
         lt_ids = {
@@ -122,7 +150,8 @@ class fp_invoice_export(models.TransientModel):
             'UANG_MUKA_DPP': '',
             'UANG_MUKA_PPN': '',
             'UANG_MUKA_PPNBM': '',
-            'REFERENSI': ''
+            'REFERENSI': '',
+            'KODE_DOKUMEN_PENDUKUNG': ''
         }
         rows = [lt_ids[l] for l in headers]
         return rows
@@ -147,7 +176,8 @@ class fp_invoice_export(models.TransientModel):
             'UANG_MUKA_DPP': '',
             'UANG_MUKA_PPN': '',
             'UANG_MUKA_PPNBM': '',
-            'REFERENSI': ''
+            'REFERENSI': '',
+            'KODE_DOKUMEN_PENDUKUNG': ''
         }
         rows = [of_ids[o] for o in headers]
         return rows
@@ -183,6 +213,7 @@ class fp_invoice_export(models.TransientModel):
             amount_tax = int(round(total_ppn,0))
             residual_dpp = amount_untaxed - tot_line_dpp
             residual_ppn = amount_tax - tot_line_ppn
+            fapr_ids = {}
             if context.get('default_type') in ('out_invoice','out_refund'):
                 inv_ids = {
                     'FK': 'FK',
@@ -203,7 +234,30 @@ class fp_invoice_export(models.TransientModel):
                     'UANG_MUKA_DPP': 0,
                     'UANG_MUKA_PPN': 0,
                     'UANG_MUKA_PPNBM': 0,
-                    'REFERENSI': inv.number or inv.origin or ''
+                    'REFERENSI': inv.number or inv.origin or '',
+                    'KODE_DOKUMEN_PENDUKUNG': ''
+                }
+                fapr_ids = {
+                    'FK': 'FAPR',
+                    'KD_JENIS_TRANSAKSI': inv.company_id.name.upper(),
+                    'FG_PENGGANTI': inv.company_id.partner_id._get_street_npwp() or '',
+                    'NOMOR_FAKTUR': '',
+                    'MASA_PAJAK': '',
+                    'TAHUN_PAJAK': '',
+                    'TANGGAL_FAKTUR': '',
+                    'NPWP': '',
+                    'NAMA': '',
+                    'ALAMAT_LENGKAP': '',
+                    'JUMLAH_DPP': '',
+                    'JUMLAH_PPN': '',
+                    'JUMLAH_PPNBM': '',
+                    'ID_KETERANGAN_TAMBAHAN': '',
+                    'FG_UANG_MUKA': '',
+                    'UANG_MUKA_DPP': '',
+                    'UANG_MUKA_PPN': '',
+                    'UANG_MUKA_PPNBM': '',
+                    'REFERENSI': '',
+                    'KODE_DOKUMEN_PENDUKUNG': ''
                 }
             elif context.get('default_type') in ('in_invoice','in_refund'):
                 inv_ids = {
@@ -224,6 +278,9 @@ class fp_invoice_export(models.TransientModel):
                 }
             row = [inv_ids[i] for i in headers]
             rows.append(list(row))
+            if fapr_ids:
+                row_fapr = [fapr_ids[i] for i in headers]
+                rows.append(list(row_fapr))
             
             if context.get('default_type') in ('out_invoice','out_refund'):
                 for line in inv.invoice_line_ids:
@@ -265,7 +322,8 @@ class fp_invoice_export(models.TransientModel):
                             'UANG_MUKA_DPP': '',
                             'UANG_MUKA_PPN': '',
                             'UANG_MUKA_PPNBM': '',
-                            'REFERENSI': ''
+                            'REFERENSI': '',
+                            'KODE_DOKUMEN_PENDUKUNG': ''
                         }
                         #csvwriter.writerow([line_ids[l] for l in headers])
                         row = [line_ids[l] for l in headers]

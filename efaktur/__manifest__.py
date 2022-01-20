@@ -15,6 +15,7 @@
     'images':  ['images/main_screenshot.png'],
     "author"        : "Alphasoft",
     "description"   : """This module aim to:
+                    - efaktur 3.1.0.0
                     - Create Object Nomor Faktur Pajak
                     - Add Column Customer such as: 
                         * NPWP, RT, RW, Kelurahan, Kecamatan, Kabupaten, Province
