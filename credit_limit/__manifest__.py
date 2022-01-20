@@ -20,6 +20,7 @@
         'views/credit_limit_views.xml',
         'views/res_partner_views.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
     ],
     'demo': [],
     'images': [],

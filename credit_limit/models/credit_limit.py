@@ -1,5 +1,5 @@
 from odoo.exceptions import ValidationError, UserError
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.addons import decimal_precision as dp
 
 class CreditLimit(models.Model):
@@ -38,7 +38,7 @@ class CreditLimit(models.Model):
     company_id = fields.Many2one(
         comodel_name='res.company',
         string='Company',
-        required=True,
+        required=False,
         default=lambda self: self.env.user.company_id)
     active = fields.Boolean(
         string='Active',
@@ -48,10 +48,25 @@ class CreditLimit(models.Model):
         'partner_limit_rel',
         'limit_id',
         'partner_id',
-        domain=[('customer','=',True)],
         string='Customer')
     is_global = fields.Boolean(
         string='Is Global?',
         compute='_is_global',
         help='Apply for all customer',
         store=True)
+
+    @api.constrains('partner_ids')
+    def _check_double_limit(self):
+        for rec in self :
+            for p in rec.partner_ids :
+                other_limit_ids = self.search([
+                    ('partner_ids','in',p.ids),
+                    ('id','!=',rec.id),
+                    ('type','=',rec.type),
+                ])
+                if other_limit_ids :
+                    raise ValidationError(_(f'Credit limit with same type for customer {p.display_name} already exist: {", ".join(other_limit_ids.mapped("display_name"))}'))
+
+    @api.onchange('company_id')
+    def onchange_company(self):
+        self.partner_ids = False
