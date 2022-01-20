@@ -1,6 +1,6 @@
 {
     "name"          : "E-Faktur",
-    "version"       : '11.0.3.0.1',
+    "version"       : '11.0.3.0.2',
     'license'       : 'AGPL-3',
     'summary'       : 'Efaktur Import for DJP',
     "depends"       : [
@@ -15,6 +15,7 @@
     'images':  ['images/main_screenshot.png'],
     "author"        : "Alphasoft",
     "description"   : """This module aim to:
+                    - efaktur djp 3.1.0.0
                     - Create Object Nomor Faktur Pajak
                     - Add Column Customer such as: 
                         * NPWP, RT, RW, Kelurahan, Kecamatan, Kabupaten, Province
