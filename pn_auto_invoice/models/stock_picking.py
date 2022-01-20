@@ -149,15 +149,14 @@ class StockPicking(models.Model):
 
     @api.multi
     def action_done(self):
-        res = super(StockPicking, self).button_validate()
+        res = super(StockPicking, self).action_done()
         for rec in self :
             return_status = False
             if rec.origin :
                 if 'Return' in rec.origin :
                     return_status = True
-            if rec.location_id.usage in ('customer','suppplier') or rec.location_dest_id.usage in ('customer','suppplier'):
-                if not res :
-                    rec.auto_invoice(return_status=return_status)
+            if rec.location_id.usage in ('customer','supplier') or rec.location_dest_id.usage in ('customer','supplier'):
+                rec.auto_invoice(return_status=return_status)
         return res
 
 
@@ -170,7 +169,7 @@ class StockBackorderConfirmation(models.TransientModel):
     #     if self.pick_ids.origin:
     #         if 'Return' in self.pick_ids.origin :
     #             return_status = True
-    #     if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
+    #     if self.pick_ids.location_id.usage in ('customer','supplier') or self.pick_ids.location_dest_id.usage in ('customer','supplier'):
     #         self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
     #     return res
 
@@ -180,7 +179,7 @@ class StockBackorderConfirmation(models.TransientModel):
     #     if self.pick_ids.origin:
     #         if 'Return' in self.pick_ids.origin:
     #             return_status = True
-    #     if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
+    #     if self.pick_ids.location_id.usage in ('customer','supplier') or self.pick_ids.location_dest_id.usage in ('customer','supplier'):
     #         self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
     #     return res
 
@@ -194,6 +193,6 @@ class StockImmediateTransfer(models.TransientModel):
     #     if self.pick_ids.origin:
     #         if 'Return' in self.pick_ids.origin:
     #             return_status = True
-    #     if self.pick_ids.location_id.usage in ('customer','suppplier') or self.pick_ids.location_dest_id.usage in ('customer','suppplier'):
+    #     if self.pick_ids.location_id.usage in ('customer','supplier') or self.pick_ids.location_dest_id.usage in ('customer','supplier'):
     #         self.env['stock.picking'].auto_invoice(picking_id=self.pick_ids, return_status=return_status)
     #     return res
