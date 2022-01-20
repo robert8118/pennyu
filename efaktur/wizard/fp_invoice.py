@@ -233,7 +233,7 @@ class fp_invoice_export(models.TransientModel):
                         
                         tax_amt_type = sum(tax.amount_type == 'percent' and tax.amount/100.0 or tax.amount for tax in line.invoice_line_tax_ids)
                         if inv.company_id.discount_efaktur_display == 'no':
-                            HARGA_SATUAN = int(self._amount_currency_line(line.price_subtotal/line.quantity, line)) or '0'
+                            HARGA_SATUAN = int(self._amount_currency_line(line.price_subtotal/(line.quantity or 1.0), line)) or '0'
                             JUMLAH_BARANG = line.quantity or 1
                             HARGA_TOTAL = int(self._amount_currency_line(line.price_subtotal, line)) or '0'
                             DISKON = '0'
