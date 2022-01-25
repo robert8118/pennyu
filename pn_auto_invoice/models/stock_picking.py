@@ -77,6 +77,7 @@ class StockPicking(models.Model):
                 inv_type = 'out_invoice' if not return_status else 'out_refund'
                 user_id = so.user_id.id
                 data.update({
+                    'partner_id': so.partner_invoice_id.id or so.partner_id.id,
                     'partner_shipping_id': so.partner_shipping_id.id,
                     'team_id': so.team_id.id
                 })
@@ -84,7 +85,7 @@ class StockPicking(models.Model):
                 'type': inv_type,
                 'date_invoice': fields.Date.today(),
                 'release_to_pay': 'yes',
-                'partner_id': sp_id.partner_id.id,
+                'partner_id': data.get('partner_id') or sp_id.partner_id.id,
                 'payment_term_id': payment_term_id,
                 'account_id': account_id,
                 'journal_id': journal_id,
