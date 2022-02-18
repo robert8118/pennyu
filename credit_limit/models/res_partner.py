@@ -68,7 +68,7 @@ class ResPartner(models.Model):
                         domain = partner_id.get_followup_lines_domain(date_due_final)
                         for aml in self.env['account.move.line'].search(domain):
                             total_due += aml.amount_residual
-                    if total_due :
+                    if total_due > 0 :
                         message += '\n - %s (overdue: %s)' % (limit_id.display_name, '{:,.2f}'.format(total_due))
                 elif limit_id.type == 'count' and partner_id.invoice_count >= limit_id.count:
                     message += '\n - %s (invoice count: %s. limit: %s)' % (limit_id.display_name, partner_id.invoice_count, limit_id.count)
