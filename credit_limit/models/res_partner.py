@@ -24,7 +24,7 @@ class ResPartner(models.Model):
             sale_noinvoice = 0
             domain = [
                 ('order_id.partner_id', 'child_of', rec.id),
-                ('order_id.state', 'in', ['sale','done']),
+                ('order_id.state', 'in', ['sale']),
                 ('amt_noinvoice', '>', 0),
             ]
             order_line_ids = self.env['sale.order.line'].search(domain)
@@ -49,7 +49,19 @@ class ResPartner(models.Model):
         for partner_id in partner_ids:
             message = ''
             types = partner_id.limit_ids.mapped('type')
-            limit_ids = partner_id.limit_ids + self.env['credit.limit'].search([('is_global', '=', True), ('type', 'not in', types)])
+            global_limit_amount_id = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'amount')
+            ], order='amount asc', limit=1)
+            global_limit_count_id = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'count')
+            ], order='count asc', limit=1)
+            global_limit_overdue_ids = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'overdue')
+            ])
+            limit_ids = partner_id.limit_ids + global_limit_amount_id + global_limit_count_id + global_limit_overdue_ids
             for limit_id in limit_ids:
                 if limit_id.type == 'overdue' and partner_id.total_due:
                     total_due = 0
