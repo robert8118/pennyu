@@ -24,7 +24,7 @@ class ResPartner(models.Model):
             sale_noinvoice = 0
             domain = [
                 ('order_id.partner_id', 'child_of', rec.id),
-                ('order_id.state', 'in', ['sale','done']),
+                ('order_id.state', 'in', ['sale']),
                 ('amt_noinvoice', '>', 0),
             ]
             order_line_ids = self.env['sale.order.line'].search(domain)
