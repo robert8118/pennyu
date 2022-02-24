@@ -16,11 +16,11 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.depends('amt_invoiced','move_ids.state')
+    @api.depends('amt_invoiced','move_ids.state','order_id.state')
     def _get_sale_noinvoice(self):
         for rec in self :
             sale_noinvoice = 0
-            if rec.order_id.state in ('sale','done'):
+            if rec.order_id.state in ('sale'):
                 unit_price = rec.price_total / rec.product_uom_qty if rec.product_uom_qty else 0
                 cancelled_moves = rec.move_ids.filtered(lambda m: m.state == 'cancel')
                 cancelled_amount = sum(cancelled_moves.mapped('product_uom_qty')) * unit_price
