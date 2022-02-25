@@ -40,7 +40,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                 else:
                     due_date = ""
                 
-                docs["listinvoices"] = {
+                docs["listinvoices"][nomor] = {
                         'name' : line.origin,
                         'nomor_invoice' : line.number,
                         'due_date_invoice' : due_date,
