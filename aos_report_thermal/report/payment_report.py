@@ -50,9 +50,9 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                         'currency_id' : line.currency_id,
                         'total_pembayaran' : line.amount_total,
                     }
+                nomor = nomor+1
             total_pembayaran += record.amount
             
-            nomor = nomor+1
         
         nomor2 = 0
         docs["infosaldo"] = {}
