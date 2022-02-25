@@ -46,11 +46,19 @@
 	                    	<strong>Pembayaran Untuk Nota :</strong>
 	                    	<t t-set="lines" t-value="docs['listinvoices']"/>
 	                    	<t t-foreach="lines" t-as="inv">
+<<<<<<< HEAD
 	                            <div style="margin:0;"><span t-esc="inv"/></div>
 	                            <!-- <div style="margin:0;"><span t-esc="inv['nomor_invoice']"/>-<span t-esc="inv['due_date_invoice']"/></div>
 	                            <p style="margin:0;" t-esc="inv['total_pembayaran']" t-options="{'widget': 'monetary', 'display_currency': inv['currency_id']}"/>
 	                            <p style="margin:0;">Memo : <span t-esc="inv['memo_invoice']"/></p>
 	                            <p style="margin:0;">Saldo : <span t-esc="inv['saldo']" t-options="{'widget': 'monetary', 'display_currency': inv['currency_id']}"/></p> -->
+=======
+	                            <div style="margin:0;"><span t-esc="lines[inv]['name']"/></div>
+ 	                            <div style="margin:0;"><span t-esc="lines[inv]['nomor_invoice']"/>-<span t-esc="lines[inv]['due_date_invoice']"/></div>
+	                            <p style="margin:0;" t-esc="lines[inv]['total_pembayaran']" t-options="{'widget': 'monetary', 'display_currency': lines[inv]['currency_id']}"/>
+	                            <p style="margin:0;">Memo : <span t-esc="lines[inv]['memo_invoice']"/></p>
+	                            <p style="margin:0;">Saldo : <span t-esc="lines[inv]['saldo']" t-options="{'widget': 'monetary', 'display_currency': lines[inv]['currency_id']}"/></p>
+>>>>>>> ac554d8714c66eb0157c39419b711b9dbcaa1cde
 	                            <p></p>
 	                    	</t>
 	                    </div>
