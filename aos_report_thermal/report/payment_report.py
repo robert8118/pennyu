@@ -32,8 +32,8 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['nomor'] = nomor
             for line in record.invoice_ids:
                 dataidinvoices.append(line.id)
-                total_pembayaran = total_pembayaran+record.amount
-                saldo = line.residual - record.amount
+                #total_pembayaran = record.amount
+                #saldo = line.residual - record.amount
                 due_date = line.date_due
                 if due_date:
                     due_date = datetime.strptime(due_date, '%Y-%m-%d').strftime('%d/%m/%y')
@@ -46,12 +46,13 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                         'due_date_invoice' : due_date,
                         'total_invoice' : line.residual,
                         'memo_invoice' : record.communication,
-                        'saldo' : line.residual - record.amount,
+                        'saldo' : line.residual,# - record.amount,
                         'currency_id' : line.currency_id,
-                        'total_pembayaran' : record.amount,
+                        'total_pembayaran' : line.amount_total,
                     }
+                nomor = nomor+1
+            total_pembayaran += record.amount
             
-            nomor = nomor+1
         
         nomor2 = 0
         docs["infosaldo"] = {}
