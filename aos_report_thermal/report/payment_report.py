@@ -42,16 +42,17 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     due_date = ""
                 
                 docs["listinvoices"][nomor] = {
-                        'name' : line.origin,
-                        'nomor_invoice' : line.number,
-                        'due_date_invoice' : due_date,
-                        'total_invoice' : line.residual,
-                        'memo_invoice' : record.communication,
-                        'saldo' : 0,#line.residual,# - record.amount,
-                        'currency_id' : line.currency_id,
-                        'total_pembayaran' : line.amount_total,
-                    }
-                nomor = nomor+1
+                    'name' : line.origin,
+                    'nomor_invoice' : line.number,
+                    'due_date_invoice' : due_date,
+                    'total_invoice' : line.residual,
+                    'memo_invoice' : record.communication,
+                    'saldo' : 0,#line.residual,# - record.amount,
+                    'currency_id' : line.currency_id,
+                    'total_pembayaran' : line.amount_total,
+                }
+                nomor += 1
+                
             total_pembayaran += record.amount
             
         
