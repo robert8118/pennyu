@@ -46,7 +46,7 @@ class NomorFakturPajak(models.Model):
                 faktur.state = '1'
             elif faktur.invoice_revisi_id and faktur.invoice_revisi_id.state not in ('draft','cancel'):
                 faktur.state = '2'
-                
+            
     
     nomor_perusahaan = fields.Char('Nomor Perusahaan', size=3)
     tahun_penerbit = fields.Char('Tahun Penerbit', size=2)
