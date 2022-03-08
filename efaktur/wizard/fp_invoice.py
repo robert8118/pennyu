@@ -16,7 +16,7 @@ from .csv_reader import UnicodeWriter
 class fp_invoice_export(models.TransientModel):
     _name = 'fp.invoice.export'
     _description = 'Export E-Faktur Invoice'
-    
+
     type = fields.Selection([('in_invoice','Supplier Invoice'),
                              ('out_invoice','Customer Invoice'),
                              ('in_refund','Supplier Refund'),
