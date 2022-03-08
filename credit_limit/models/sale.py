@@ -28,5 +28,3 @@ class SaleOrderLine(models.Model):
             rec.amt_noinvoice = sale_noinvoice
 
     amt_noinvoice = fields.Monetary(compute='_get_sale_noinvoice', string='Uninvoiced Amount', store=True)
-
-# trigger rebuild
