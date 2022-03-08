@@ -46,7 +46,7 @@ class NomorFakturPajak(models.Model):
                 faktur.state = '1'
             elif faktur.invoice_revisi_id and faktur.invoice_revisi_id.state not in ('draft','cancel'):
                 faktur.state = '2'
-        
+                
     
     nomor_perusahaan = fields.Char('Nomor Perusahaan', size=3)
     tahun_penerbit = fields.Char('Tahun Penerbit', size=2)
@@ -61,7 +61,7 @@ class NomorFakturPajak(models.Model):
     amount_tax = fields.Monetary(string='Tax Amount', related='invoice_id.amount_tax', store=True)
     date_invoice = fields.Date(string='Date Used', related='invoice_id.date_invoice', store=True)
     company_id = fields.Many2one('res.company', string='Invoice Company', related='invoice_id.company_id', store=True)
-    fp_company_id = fields.Many2one('res.company', string='Faktur Pajak Company', required=False)
+    fp_company_id = fields.Many2one('res.company', string='Faktur Pajak Company', required=True)
     currency_id = fields.Many2one('res.currency', string='Invoice Currency', related='invoice_id.currency_id', store=True)
     type = fields.Selection([('in','Faktur Pajak Masukan'),('out','Faktur Pajak Keluaran')], default=lambda self: self._context.get('type', 'out'), string='Type')
     state = fields.Selection([('0','Not Used'),('1','Used'),('2','Hold')],string='Status', compute='_get_nomor_faktur', store=True)

@@ -11,7 +11,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
     @api.multi
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
-        
         paper_height = 160
         docs = {}
         total_pembayaran = 0.0
@@ -32,8 +31,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['nomor'] = nomor
             for line in record.invoice_ids:
                 dataidinvoices.append(line.id)
-                #total_pembayaran = record.amount
-                #saldo = line.residual - record.amount
                 due_date = line.date_due
                 if due_date:
                     due_date = datetime.strptime(due_date, '%Y-%m-%d').strftime('%d/%m/%y')
@@ -77,13 +74,8 @@ class AccountPaymentReportAdmin(models.AbstractModel):
           
         docs['total_pembayaran'] = total_pembayaran
         
-        
-        
-#         Thermal Printer For Payment Report
         datapaper = self.env['report.paperformat'].search([('name', '=', 'Thermal Printer For Payment Report')])
         datapaper.write({'page_height': paper_height})
-        
-#         update([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
         return {
             'doc_ids': docss.ids,
             'doc_model': 'account.payment',
