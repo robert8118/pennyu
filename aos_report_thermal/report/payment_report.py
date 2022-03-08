@@ -50,7 +50,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                 nomor = nomor+1
             total_pembayaran += record.amount
             
-        
         nomor2 = 0
         docs["infosaldo"] = {}
         data_invoice = self.env['account.invoice'].search([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
