@@ -41,7 +41,7 @@
 	                            <p style="margin:0;">Saldo : <span t-esc="lines[inv]['saldo']" t-options="{'widget': 'monetary', 'display_currency': lines[inv]['currency_id']}"/></p>
 	                            <p></p>
 	                    	</t>
-	                    </div> -->
+	                    </div> --> 
 	                    <div>
 	                    	<strong>Pembayaran Untuk Nota :</strong>
 	                    	<t t-set="lines" t-value="docs['listinvoices']"/>
