@@ -7,7 +7,7 @@ from datetime import datetime, date, time, timedelta
 
 class AccountPaymentReportAdmin(models.AbstractModel):
     _name = 'report.aos_report_thermal.attendance_recap_report_view'
-        
+
     @api.multi
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
