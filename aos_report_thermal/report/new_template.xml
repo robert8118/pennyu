@@ -11,7 +11,7 @@
 	            <div class="page" style="font-size:17px">
 		        	<div class="row mt32 mb32">
 						<div>
-							<strong>Tandax Terima Pembayaran :</strong>
+							<strong>Tanda Terima Pembayaran :</strong>
 						</div>
 						<div class="col-auto" name="div_name">
 						    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%y %H:%M:%S')"/>
