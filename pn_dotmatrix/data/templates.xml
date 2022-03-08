@@ -426,10 +426,10 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 	% endif
 	% if object.partner_id.zip:
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
+
 	% endif
 % endif
-${'Nomor'} ${object.number or '-'}
-${'Salesman'} ${object.user_id and object.user_id.name or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
+${'Nomor'} ${object.number or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
 ${''.rjust(134,'-')}
@@ -871,9 +871,10 @@ ${''.rjust(81)}${object.get_shipping().get('kelurahan')}${', '}${object.get_ship
 ${''.rjust(81)}${object.get_shipping().get('state')}${', '}${object.get_shipping().get('zip')}
 
 	% endif
+
 % endif
-${'Nomor'} ${object.number or '-'}
-${'Salesman'} ${object.user_id and object.user_id.name or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
+
+${'Nomor'} ${object.number or '-'} ${''.rjust(13)} ${'Tanggal'} ${object.date_invoice or '-'} ${''.rjust(13)} ${'Tempo-Cash'} ${object.payment_term_id.name or '-'} ${''.rjust(12)} ${'Max Pelunasan'} ${object.date_due or '-'}
 ${''.rjust(134,'-')}
 ${'No'}  ${'Nama Product'.ljust(49)} ${'Qty'.rjust(11)}  ${'Satuan'.ljust(6)} ${'Harga Satuan'.rjust(19)} ${'Disc'.rjust(12)} ${'Harga Net'.rjust(13)} ${'Sub Total'.rjust(14)}
 ${''.rjust(134,'-')}

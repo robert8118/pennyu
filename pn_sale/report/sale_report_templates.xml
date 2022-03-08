@@ -186,7 +186,7 @@
                                 <t t-if="num&lt;10">
                                     <div class="row"><br/>
                                         <div class="col-xs-8"><span>Terbilang  : # <span t-esc="doc.total_terbilang(doc.amount_total)"/> Rupiah # </span></div>
-                                        <div class="col-xs-4 text-right" style="padding-right:30px"><span>Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/> </span></div>
+                                        <div class="col-xs-4 text-right" style="padding-right:30px">Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/></div>
                                     </div>
                                 </t>
                                 <t t-if="num&gt;=10">
@@ -221,7 +221,7 @@
 <t t-if="num&gt;=10">
                 <div class="row">
                     <div class="col-xs-8"><span>Terbilang : # <span t-esc="doc.total_terbilang(doc.amount_total)"/> Rupiah # </span></div>
-                    <div class="col-xs-4 text-right" style="padding-right:30px"><span>Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/> </span></div>
+                    <div class="col-xs-4 text-right" style="padding-right:30px">Total : <span t-esc="'{:,.2f}'.format(doc.amount_total)" style="padding-left:20px"/></div>
                 </div>
 </t>
 	</t>            

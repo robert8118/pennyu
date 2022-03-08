@@ -15,7 +15,6 @@
         'base',
         'account',
         'sale',
-        'sale_stock',
     ],
     'data': [
         'views/credit_limit_views.xml',

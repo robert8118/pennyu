@@ -1,7 +1,7 @@
 {
 	"name": "Pennyu Dot Matrix Printer",
 	"version": "11.0.1.0.0",
-	"depends": ["vit_dotmatrix", "pn_dotmatrix","stock", "sale_management", "efaktur"],
+	"depends": ["vit_dotmatrix", "pn_dotmatrix","stock"],
 	"author": "Alphasoft",
 	"category": "Utilities",
 	'website': 'https://www.alphasoft.co.id',
