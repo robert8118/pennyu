@@ -42,7 +42,7 @@ class stock_move(models.Model):
 
 	analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account')
 
-class stock_move(models.Model):
+class stock_warehouse(models.Model):
 	_inherit = "stock.warehouse"
 
 	user_ids = fields.Many2many('res.users','company_user_rel','company_id','user_id','Owner user')
