@@ -37,18 +37,22 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     due_date = datetime.strptime(due_date, '%Y-%m-%d').strftime('%d/%m/%y')
                 else:
                     due_date = ""
+                if nomor == 0:
+                    saldo = payment_total
+                else:
+                    saldo = line.amount_total
                 
                 docs["listinvoices"][nomor] = {
-                        'name' : line.origin,
-                        'nomor_invoice' : line.number,
-                        'due_date_invoice' : due_date,
-                        'total_invoice' : line.residual,
-                        'memo_invoice' : record.communication,
-                        'saldo' : line.amount_total - payment_total,
-                        'currency_id' : line.currency_id,
-                        'total_pembayaran' : line.amount_total,
-                    }
-                payment_total += line.amount_total
+                    'name' : line.origin,
+                    'nomor_invoice' : line.number,
+                    'due_date_invoice' : due_date,
+                    'total_invoice' : line.residual,
+                    'memo_invoice' : record.communication,
+                    'saldo' : line.amount_total - payment_total,
+                    'currency_id' : line.currency_id,
+                    'total_pembayaran' : line.amount_total,
+                }
+                payment_total -= saldo
                 nomor = nomor + 1
                 
             total_pembayaran += record.amount
