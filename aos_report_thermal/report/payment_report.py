@@ -20,6 +20,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         partner_id = 0
         for x in docids:
             record = self.env['account.payment'].browse(x)
+            payment_total = record.invoice_ids[0].amount_total if len(record.invoice_ids) > 1 else record.amount
             partner_id = record.partner_id.id
             docs['company_id'] = record.company_id
             docs['partner_id'] = record.partner_id
@@ -43,11 +44,12 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                         'due_date_invoice' : due_date,
                         'total_invoice' : line.residual,
                         'memo_invoice' : record.communication,
-                        'saldo' : line.residual,# - record.amount,
+                        'saldo' : line.residual - payment_total,
                         'currency_id' : line.currency_id,
                         'total_pembayaran' : line.amount_total,
                     }
                 nomor = nomor+1
+                payment_total += line.amount_total
             total_pembayaran += record.amount
         
         nomor2 = 0
