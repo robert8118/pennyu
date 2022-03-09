@@ -50,6 +50,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     }
                 nomor = nomor+1
                 payment_total += line.amount_total
+                
             total_pembayaran += record.amount
         
         nomor2 = 0
