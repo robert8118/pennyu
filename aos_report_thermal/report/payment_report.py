@@ -49,7 +49,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                         'total_pembayaran' : line.amount_total,
                     }
                 payment_total += line.amount_total
-                nomor = nomor+1
+                nomor = nomor + 1
                 
             total_pembayaran += record.amount
         
