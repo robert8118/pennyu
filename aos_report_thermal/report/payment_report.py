@@ -48,7 +48,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     'due_date_invoice' : due_date,
                     'total_invoice' : line.residual,
                     'memo_invoice' : record.communication,
-                    'saldo' : nomor,#line.amount_total - payment_total,
+                    'saldo' : line.amount_total - saldo,
                     'currency_id' : line.currency_id,
                     'total_pembayaran' : line.amount_total,
                 }
