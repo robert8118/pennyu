@@ -52,6 +52,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     'currency_id' : line.currency_id,
                     'total_pembayaran' : line.residual,
                 }
+                
                 payment_total -= saldo
                 nomor = nomor + 1
                 
