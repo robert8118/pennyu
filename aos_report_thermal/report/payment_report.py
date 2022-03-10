@@ -48,9 +48,9 @@ class AccountPaymentReportAdmin(models.AbstractModel):
                     'due_date_invoice' : due_date,
                     'total_invoice' : line.residual,
                     'memo_invoice' : record.communication,
-                    'saldo' : line.amount_total - saldo,
+                    'saldo' : line.residual - saldo,
                     'currency_id' : line.currency_id,
-                    'total_pembayaran' : line.amount_total,
+                    'total_pembayaran' : line.residual,
                 }
                 payment_total -= saldo
                 nomor = nomor + 1
