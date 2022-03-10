@@ -11,7 +11,6 @@ class AccountPaymentReportAdmin(models.AbstractModel):
     @api.multi
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
-        
         paper_height = 160
         docs = {}
         total_pembayaran = 0.0
@@ -21,6 +20,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         partner_id = 0
         for x in docids:
             record = self.env['account.payment'].browse(x)
+            payment_total = record.invoice_ids[0].amount_total if len(record.invoice_ids) > 1 else record.amount
             partner_id = record.partner_id.id
             docs['company_id'] = record.company_id
             docs['partner_id'] = record.partner_id
@@ -32,27 +32,31 @@ class AccountPaymentReportAdmin(models.AbstractModel):
             docs['nomor'] = nomor
             for line in record.invoice_ids:
                 dataidinvoices.append(line.id)
-                #total_pembayaran = record.amount
-                #saldo = line.residual - record.amount
                 due_date = line.date_due
                 if due_date:
                     due_date = datetime.strptime(due_date, '%Y-%m-%d').strftime('%d/%m/%y')
                 else:
                     due_date = ""
+                if nomor == 0:
+                    saldo = payment_total
+                else:
+                    saldo = line.amount_total
                 
                 docs["listinvoices"][nomor] = {
-                        'name' : line.origin,
-                        'nomor_invoice' : line.number,
-                        'due_date_invoice' : due_date,
-                        'total_invoice' : line.residual,
-                        'memo_invoice' : record.communication,
-                        'saldo' : line.residual,# - record.amount,
-                        'currency_id' : line.currency_id,
-                        'total_pembayaran' : line.amount_total,
-                    }
-                nomor = nomor+1
+                    'name' : line.origin,
+                    'nomor_invoice' : line.number,
+                    'due_date_invoice' : due_date,
+                    'total_invoice' : line.residual,
+                    'memo_invoice' : record.communication,
+                    'saldo' : line.residual - saldo,
+                    'currency_id' : line.currency_id,
+                    'total_pembayaran' : line.residual,
+                }
+                
+                payment_total -= saldo
+                nomor = nomor + 1
+                
             total_pembayaran += record.amount
-            
         
         nomor2 = 0
         docs["infosaldo"] = {}
@@ -77,13 +81,8 @@ class AccountPaymentReportAdmin(models.AbstractModel):
           
         docs['total_pembayaran'] = total_pembayaran
         
-        
-        
-#         Thermal Printer For Payment Report
         datapaper = self.env['report.paperformat'].search([('name', '=', 'Thermal Printer For Payment Report')])
         datapaper.write({'page_height': paper_height})
-        
-#         update([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
         return {
             'doc_ids': docss.ids,
             'doc_model': 'account.payment',
