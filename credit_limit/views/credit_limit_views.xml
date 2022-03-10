@@ -11,6 +11,7 @@
                     <field name="type"/>
                     <field name="active"/>
                     <field name="is_global"/>
+                    <field name="payment_term_id"/>
                     <field name="partner_ids"/>
                     <filter string="Archived" domain="[('active', '=', False)]" name="inactive"/>
                     <filter string="All" name="all" domain="['|', ('active', '=', False), ('active', '=', True)]"/>
@@ -31,6 +32,7 @@
                     <field name="active"/>
                     <field name="is_global"/>
                     <field name="partner_ids"/>
+                    <field name="payment_term_id"/>
                     <field name="company_id" groups="base.group_multi_company"/>
                 </tree>
             </field>
@@ -54,6 +56,7 @@
                             <group>
                                 <field name="type"/>
                                 <field name="currency_id" attrs="{'invisible': [('type','!=','amount')], 'required': [('type','=','amount')]}"/>
+                                <field name="payment_term_id" attrs="{'invisible': [('type','!=','overdue')]}"/>
                             </group>
                             <group>
                                 <field name="amount" attrs="{'invisible': [('type','!=','amount')], 'required': [('type','=','amount')]}"/>

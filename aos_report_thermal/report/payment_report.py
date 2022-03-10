@@ -7,7 +7,7 @@ from datetime import datetime, date, time, timedelta
 
 class AccountPaymentReportAdmin(models.AbstractModel):
     _name = 'report.aos_report_thermal.attendance_recap_report_view'
-        
+
     @api.multi
     def get_report_values(self, docids, data=None):
         docss = self.env['account.payment'].browse(docids)
@@ -60,7 +60,7 @@ class AccountPaymentReportAdmin(models.AbstractModel):
         
         nomor2 = 0
         docs["infosaldo"] = {}
-        data_invoice = self.env['account.invoice'].search([('partner_id', '=', record.partner_id.id), ('state', '=', 'open')])
+        data_invoice = self.env['account.invoice'].search([('partner_id', '=', partner_id), ('state', '=', 'open')])
         for x in data_invoice:
             if x.id not in dataidinvoices:
                 info_due_date = x.date_due

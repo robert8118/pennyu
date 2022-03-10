@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
                     "Lima", "Enam", "Tujuh", "Delapan",
                     "Sembilan", "Sepuluh", "Sebelas"]
             result = " "
-            total_terbilang = self.total_terbilang
+            total_terbilang = order.total_terbilang
             n = int(amount_total)
             if n >= 0 and n <= 11:
                 result = result + unit[n]
@@ -80,10 +80,7 @@ class SaleOrder_msi(models.Model):
     '''inherit sale.order.line'''
     _inherit = "sale.order.line"
 
-
     discount1 = fields.Float(string='Discount (%)', digits=dp.get_precision('Discount'), default=0.0)
-
-
 
     @api.model
     def create(self, values):
@@ -99,15 +96,10 @@ class SaleOrder_msi(models.Model):
 
         return line
 
-
-
     @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
     def _onchange_discount(self):
         self.discount = 0.0
-        if not (self.product_id and self.product_uom and
-                self.order_id.partner_id and self.order_id.pricelist_id and
-                self.order_id.pricelist_id.discount_policy == 'without_discount' and
-                self.env.user.has_group('sale.group_discount_per_so_line')):
+        if not (self.product_id and self.product_uom and self.order_id.partner_id and self.order_id.pricelist_id and self.order_id.pricelist_id.discount_policy == 'without_discount' and self.env.user.has_group('sale.group_discount_per_so_line')):
             return
 
         product = self.product_id.with_context(

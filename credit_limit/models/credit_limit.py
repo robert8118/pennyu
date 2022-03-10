@@ -54,6 +54,7 @@ class CreditLimit(models.Model):
         compute='_is_global',
         help='Apply for all customer',
         store=True)
+    payment_term_id = fields.Many2one('account.payment.term', 'Payment Terms')
 
     @api.constrains('partner_ids')
     def _check_double_limit(self):
