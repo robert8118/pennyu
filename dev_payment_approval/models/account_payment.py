@@ -94,5 +94,6 @@ class AccountPayment(models.Model):
                             ('cancelled', 'Cancelled')], 
                             readonly=True, default='draft', 
                             copy=False, string="Status")
+    payment_difference_handling = fields.Selection([('open', 'Keep open')], default='open', string="Payment Difference", copy=False)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
