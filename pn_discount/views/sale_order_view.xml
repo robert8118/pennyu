@@ -78,8 +78,11 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"></field>
         <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='discount']" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </xpath>
         	<xpath expr="//tree/field[@name='discount']" position="after">
-        		<field name="display_discount" readonly="1"/>
+        		<field name="display_discount" readonly="1" force_save="1"/>
             	<button name="action_list_discount" string="List of Discount" type="object" options='{"warn": true}' icon="fa-pencil"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/group/group[1]/field[@name='price_unit']" position="after">
