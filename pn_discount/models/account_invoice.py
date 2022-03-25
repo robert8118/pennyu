@@ -31,3 +31,5 @@ class AccountInvoiceLine(models.Model):
 
     display_discount = fields.Float(string='Discount', compute='_compute_net_price',
         digits=dp.get_precision('Discount'), default=0.0, store=True, readonly=True)
+
+# trigger update
