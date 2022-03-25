@@ -75,7 +75,7 @@ class tbl_msi_driver(models.Model):
 
 
 
-class stock_internal_transfer(models.Model):
+class stock_internal_transfer_line(models.Model):
 	_name = 'stock.internal.transfer.line'
 	_inherit = 'mail.thread'
 
@@ -83,9 +83,9 @@ class stock_internal_transfer(models.Model):
 	def product_id_change(self):
 
 		result = {}
-		if not self.product_id: {
-			'product_uom_id': False,
-		}
+		# if not self.product_id: {
+		# 	'product_uom_id': False,
+		# }
 		product = self.env['product.product'].browse(self.product_id.id)
 
 		product_uom_id = product.uom_id and product.uom_id.id or False

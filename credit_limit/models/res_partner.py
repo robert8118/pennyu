@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 from pytz import timezone
 
@@ -24,7 +24,7 @@ class ResPartner(models.Model):
             sale_noinvoice = 0
             domain = [
                 ('order_id.partner_id', 'child_of', rec.id),
-                ('order_id.state', 'in', ['sale','done']),
+                ('order_id.state', 'in', ['sale']),
                 ('amt_noinvoice', '>', 0),
             ]
             order_line_ids = self.env['sale.order.line'].search(domain)
@@ -49,14 +49,41 @@ class ResPartner(models.Model):
         for partner_id in partner_ids:
             message = ''
             types = partner_id.limit_ids.mapped('type')
-            limit_ids = partner_id.limit_ids + self.env['credit.limit'].search([('is_global', '=', True), ('type', 'not in', types)])
+            global_limit_amount_id = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'amount')
+            ], order='amount asc', limit=1)
+            global_limit_count_id = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'count')
+            ], order='count asc', limit=1)
+            global_limit_overdue_ids = self.env['credit.limit'].search([
+                ('is_global', '=', True),
+                ('type', '=', 'overdue')
+            ])
+            limit_ids = partner_id.limit_ids + global_limit_amount_id + global_limit_count_id + global_limit_overdue_ids
             for limit_id in limit_ids:
                 if limit_id.type == 'overdue' and partner_id.total_due:
-                    message += '\n - %s (overdue: %s)' % (
-                    limit_id.display_name, '{:,.2f}'.format(partner_id.total_due))
+                    total_due = 0
+                    if not limit_id.payment_term_id :
+                        total_due = partner_id.total_due
+                    else :
+                        pterm = limit_id.payment_term_id
+                        today = fields.Date.context_today(self)
+                        pterm_list = pterm.with_context(currency_id=self.env.user.company_id.currency_id.id).compute(value=1, date_ref=today)[0]
+                        date_due = max(line[0] for line in pterm_list)
+                        today = datetime.strptime(today, '%Y-%m-%d')
+                        date_due = datetime.strptime(date_due, '%Y-%m-%d')
+                        time_diff = date_due - today
+                        date_due_final = today - timedelta(days=time_diff.days)
+                        date_due_final = date_due_final.strftime('%Y-%m-%d')
+                        domain = partner_id.get_followup_lines_domain(date_due_final)
+                        for aml in self.env['account.move.line'].search(domain):
+                            total_due += aml.amount_residual
+                    if total_due > 0 :
+                        message += '\n - %s (overdue: %s)' % (limit_id.display_name, '{:,.2f}'.format(total_due))
                 elif limit_id.type == 'count' and partner_id.invoice_count >= limit_id.count:
-                    message += '\n - %s (invoice count: %s. limit: %s)' % (
-                    limit_id.display_name, partner_id.invoice_count, limit_id.count)
+                    message += '\n - %s (invoice count: %s. limit: %s)' % (limit_id.display_name, partner_id.invoice_count, limit_id.count)
                 elif limit_id.type == 'amount':
                     limit_amount = limit_id.currency_id.compute(limit_id.amount, self.env.user.company_id.currency_id)
                     current_amount = order_id.pricelist_id.currency_id.compute(order_id.amount_total, self.env.user.company_id.currency_id)
