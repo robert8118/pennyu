@@ -55,12 +55,13 @@ class SaleOrderLine(models.Model):
     def _compute_net_price(self):
         """function for compute net_price in order line"""
         for line in self:
-            percent_discount = line.compute_discount_ids(line.sale_discount_ids)
-            tot_disc = (percent_discount/100)*line.price_unit
-            line.update({
-                'display_discount': tot_disc,
-                'net_price': line.price_unit - tot_disc,
-            })
+            if line.sale_discount_ids :
+                percent_discount = line.compute_discount_ids(line.sale_discount_ids)
+                tot_disc = (percent_discount/100)*line.price_unit
+                line.update({
+                    'display_discount': tot_disc,
+                    'net_price': line.price_unit - tot_disc,
+                })
 
 
     display_discount = fields.Float(string='Discount', compute='_compute_net_price',
@@ -97,8 +98,6 @@ class SaleOrderLine(models.Model):
             if this.sale_discount_ids:
                 percent_discount = this.compute_discount_ids(this.sale_discount_ids)
                 this.discount = percent_discount
-            else:
-                this.discount = 0.0
         return True
 
     @api.multi
@@ -129,3 +128,19 @@ class SaleOrderLine(models.Model):
                     line._compute_net_price()
                     line.button_discount()
         return True
+
+    @api.model
+    def create(self, values):
+        discount = values.get('discount')
+        res = super(SaleOrderLine, self).create(values)
+        # setelah res discount jadi hilang
+        if not values.get('discount') and not res.sale_discount_ids and discount :
+            res.discount = discount
+        return res
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    @api.model
+    def create(self, values):
+        return super(SaleOrder, self).create(values)
