@@ -19,7 +19,14 @@ class AgedPayableColumn(models.AbstractModel):
         lines2 = lines[:]
 
         def build_dict(seq, key):
-            return dict((d[key], dict(d, index=index)) for (index, d) in enumerate(seq))
+            # replace 'id': False dengan minus agar bisa di sort dengan enumerate
+            x = -1
+            seq_final = seq[:]
+            for l in seq_final:
+                if not l.get('id'):
+                    l['id'] = x
+                    x += -1
+            return dict((d[key], dict(d, index=index)) for (index, d) in enumerate(seq_final))
 
         info_by_id = build_dict(lines, key="id")
 
