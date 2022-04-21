@@ -28,9 +28,9 @@ class StockPicking(models.Model):
 
             if return_status:
                 sp_origin_name = sp_id.origin.replace('Return of', '').strip()
-                sp_origin = self.env['stock.picking'].search([('name', '=', sp_origin_name)])
+                sp_origin = self.env['stock.picking'].search([('name', '=', sp_origin_name)], limit=1)
                 ai = self.env['account.invoice'].search(
-                    [('origin', '=', f'{sp_origin.group_id.name}: {sp_origin_name}')])
+                    [('origin', '=', f'{sp_origin.group_id.name}: {sp_origin_name}')], limit=1)
                 if ai.state == 'draft':
                     pick_from = 'purchase' if purchase_status else 'sale'
                     sp_id.decrease_qty_invoice(ai, pick_from)
@@ -42,18 +42,18 @@ class StockPicking(models.Model):
                 })
 
             if purchase_status:
-                po = self.env['purchase.order'].search([('name', '=', sp_id.group_id.name)])
+                po = self.env['purchase.order'].search([('name', '=', sp_id.group_id.name)], limit=1)
                 origin = f'{po.name}: {sp_id.name}' if not return_status else ai.number
                 payment_term_id = po.payment_term_id.id
                 company_id = po.company_id.id
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'purchase'),
-                     ('company_id', '=', company_id)])
+                     ('company_id', '=', company_id)], limit=1)
                 journal_id = journal_id[:1].id
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'payable'),
                      ('company_id', '=', company_id),
-                     ('deprecated', '=', False)])
+                     ('deprecated', '=', False)], limit=1)
                 account_id = account_id[:1].id
                 inv_type = 'in_invoice' if not return_status else 'in_refund'
                 user_id = self._uid
@@ -61,18 +61,18 @@ class StockPicking(models.Model):
                     'reference': po.partner_ref
                 })
             elif sale_status:
-                so = self.env['sale.order'].search([('name', '=', sp_id.group_id.name)])
+                so = self.env['sale.order'].search([('name', '=', sp_id.group_id.name)], limit=1)
                 origin = f'{so.name}: {sp_id.name}' if not return_status else ai.number
                 payment_term_id = so.payment_term_id.id
                 company_id = so.company_id.id
                 journal_id = self.env['account.journal'].search(
                     [('type', '=', 'sale'),
-                     ('company_id', '=', company_id)])
+                     ('company_id', '=', company_id)], limit=1)
                 journal_id = journal_id[:1].id
                 account_id = self.env['account.account'].search(
                     [('internal_type', '=', 'receivable'),
                      ('company_id', '=', company_id),
-                     ('deprecated', '=', False)])
+                     ('deprecated', '=', False)], limit=1)
                 account_id = account_id[:1].id
                 inv_type = 'out_invoice' if not return_status else 'out_refund'
                 user_id = so.user_id.id
@@ -106,7 +106,7 @@ class StockPicking(models.Model):
                     if purchase_status:
                         product_name = '%s: %s' % (po.name, move.product_id.display_name)
                         account_id = self.env['account.account'].search(
-                            [('code', '=', '202100'), ('company_id', '=', company_id)]).id
+                            [('code', '=', '202100'), ('company_id', '=', company_id)], limit=1).id
                         price_unit = move.purchase_line_id.price_unit / move.product_uom.factor * move.purchase_line_id.product_uom.factor
                         tax_ids = [(6, 0, move.purchase_line_id.taxes_id.mapped('id'))]
                         analytic_account_id = move.purchase_line_id.account_analytic_id.id
@@ -118,7 +118,7 @@ class StockPicking(models.Model):
                     elif sale_status:
                         product_name = '%s: %s' % (so.name, move.product_id.display_name)
                         account_id = self.env['account.account'].search(
-                            [('code', '=', '400100'), ('company_id', '=', company_id)]).id
+                            [('code', '=', '400100'), ('company_id', '=', company_id)], limit=1).id
                         price_unit = move.sale_line_id.price_unit / move.product_uom.factor * move.sale_line_id.product_uom.factor
 
                         tax_ids = [(6, 0, move.sale_line_id.tax_id.mapped('id'))]
