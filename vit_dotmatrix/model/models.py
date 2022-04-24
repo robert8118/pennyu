@@ -18,7 +18,8 @@ class invoice(models.Model):
 
     @api.multi
     def action_invoice_cancel(self):
-        self.printer_data=''
+        for rec in self :
+            rec.printer_data=''
         return super(invoice, self).action_cancel()
 
 #     @api.multi
@@ -71,7 +72,8 @@ class picking(models.Model):
     @api.multi
     def action_cancel(self):
         res = super(picking, self).action_cancel()
-        self.printer_data=''
+        for rec in self:
+            rec.printer_data = ''
         return res
 
 class sale(models.Model):
@@ -95,6 +97,7 @@ class sale(models.Model):
     @api.multi
     def action_cancel(self):
         res = super(sale, self).action_cancel()
-        self.printer_data=''
+        for rec in self:
+            rec.printer_data = ''
         return res
 
