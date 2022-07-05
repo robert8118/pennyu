@@ -10,6 +10,7 @@ class AccountPayment(models.Model):
         ('tempo', 'Tempo'),
     ], string='Invoice Category')
 
+    @api.multi
     def _get_move_vals(self, journal=None):
         """ Return dict to create the payment move
         """
