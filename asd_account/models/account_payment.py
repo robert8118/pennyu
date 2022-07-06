@@ -10,12 +10,12 @@ class AccountPayment(models.Model):
         ('tempo', 'Tempo'),
     ], string='Invoice Category')
 
-    @api.multi
-    def _get_move_vals(self, journal=None):
-        """ Return dict to create the payment move
-        """
-        res = super(AccountPayment, self)._get_move_vals()
-        res.update({
-                'inv_categ': self.inv_categ,
-            })
-        return res
+    # @api.multi
+    # def _get_move_vals(self, journal=None):
+    #     """ Return dict to create the payment move
+    #     """
+    #     res = super(AccountPayment, self)._get_move_vals()
+    #     res.update({
+    #             'inv_categ': self.inv_categ,
+    #         })
+    #     return res
