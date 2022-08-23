@@ -1,5 +1,4 @@
 from odoo import api, fields, models, tools, _
-from frozendict import frozendict
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
