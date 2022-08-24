@@ -70,7 +70,7 @@ class ProductPricelist(models.Model):
             'FROM product_pricelist_item AS item '
             'LEFT JOIN product_category AS categ '
             'ON item.categ_id = categ.id '
-            'JOIN product_category_product_pricelist_item_rel AS categs '
+            'LEFT JOIN product_category_product_pricelist_item_rel AS categs '
             'ON categs.product_pricelist_item_id = item.id '
             'WHERE (item.product_tmpl_id IS NULL OR item.product_tmpl_id = any(%s))'
             'AND (item.product_id IS NULL OR item.product_id = any(%s))'
