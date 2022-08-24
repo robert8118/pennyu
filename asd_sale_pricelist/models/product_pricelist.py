@@ -133,19 +133,10 @@ class ProductPricelist(models.Model):
                     if not cat:
                         continue
                 
-                # Add categs_ids Condition; Add sum of price multi cat ppi for price reference
+                # Add categs_ids Condition
                 if rule.applied_on == '4_product_categories' and rule.categs_ids:
                     if product.categ_id.id not in rule.categs_ids.ids:
                         continue
-                    product_ids = self.env['product.product'].search([('categ_id', 'in', rule.categs_ids.ids)])
-                    # Skip sale_order_id because price_sum_multi_cat_ppi cannot be calculated if there is no sale_order_id
-                    sale_order_id = self._context.get('sale_order_id', False)
-                    if not sale_order_id:
-                        continue
-                    sale_order_line_id = self.env['sale.order.line'].search([('order_id', '=', sale_order_id), ('product_id', 'in', product_ids.ids)])
-                    price_unit_multi_cat_ppi = sale_order_line_id.mapped('price_unit')
-                    qty_multi_cat_ppi = sale_order_line_id.mapped('product_uom_qty')
-                    price_sum_multi_cat_ppi = sum([price_unit_multi_cat_ppi[i] * qty_multi_cat_ppi[i] for i in range(len(price_unit_multi_cat_ppi))])
 
                 if rule.base == 'pricelist' and rule.base_pricelist_id:
                     price_tmp = rule.base_pricelist_id._compute_price_rule([(product, qty, partner)], date, uom_id)[product.id][0]  # TDE: 0 = price, 1 = rule
@@ -155,14 +146,25 @@ class ProductPricelist(models.Model):
                     # price_compute returns the price in the context UoM, i.e. qty_uom_id
                     price = product.price_compute(rule.base)[product.id]
 
+                # Add sum of price multi cat ppi for price reference
+                product_ids = self.env['product.product'].search([('categ_id', 'in', rule.categs_ids.ids)])
+                # Skip sale_order_id because price_total_multi_cat cannot be calculated if there is no sale_order_id
+                sale_order_id = self._context.get('sale_order_id', False)
+                if not sale_order_id:
+                    continue
+                sale_order_line_id = self.env['sale.order.line'].search([('order_id', '=', sale_order_id), ('product_id', 'in', product_ids.ids)])
+                price_multi_cat = sale_order_line_id.mapped('price_unit')
+                qty_multi_cat = sale_order_line_id.mapped('product_uom_qty')
+                price_total_multi_cat = sum([price_multi_cat[i] * qty_multi_cat[i] for i in range(len(price_multi_cat))])
+
                 # Add min_amount Condition
                 if rule.min_amount > 0.0:
                     price_total_temp = price * qty_in_product_uom
                     if rule.min_amount > price_total_temp:
-                        if not price_sum_multi_cat_ppi:
+                        if not price_total_multi_cat:
                             continue
                         else:
-                            if rule.min_amount > price_sum_multi_cat_ppi:
+                            if rule.min_amount > price_total_multi_cat:
                                 continue
 
                 convert_to_price_uom = (lambda price: product.uom_id._compute_price(price, price_uom))
