@@ -9,8 +9,8 @@ class SaleOrder(models.Model):
         self._upd_multi_cat_pricelist()
         return res
 
-    def recompute_pricelist(self):
-        self._upd_multi_cat_pricelist()
+    # def recompute_pricelist(self):
+    #     self._upd_multi_cat_pricelist()
     
     # Method to recompute multi cat Pricelist
     def _upd_multi_cat_pricelist(self):
