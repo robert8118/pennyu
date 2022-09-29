@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 {
     'name': "PENNYU Account",
     'summary': """
@@ -7,8 +7,10 @@
     'website': "http://www.arkana.co.id",
     'category': 'Account',
     'version': '0.1',
-    'depends': ['account','payment'],
+    'depends': ['account','payment','efaktur'],
     'data': [
+        'data/data.xml',
+        'data/ir_cron.xml',
         # 'views/account_move_views.xml',
         'views/account_payment_views.xml',
     ],
