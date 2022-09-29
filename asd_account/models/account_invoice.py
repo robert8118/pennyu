@@ -1,12 +1,11 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-# from datetime import date
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     @api.multi
-    def _recompute_invoice_tax(self,limit=1):
+    def _recompute_invoice_tax(self, start_date, end_date, limit=1):
         # if using server action
         invoice_id = self
         # if using cron
@@ -25,9 +24,11 @@ class AccountInvoice(models.Model):
                     ai.company_id = 5
                     AND ai."move_name" like 'INV/2022/%'
                     AND ai.state in ('open', 'paid')
-                    AND ai."date" BETWEEN '2022-01-01' AND '2022-03-31'
                     AND ailt.tax_id = 7
                     AND ai.amount_total != 0
+            """
+            query += " AND ai.\"date\" BETWEEN '" + start_date + "' AND '" + end_date + "' "
+            query += """
                 GROUP BY
                     ai.id
                 ORDER BY
