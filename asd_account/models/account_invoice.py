@@ -42,7 +42,14 @@ class AccountInvoice(models.Model):
         for rec in invoice_id:
             # Check date; Check Customer Invoice Tax
             aml_temp = []
+            paml_temp = []
             tax_temp = []
+            # Unrecon payment that recon with other account_invoice
+            for line in rec.payment_move_line_ids:
+                if line.journal_id.id == 50:
+                    # raise UserError(_(f'This Customer Invoice ({rec.move_id.name}) reconciles with other Customer Invoice ({line.move_id.name}).'))
+                    paml_temp.append(line.filtered(lambda p: p.reconciled).id)
+                    line.with_context(dict(invoice_id=rec.id)).remove_move_reconcile()
             # Unrecon all payment in this record
             for payment in rec.payment_ids.sorted(lambda p: p.ids):
                 aml_temp.append(payment.move_line_ids.filtered(lambda p: p.reconciled).id)
@@ -69,6 +76,9 @@ class AccountInvoice(models.Model):
             # Reconcile account_invoice
             for aml in aml_temp:
                 rec.assign_outstanding_credit(aml)
+            if paml_temp:
+                for paml in paml_temp:
+                    rec.assign_outstanding_credit(paml)
 
     # Replace this method from efaktur module
     @api.one
