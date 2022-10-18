@@ -1,20 +1,26 @@
 from odoo import api, fields, models
 
 
-class AgedPayableColumn(models.AbstractModel):
+class ReportAccountAgedPartner(models.AbstractModel):
     _inherit = 'account.aged.partner'
 
     def get_columns_name(self, options):
         due_date_cols = {'name': 'Due Date', 'class': 'text', 'style': 'white-space:nowrap;'}
+        inv_date_cols = {'name': 'Inv. Date', 'class': 'date', 'style': 'white-space:nowrap;'}
+        source_cols = {'name': 'Source Document', 'class': 'text', 'style': 'white-space:nowrap;text-align:center;'}
+        salesperson_cols = {'name': 'Salesperson', 'class': 'text', 'style': 'white-space:nowrap;text-align:center;'}
 
-        columns = super(AgedPayableColumn, self).get_columns_name(options)
+        columns = super(ReportAccountAgedPartner, self).get_columns_name(options)
         columns2 = columns[:]
-        columns2.insert(1, due_date_cols)
+        columns2.insert(1, inv_date_cols)
+        columns2.insert(2, source_cols)
+        columns2.insert(3, salesperson_cols)
+        columns2.insert(4, due_date_cols)
         return columns2
 
     @api.model
     def get_lines(self, options, line_id=None):
-        lines = super(AgedPayableColumn, self).get_lines(options, line_id)
+        lines = super(ReportAccountAgedPartner, self).get_lines(options, line_id)
 
         lines2 = lines[:]
 
@@ -36,11 +42,19 @@ class AgedPayableColumn(models.AbstractModel):
                 sml = self.env['account.move.line'].browse(line['id'])
                 lines2[idx]['due_date'] = sml.date_maturity
                 old_cols = lines[idx]['columns']
-                lines2[idx]['columns'] = [{'name': sml.date_maturity}]
+                # Add some columns data (Invoice Date and Source Document) if sml.invoice_id == True 
+                if sml.invoice_id:
+                    lines2[idx]['columns'] = [{'name': sml.invoice_id.date_invoice}, {'name': sml.invoice_id.origin}, {'name': sml.invoice_id.user_id.name}]
+                # Add an empty column with the amount according to the empty data column
+                else:
+                    lines2[idx]['columns'] = [{'name': ''}, {'name': ''}, {'name': ''}]
+                # Add Due Date column data
+                lines2[idx]['columns'].extend([{'name': sml.date_maturity}])
                 lines2[idx]['columns'].extend(old_cols)
             else:
                 old_cols = lines[idx]['columns']
-                lines2[idx]['columns'] = [{'name': ''}]
+                # Add an empty column with the amount according to the empty data column
+                lines2[idx]['columns'] = [{'name': ''}, {'name': ''}, {'name': ''}, {'name': ''}]
                 lines2[idx]['columns'].extend(old_cols)
 
         def sort_by_due_date(i):
@@ -60,6 +74,7 @@ class AgedPayableColumn(models.AbstractModel):
             lines2[i[0]:i[1]] = sorted_list
 
         return lines2
+
 
 # class AgedPayable(models.AbstractModel):
 #     _inherit = 'report.account.report_agedpartnerbalance'
