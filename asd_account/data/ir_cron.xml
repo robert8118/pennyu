@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <data>
+    <data noupdate="1">
 
 		<record id="recompute_invoice_tax_cron" model="ir.cron">
 			<field name="name">Recompute Customer Invoice Tax (10%)</field>
@@ -13,10 +13,10 @@
 			<field name="state">code</field>
 			<field name="doall">False</field>
 			<field name="model_id" eval="ref('model_account_invoice')" />
-			<field name="code">model._recompute_invoice_tax(start_date='2022-01-01', end_date='2022-01-31', limit=1)</field>
+			<field name="code">model.cron_correction_invoice_tax()</field>
 		</record>
-    
+
     </data>
-    
+
 
 </odoo>
