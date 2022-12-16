@@ -20,8 +20,9 @@ class StockPicking(models.Model):
                     return ['qty_stock_zero', product.name, product.qty_available]
                 if product.qty_available or product.stock_quant_ids:
                     if product.stock_quant_ids:
-                        # Cari qty dengan product terkait dan company_id terkait
-                        qtys = self.env['stock.quant'].search([('product_id', '=', product.id), ('company_id', '=', company_id)]).mapped('quantity')
+                        location_ids = self.env['stock.location'].search([('company_id', '=', company_id), ('active', '=', True), ('usage', '=', 'internal')])
+                        # Cari qty dengan produk dan lokasi
+                        qtys = self.env['stock.quant'].search([('product_id', '=', product.id), ('location_id', 'in', location_ids.ids)]).mapped('quantity')
                     # Jika tidak ada stok pada company_id terkait
                     if not qtys:
                         return ['qty_in_diff_company', product.name]

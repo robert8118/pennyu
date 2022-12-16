@@ -31,44 +31,45 @@ odoo.define('asd_pos_no_negative_stock.screens', function (require) {
                         } else {
                             const title_pos = _t('Point of Sale Info');
                             const title_stock = _t('Stock Info');
+                            const insufficient = `Insufficient stock for product ${resultStock[1]}.`;
                             let body;
                             if (resultStock[0] === 'duplicate_product') {
-                                body = _t(`Duplicate product ${resultStock[1]}. Please delete all product ${resultStock[1]} and then re-input the product.`);
+                                body = _t('Duplicate product ' + resultStock[1] +'. Please delete all product ' + resultStock[1] + ' and then re-input the product.');
                                 self.gui.show_popup('error',{
                                     'title': title_pos,
                                     'body': body,
                                 });
                             }
                             else if (resultStock[0] === 'qty_pos_zero') {
-                                body = _t(`Product ${resultStock[1]} has no quantity. Please input the quantity.`);
+                                body = _t(`Product ${resultStock[1]}` + ' has no quantity. Please input the quantity.');
                                 self.gui.show_popup('error',{
                                     'title': title_pos,
                                     'body': body,
                                 });
                             }
                             else if (resultStock[0] === 'qty_stock_zero') {
-                                body = _t(`Insufficient stock for product ${resultStock[1]}. Product stock is zero.`);
+                                body = _t(insufficient + ' Product stock is zero.');
                                 self.gui.show_popup('error',{
                                     'title': title_stock,
                                     'body': body,
                                 });
                             }
                             else if (resultStock[0] === 'qty_in_diff_company') {
-                                body = _t(`Insufficient stock for product ${resultStock[1]}. Product stock in this company is zero. Please do an internal transfer to this company if you want to continue the transaction.`);
+                                body = _t(insufficient + ' Product stock in this company is zero. Please do an internal transfer to this company if you want to continue the transaction.');
                                 self.gui.show_popup('error',{
                                     'title': title_stock,
                                     'body': body,
                                 });
                             }
                             else if (resultStock[0] === 'qty_stock_negative') {
-                                body = _t(`Insufficient stock for product ${resultStock[1]}. Product stock in this company is ${resultStock[2]}. Please do an internal transfer to this company if you want to continue the transaction.`);
+                                body = _t(insufficient + ' Product stock in this company is ' + resultStock[2] + '. Please do an internal transfer to this company if you want to continue the transaction.');
                                 self.gui.show_popup('error',{
                                     'title': title_stock,
                                     'body': body,
                                 });
                             }
                             else if (resultStock[0] === 'negative_sum') {
-                                body = _t(`Insufficient stock for product ${resultStock[1]}. The required quantity is (${resultStock[2]}) but the product stock in this company is (${resultStock[3]}).`);
+                                body = _t(insufficient + ' The required quantity is ' + resultStock[2] + ', but the product stock in this company is ' + resultStock[3] + '.');
                                 self.gui.show_popup('error',{
                                     'title': title_stock,
                                     'body': body,
