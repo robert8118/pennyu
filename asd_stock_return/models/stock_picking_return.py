@@ -42,7 +42,7 @@ class StockReturnPicking(models.TransientModel):
                 else:
                     quantity = move.product_qty - quantity_r
 
-                product_return_moves.append((0, 0, {'product_id': move.product_id.id, 'quantity': quantity, 'quantity_done': quantity, 'quantity_new': quantity, 'move_id': move.id, 'uom_id': move.product_id.uom_id.id}))
+                product_return_moves.append((0, 0, {'product_id': move.product_id.id, 'quantity': quantity, 'quantity_done': quantity, 'quantity_new': quantity, 'move_id': move.id, 'uom_id': move.product_id.uom_id.id, 'to_refund': True}))
 
             if not product_return_moves:
                 raise UserError(_("No products to return (only lines in Done state and not fully returned yet can be returned)!"))
