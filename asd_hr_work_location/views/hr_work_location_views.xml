@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+        <!-- Tree View (START) -->
+        <record id="view_hr_work_location_tree" model="ir.ui.view">
+            <field name="name">hr.work.location.tree</field>
+            <field name="model">hr.work.location</field>
+            <field name="arch" type="xml">
+                <tree string="Work Location">
+                    <field name="name"/>
+                    <field name="company_code"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Tree View (END) -->
+
+        <!-- Form View (START) -->
+        <record id="view_hr_work_location_form" model="ir.ui.view">
+            <field name="name">hr.work.location.form</field>
+            <field name="model">hr.work.location</field>
+            <field name="arch" type="xml">
+                <form string="Work Location">
+                    <sheet>
+                        <group>
+                            <field name="name" placeholder="e.g. Temanggung"/>
+                            <field name="company_code" placeholder="e.g. NPR"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Form View (END) -->
+
+        <!-- Filter View (START) -->
+        <record id="view_work_location_filter" model="ir.ui.view">
+            <field name="name">hr.work.location.search</field>
+            <field name="model">hr.work.location</field>
+            <field name="arch" type="xml">
+                <search string="Work Locations">
+                    <group expand="0" string="Group By">
+                        <filter string="Name" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Company Code" domain="[]" context="{'group_by':'company_code'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- Filter View (END) -->
+
+        <!-- Action (START) -->
+        <record id="action_hr_work_location" model="ir.actions.act_window">
+            <field name="name">Work Locations</field>
+            <field name="res_model">hr.work.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_work_location_filter"/>
+            <field name="context">{"search_default_Current":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to define a new work location.
+                </p>
+            </field>
+        </record>
+        <!-- Action (END) -->
+
+        <!-- Menu Item (START) -->
+        <menuitem id="menu_view_hr_work_location" action="action_hr_work_location" parent="hr.menu_human_resources_configuration" sequence="1"/>
+        <!-- Menu Item (END) -->
+    </data>
+</odoo>
