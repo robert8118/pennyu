@@ -25,8 +25,8 @@
     </record>
 
     <record model="ir.ui.view" id="hr_expense_sheet_form_view_inherit_sale_expense">
-      <field name="name">sale.expense.form</field>
-      <field name="model">sale.expense</field>
+      <field name="name">hr.expense.sheet.form.inherit.sale.expense</field>
+      <field name="model">hr.expense.sheet</field>
       <field name="inherit_id" ref="sale_expense.hr_expense_sheet_form_view_inherit_sale_expense"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='sale_order_id']" position="attributes">
