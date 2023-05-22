@@ -11,7 +11,7 @@
     'version': '0.1',
     'depends': [
         # odoo addons
-        'hr_expense'
+        'sale_expense'
 
         # third party addons
         # developed addons
