@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+    <!-- Tree View (START) -->
+    <record id="view_store_grade_tree" model="ir.ui.view">
+      <field name="name">store.grade.tree</field>
+      <field name="model">store.grade</field>
+      <field name="arch" type="xml">
+        <tree string="Store Grade">
+          <field name="name"/>
+          <field name="code"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Tree View (END) -->
+
+    <!-- Form View (START) -->
+    <record id="view_store_grade_form" model="ir.ui.view">
+      <field name="name">store.grade.form</field>
+      <field name="model">store.grade</field>
+      <field name="arch" type="xml">
+        <form string="Store Grade">
+          <sheet>
+            <group>
+              <field name="name" placeholder="e.g. R1"/>
+              <field name="code" placeholder="e.g. R1"/>
+            </group>
+            <group>
+              <field name="company_ids" widget="many2many_tags"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- Form View (END) -->
+
+    <!-- Filter View (START) -->
+    <record id="view_store_grade_filter" model="ir.ui.view">
+      <field name="name">store.grade.search</field>
+      <field name="model">store.grade</field>
+      <field name="arch" type="xml">
+        <search string="Store Grade">
+          <group expand="0" string="Group By">
+            <filter string="Name" domain="[]" context="{'group_by':'name'}"/>
+            <filter string="Grade Code" domain="[]" context="{'group_by':'code'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    <!-- Filter View (END) -->
+
+    <!-- Action (START) -->
+    <record id="action_store_grade" model="ir.actions.act_window">
+        <field name="name">Store Grade</field>
+        <field name="res_model">store.grade</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_store_grade_filter"/>
+        <field name="context">{"search_default_Current":1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to define a new store grade.
+            </p>
+        </field>
+    </record>
+    <!-- Action (END) -->
+
+    <!-- Menu Item (START) -->
+    <menuitem id="menu_view_store_grade" action="action_store_grade" parent="contacts.res_partner_menu_config" sequence="7"/>
+    <!-- Menu Item (END) -->
+  </data>
+</odoo>

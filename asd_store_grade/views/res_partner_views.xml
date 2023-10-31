@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- Tree View (START) -->
+    <!-- <record model="ir.ui.view" id="view_partner_tree">
+      <field name="name">res.partner.tree</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='user_id']" position="after">
+          <field name="store_grade_id"/>
+        </xpath>
+      </field>
+    </record> -->
+    <!-- Tree View (END) -->
+
+    <!-- Form View (START) -->
+    <record model="ir.ui.view" id="view_partner_form">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='lang']" position="after">
+          <field name="store_grade_id" options="{'no_create': True, 'no_create_edit':True}" attrs="{'required': [('parent_id', '=', False), ('company_type', '=', 'company')], 'invisible': [('parent_id', '!=', False), ('company_type', '!=', 'company')]}"/>
+        </xpath>
+      </field>
+    </record>
+    <!-- Form View (END) -->
+  </data>
+</odoo>
