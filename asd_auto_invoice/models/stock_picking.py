@@ -16,8 +16,8 @@ class StockPicking(models.Model):
             data = {}
             sale_group_id = sp_id.group_id.sale_id
             
-            # outgoing_return is for gr_return and return_of_do_return
-            # incoming_return is for do_return and return_of_gr_return
+            # outgoing_return: gr_return, return_of_do_return
+            # incoming_return: do_return, return_of_gr_return
             outgoing_return = sp_id.picking_type_id.code == 'outgoing' and return_status
             incoming_return = sp_id.picking_type_id.code == 'incoming' and return_status
             
@@ -41,13 +41,17 @@ class StockPicking(models.Model):
                 data.update({
                     'name': sp_id.origin
                 })
+                if outgoing_return:
+                    return_type = 'outgoing'
+                elif incoming_return:
+                    return_type = 'incoming'
 
             invoice_id = ai if return_status else False
             if purchase_status:
                 status_type = 'purchase'
             elif sale_status:
                 status_type = 'sale'
-            invoice_data = self._prepare_data_account_invoice(status_type=status_type, return_status=return_status, picking_id=sp_id, invoice_id=invoice_id, data=data)
+            invoice_data = self._prepare_data_account_invoice(status_type=status_type, picking_id=sp_id, invoice_id=invoice_id, return_type=return_type, data=data)
             data = invoice_data
             order_id = data.get('order_id')
             data.update({
@@ -69,17 +73,23 @@ class StockPicking(models.Model):
         else:
             return False
         
-    def _prepare_data_account_invoice(self, status_type, return_status, picking_id, invoice_id, data={}):
+    def _prepare_data_account_invoice(self, status_type, picking_id, invoice_id, return_type=False, data={}):
         journal_obj = self.env['account.journal']
         account_obj = self.env['account.account']
         sale_group_id = picking_id.group_id.sale_id
 
         if status_type == 'purchase':
-            invoice_type = 'in_invoice' if not return_status else 'in_refund'
+            if not return_type or return_type == 'incoming':
+                invoice_type = 'in_invoice'
+            elif return_type == 'outgoing':
+                invoice_type = 'in_refund'
             order_obj = self.env['purchase.order']
             internal_type = 'payable'
         elif status_type == 'sale':
-            invoice_type = 'out_invoice' if not return_status else 'out_refund'
+            if not return_type or return_type == 'outgoing':
+                invoice_type = 'out_invoice'
+            elif return_type == 'incoming':
+                invoice_type = 'out_refund'
             order_obj = self.env['sale.order']
             internal_type = 'receivable'
         
@@ -92,7 +102,7 @@ class StockPicking(models.Model):
         if not order_id:
             raise ValidationError(_('order_id not found'))
         
-        origin = f'{order_id.name}: {picking_id.name}' if not return_status else invoice_id.number
+        origin = f'{order_id.name}: {picking_id.name}' if not return_type else invoice_id.number
         payment_term_id = order_id.payment_term_id.id
         company_id = order_id.company_id.id
         user_id = order_id.user_id.id if status_type == 'sale' else self._uid
