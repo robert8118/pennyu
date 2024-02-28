@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_picking_form" model="ir.ui.view">
+    <field name="name">inherit.stock.picking.form</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//header" position="inside">
+        <field name="can_see_sale_price" invisible="1"/>
+      </xpath>
+      <xpath expr="//field[@name='move_lines']/tree/field[@name='product_uom']" position="after">
+        <field name="price_unit" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
+        <field name="price_subtotal" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
+        <field name="price_total" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
