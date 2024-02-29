@@ -15,6 +15,7 @@ class StockPicking(models.Model):
         if sp_id.group_id:
             data = {}
             sale_group_id = sp_id.group_id.sale_id
+            return_type = False
             
             # outgoing_return: gr_return, return_of_do_return
             # incoming_return: do_return, return_of_gr_return
@@ -51,7 +52,7 @@ class StockPicking(models.Model):
                 status_type = 'purchase'
             elif sale_status:
                 status_type = 'sale'
-            invoice_data = self._prepare_data_account_invoice(status_type=status_type, picking_id=sp_id, invoice_id=invoice_id, return_type=return_type, data=data)
+            invoice_data = self._prepare_data_account_invoice(status_type=status_type, return_type=return_type, picking_id=sp_id, invoice_id=invoice_id, data=data)
             data = invoice_data
             order_id = data.get('order_id')
             data.update({
@@ -73,7 +74,7 @@ class StockPicking(models.Model):
         else:
             return False
         
-    def _prepare_data_account_invoice(self, status_type, picking_id, invoice_id, return_type=False, data={}):
+    def _prepare_data_account_invoice(self, status_type, return_type, picking_id, invoice_id, data={}):
         journal_obj = self.env['account.journal']
         account_obj = self.env['account.account']
         sale_group_id = picking_id.group_id.sale_id
