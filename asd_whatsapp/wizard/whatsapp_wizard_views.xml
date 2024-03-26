@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="whatsapp_form_wizard" model="ir.ui.view">
+    <field name="name">whatsapp.form.wizard</field>
+    <field name="model">whatsapp.wizard</field>
+    <field name="arch" type="xml">
+      <form name="Send WhatsApp Message">
+        <group>
+          <field name="partner_id" widget="many2one"/>
+        </group>
+        <group>
+          <field name="type" invisible="1"/>
+        </group>
+        <group>
+          <field name="send_message" style='max-width:1150px; width: 500px' readonly="0"/>
+        </group>
+        <div id="instruction">
+          <span>
+            <b>Instructions:</b>
+            <ul>
+              <li>Use %0A for new line</li>
+              <li>Use %09 for a tab</li>
+              <li>Use *text* for bold</li>
+            </ul>
+          </span>
+        </div>
+        <footer>
+          <button string="Send Message" name="send_whatsapp_message" type="object" class="btn-primary"/>
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="whatsapp_wizard" model="ir.actions.act_window">
+    <field name="name">Send Whatsapp Message</field>
+    <field name="res_model">whatsapp.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="whatsapp_form_wizard"/>
+    <field name="target">new</field>
+  </record>
+</odoo> 
