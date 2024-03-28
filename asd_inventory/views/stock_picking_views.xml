@@ -9,7 +9,8 @@
         <field name="can_see_sale_price" invisible="1"/>
       </xpath>
       <xpath expr="//field[@name='move_lines']/tree/field[@name='product_uom']" position="after">
-        <field name="price_unit" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
+        <!-- <field name="price_unit" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/> -->
+        <field name="signed_price_unit" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
         <field name="price_subtotal" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
         <field name="price_total" attrs="{'column_invisible': [('parent.can_see_sale_price','=',False)]}"/>
       </xpath>

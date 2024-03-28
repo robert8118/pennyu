@@ -13,3 +13,12 @@ class StockPicking(models.Model):
             is_share = self.env.user.share
             rec.can_see_sale_price = True if not is_share else False
 
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    signed_price_unit = fields.Float('Unit Price', compute='_signed_price_unit', copy=False)
+
+    @api.depends('price_unit')
+    def _signed_price_unit(self):
+        for rec in self:
+            rec.signed_price_unit = abs(rec.price_unit)
