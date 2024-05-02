@@ -22,7 +22,8 @@ class WhatsAppIntegration(models.TransientModel):
 
 %09Pembayaran anda pada tanggal {payment_date.strftime('%d')}-{payment_date.strftime('%b')}-{payment_date.strftime('%Y')} sejumlah Rp. {payment_id.amount:,} telah kami terima, apabila anda tidak melakukan konfirmasi, maka jumlah pembayaran akan kami anggap sesuai.%0A%0A
 
-Terima kasih."""
+Terima kasih%0A
+{self.env.user.company_id.name}"""
 
         return text
     
