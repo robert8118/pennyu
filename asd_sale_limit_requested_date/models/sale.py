@@ -20,7 +20,7 @@ class SaleOrder(models.Model):
         # Get requested date chatter
         mail_obj = self.env['mail.message']
         mail_domain = [('model', '=', self._name), ('parent_id.res_id', '=', self.id)]
-        mail_id = mail_obj.search(mail_domain).filtered(lambda m: any(m.tracking_value_ids) and 'requested_date' in m.mapped('tracking_value_ids.field'))
+        mail_id = mail_obj.sudo().search(mail_domain).filtered(lambda m: any(m.tracking_value_ids) and 'requested_date' in m.mapped('tracking_value_ids.field'))
 
         # Limit requested date based on configuration
         company_id = self.company_id or self.env.user.company_id
