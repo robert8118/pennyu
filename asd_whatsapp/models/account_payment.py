@@ -11,7 +11,9 @@ class AccountPayment(models.Model):
         result = False
         rgur_table = 'res_groups_users_rel'
         group_table = 'res_groups'
-        query = ""
+        query = "SELECT 1 "
+        from_query = ""
+        where_query = ""
         params = {'uid': self._uid}
 
         if not groups:
@@ -25,14 +27,12 @@ class AccountPayment(models.Model):
         params.update({'gid': filter_group_id})
 
         if not any(groups_name):
-            query = f"""
-                SELECT
-                    1
-                FROM
-                    {rgur_table}
+            from_query = f" FROM {rgur_table} "
+            where_query = f"""
                 WHERE
                     {rgur_table}.uid = %(uid)s
-                    AND {rgur_table}.gid %(gid)s """ % params
+                    AND {rgur_table}.gid %(gid)s
+            """ % params
         else:
             if len(groups_name) == 1:
                 filter_group_name = f"= '{groups_name[0]}'"
@@ -40,19 +40,20 @@ class AccountPayment(models.Model):
                 filter_group_name = f"IN {tuple(groups_name)}"
             params.update({'group_name': filter_group_name})
 
-            query = f"""
-                SELECT
-                    1
+            from_query = f"""
                 FROM
                     {rgur_table}
                 LEFT JOIN {group_table} ON
                     {group_table}.id = {rgur_table}.gid
+            """
+            where_query = f"""
                 WHERE
                     {rgur_table}.uid = %(uid)s
                     AND ({rgur_table}.gid %(gid)s
                     OR {group_table}.name %(group_name)s)
             """ % params
 
+        query += from_query + where_query
         self.env.cr.execute(query)
         query_result = self.env.cr.fetchone()
 
@@ -64,7 +65,8 @@ class AccountPayment(models.Model):
     
     def _show_whatsapp_button(self):
         access_value = self._get_group_access(groups=['account.group_account_manager'], groups_name=['Budgeting'])
-        if self.state not in ['cancel', 'sent', 'reconciled'] and access_value:
+        allowed_state = self.state not in ['cancel', 'sent', 'reconciled']
+        if allowed_state and access_value:
             self.show_whatsapp_button = True
         else:
             self.show_whatsapp_button = False
