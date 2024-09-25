@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <!-- Form View (START) -->
+    <record model="ir.ui.view" id="view_partner_form">
+      <field name="name">res.partner.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='lang']" position="after">
+          <field name="show_id_sfa" invisible="1"/>
+          <field name="id_sfa" attrs="{'invisible': [('show_id_sfa','!=',True)]}"/>
+        </xpath>
+      </field>
+    </record>
+    <!-- Form View (END) -->
+  </data>
+</odoo>
