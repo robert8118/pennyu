@@ -22,14 +22,14 @@ class ProductChangeQuantity(models.TransientModel):
             debit_line_vals = {
                 "name": f"INV:INV: {product_id.name}",
                 "company_id": self.env.user.company_id.id,
-                "account_id": product_id.categ_id.property_stock_adjustment_in.id,
+                "account_id": product_id.categ_id.property_stock_account_input_categ_id.id,
                 "debit": diff_cost,
                 "quantity": diff_qty,
             }
             credit_line_vals = {
                 "name": f"INV:INV: {product_id.name}",
                 "company_id": self.env.user.company_id.id,
-                "account_id": product_id.categ_id.property_stock_account_input_categ_id.id,
+                "account_id": product_id.categ_id.property_stock_adjustment_in.id,
                 "credit": diff_cost,
                 "quantity": diff_qty,
             }
