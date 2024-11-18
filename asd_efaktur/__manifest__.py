@@ -2,20 +2,20 @@
 # Copyright 2023 PT Arkana Solusi Digital
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
-    'name': "Pennyu - E-Faktur",
-    'summary': 'Efaktur for Pennyu',
+    "name": "Pennyu - E-Faktur",
+    "summary": "Efaktur for Pennyu",
     "author": "PT Arkana Solusi Digital",
     "website": "https://arkana.co.id",
-    'category': 'Accounting',
-    'version': '0.1',
-    'depends': [
+    "category": "Accounting",
+    "version": "0.1",
+    "depends": [
         # odoo addons
         # third party addons
-        'efaktur',
+        "efaktur",
 
         # developed addons
         ],
-    'data': [
+    "data": [
         # group
         # data
         # global action
