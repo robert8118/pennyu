@@ -4,7 +4,7 @@
 {
     'name': "Pennyu - WhatsApp",
     'summary': """WhatsApp for Pennyu""",
-    "author": "PT Arkana Solusi Digital",
+    "author": "PT Arkana Solusi Digital, Odoo Community Association (OCA)",
     "website": "https://arkana.co.id",
     'category': 'WhatsApp',
     'version': '0.1',
