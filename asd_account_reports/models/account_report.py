@@ -29,9 +29,9 @@ class AccountReport(models.AbstractModel):
             dt_from = dt_from and today.replace(day=1) or False
             dt_to = (today.replace(day=1) + timedelta(days=31)).replace(day=1) - timedelta(days=1)
             # Handling issues with different year filters
-            if dt_from and dt_from.year != dt_to.year:
-                dt_to_temp = dt_to.replace(year=dt_from.year)
-                dt_to = dt_to_temp
+            # if dt_from and dt_from.year != dt_to.year:
+            #     dt_to_temp = dt_to.replace(year=dt_from.year)
+            #     dt_to = dt_to_temp
         elif options_filter == 'this_quarter':
             quarter = (today.month - 1) // 3 + 1
             dt_to = (today.replace(month=quarter * 3, day=1) + timedelta(days=31)).replace(day=1) - timedelta(days=1)
@@ -57,5 +57,9 @@ class AccountReport(models.AbstractModel):
             options['date']['date_to'] = dt_to.strftime(DEFAULT_SERVER_DATE_FORMAT)
         else:
             options['date']['date'] = dt_to.strftime(DEFAULT_SERVER_DATE_FORMAT)
+        # Handling the issue of incorrect year labels
+        if options_filter in ["this_month"] and dt_from.year != dt_to.year:
+            dt_to_temp = dt_to.replace(year=dt_from.year)
+            dt_to = dt_to_temp
         options['date']['string'] = self.format_date(dt_to, dt_from, options)
         return options
