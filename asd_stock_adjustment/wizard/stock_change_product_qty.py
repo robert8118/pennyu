@@ -16,40 +16,36 @@ class ProductChangeQuantity(models.TransientModel):
         return journal_id
     
     def _prepare_move_line_stock_adjustment(self, product_id, th_quantity, th_cost):
+        diff_qty = self.new_quantity - product_id.qty_available
+        diff_cost = diff_qty * th_cost
+        line_vals = {
+            "name": f"INV:INV: {product_id.name}",
+            "company_id": self.env.user.company_id.id,
+            "quantity": diff_qty,
+        }
+        debit_line_vals = line_vals.copy()
+        credit_line_vals = line_vals.copy()
+
         if self.new_quantity > th_quantity:
-            diff_qty = self.new_quantity - product_id.qty_available
-            diff_cost = (self.new_quantity - product_id.qty_available) * th_cost
-            debit_line_vals = {
-                "name": f"INV:INV: {product_id.name}",
-                "company_id": self.env.user.company_id.id,
+            debit_line_vals.update({
                 "account_id": product_id.categ_id.property_stock_account_input_categ_id.id,
                 "debit": diff_cost,
-                "quantity": diff_qty,
-            }
-            credit_line_vals = {
-                "name": f"INV:INV: {product_id.name}",
-                "company_id": self.env.user.company_id.id,
+            })
+            credit_line_vals.update({
                 "account_id": product_id.categ_id.property_stock_adjustment_in.id,
                 "credit": diff_cost,
-                "quantity": diff_qty,
-            }
+            })
         else:
-            diff_qty = (self.new_quantity - product_id.qty_available) * -1
-            diff_cost = diff_qty * th_cost
-            debit_line_vals = {
-                "name": f"INV:INV: {product_id.name}",
-                "company_id": self.env.user.company_id.id,
+            debit_line_vals.update({
                 "account_id": product_id.categ_id.property_stock_adjustment_out.id,
-                "debit": diff_cost,
-                "quantity": diff_qty,
-            }
-            credit_line_vals = {
-                "name": f"INV:INV: {product_id.name}",
-                "company_id": self.env.user.company_id.id,
+                "debit": diff_cost * -1,
+                "quantity": diff_qty * -1,
+            })
+            credit_line_vals.update({
                 "account_id": product_id.categ_id.property_stock_account_output_categ_id.id,
-                "credit": diff_cost,
-                "quantity": diff_qty,
-            }
+                "credit": diff_cost * -1,
+                "quantity": diff_qty * -1,
+            })
         aml_values = [(0, 0, debit_line_vals), (0, 0, credit_line_vals)]
 
         return aml_values

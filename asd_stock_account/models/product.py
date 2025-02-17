@@ -110,8 +110,8 @@ class ProductCategory(models.Model):
                     continue
 
                 if new_valuation:
-                    description = _("Valuation method change for product category %s: from %s to %s.", product_category.display_name, product_category.property_valuation, new_valuation)
-                products_orig_qty_at_date, products = product_obj._prepare_impacted_products(description, product_category=product_category)
+                    description = _("Valuation method change for product category %s: from %s to %s." % (product_category.display_name, product_category.property_valuation, new_valuation))
+                products_orig_qty_at_date, products = product_obj._prepare_impacted_products(product_category=product_category)
                 impacted_categories[product_category] = (products, description, products_orig_qty_at_date)
 
         res = super(ProductCategory, self).write(vals)
@@ -119,10 +119,11 @@ class ProductCategory(models.Model):
         for product_category, (products, description, products_orig_qty_at_date) in impacted_categories.items():
             if product_category.property_valuation == "real_time":
                 # Use qty_at_date or qty_available?
-                move_vals_list += product_obj._prepare_account_move_stock(product=products, description=description)
+                move_vals_list += product_obj._prepare_account_move_stock(products=products, description=description)
 
         # Create the account moves.
         if move_vals_list:
-            account_moves = move_obj.sudo().create(move_vals_list)
-            account_moves._post()
+            for move_vals in move_vals_list:
+                account_moves = move_obj.sudo().create(move_vals)
+                account_moves.post()
         return res
