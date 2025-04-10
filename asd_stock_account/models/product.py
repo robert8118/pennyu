@@ -41,7 +41,7 @@ class ProductProduct(models.Model):
             
             locations_domain = [
                     ("usage", "=", "internal"),
-                    ("company_id", "=", self.env.user.company_id.id),
+                    # ("company_id", "=", self.env.user.company_id.id),
                     ("id", "in", quant_loc_ids)
                 ]
             locations = location_obj.search(locations_domain)
