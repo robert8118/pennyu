@@ -46,44 +46,50 @@ class ProductProduct(models.Model):
                 ]
             locations = location_obj.search(locations_domain)
 
-            product_accounts = {rec.id: rec.product_tmpl_id.get_product_accounts() for rec in product}
+            # product_accounts = {rec.id: rec.product_tmpl_id.get_product_accounts() for rec in product}
 
             for location in locations:
+                company_location = location.company_id or self.env.user.company_id
                 for prod in product.with_context(location=location.id, compute_child=False).filtered(lambda r: r.valuation == "real_time"):
-                    product = prod
-                    if not product_accounts[product.id].get("stock_input", False):
+                    # Handling uniform stock journal
+                    product_accounts = {rec.id: rec.with_context(force_company=company_location.id).product_tmpl_id.get_product_accounts() for rec in product}
+
+                    if not product_accounts[prod.id].get("stock_input", False):
                         raise UserError(_("You don't have any input valuation account defined on your product category. You must define one before processing this operation."))
-                    if not product_accounts[product.id].get("stock_valuation", False):
+                    if not product_accounts[prod.id].get("stock_valuation", False):
                         raise UserError(_("You don't have any stock valuation account defined on your product category. You must define one before processing this operation."))
-                    if not product_accounts[product.id].get("stock_output", False):
+                    if not product_accounts[prod.id].get("stock_output", False):
                         raise UserError(_("You don't have any output valuation account defined on your product category. You must define one before processing this operation."))
 
-                    qty_available = product.qty_available
-                    total_price = product.standard_price * qty_available
+                    qty_available = prod.qty_available
+                    total_price = prod.with_context(force_company=company_location.id).standard_price * qty_available
                     if qty_available:
+                        # Debugging purpose
+                        # description += _(" Product %s in %s (On Hand: %s, Cost: %s)" % (prod.display_name, location.display_name, qty_available, prod.standard_price))
+
                         # Accounting Entries
                         if total_price > 0:
-                            debit_account_id = product_accounts[product.id]["stock_output"].id
-                            credit_account_id = product_accounts[product.id]["stock_valuation"].id
+                            debit_account_id = product_accounts[prod.id]["stock_output"].id
+                            credit_account_id = product_accounts[prod.id]["stock_valuation"].id
                         else:
-                            debit_account_id = product_accounts[product.id]["stock_valuation"].id
-                            credit_account_id = product_accounts[product.id]["stock_input"].id
+                            debit_account_id = product_accounts[prod.id]["stock_valuation"].id
+                            credit_account_id = product_accounts[prod.id]["stock_input"].id
 
                         move_vals = {
-                            "journal_id": product_accounts[product.id]["stock_journal"].id,
-                            "company_id": location.company_id.id,
+                            "journal_id": product_accounts[prod.id]["stock_journal"].id,
+                            "company_id": company_location.id,
                             "line_ids": [(0, 0, {
                                 "name": description,
                                 "account_id": debit_account_id,
                                 "debit": abs(total_price),
                                 "credit": 0,
-                                "product_id": product.id,
+                                "product_id": prod.id,
                             }), (0, 0, {
                                 "name": description,
                                 "account_id": credit_account_id,
                                 "debit": 0,
                                 "credit": abs(total_price),
-                                "product_id": product.id,
+                                "product_id": prod.id,
                             })],
                         }
                     move_vals_list.append(move_vals)
