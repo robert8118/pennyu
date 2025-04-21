@@ -41,7 +41,7 @@ class ProductProduct(models.Model):
             
             locations_domain = [
                     ("usage", "=", "internal"),
-                    # ("company_id", "=", self.env.user.company_id.id),
+                    ("company_id", "=", self.env.user.company_id.id),
                     ("id", "in", quant_loc_ids)
                 ]
             locations = location_obj.search(locations_domain)
@@ -65,9 +65,10 @@ class ProductProduct(models.Model):
                     total_price = prod.with_context(force_company=company_location.id).standard_price * qty_available
                     if qty_available:
                         # Debugging purpose
-                        # description += _(" Product %s in %s (On Hand: %s, Cost: %s)" % (prod.display_name, location.display_name, qty_available, prod.standard_price))
+                        # aml_name = description + _(" Product %s in %s (On Hand: %s, Cost: %s)" % (prod.display_name, location.display_name, qty_available, prod.standard_price))
 
                         # Accounting Entries
+                        aml_name = description
                         if total_price > 0:
                             debit_account_id = product_accounts[prod.id]["stock_output"].id
                             credit_account_id = product_accounts[prod.id]["stock_valuation"].id
@@ -79,13 +80,13 @@ class ProductProduct(models.Model):
                             "journal_id": product_accounts[prod.id]["stock_journal"].id,
                             "company_id": company_location.id,
                             "line_ids": [(0, 0, {
-                                "name": description,
+                                "name": aml_name,
                                 "account_id": debit_account_id,
                                 "debit": abs(total_price),
                                 "credit": 0,
                                 "product_id": prod.id,
                             }), (0, 0, {
-                                "name": description,
+                                "name": aml_name,
                                 "account_id": credit_account_id,
                                 "debit": 0,
                                 "credit": abs(total_price),
