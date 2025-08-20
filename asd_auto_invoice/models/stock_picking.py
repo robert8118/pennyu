@@ -152,6 +152,6 @@ class StockPicking(models.Model):
             "invoice_line_tax_ids": [(6, 0, order_line.tax_id.mapped("id"))] if order_type == "sale" else [(6, 0, order_line.taxes_id.mapped("id"))],
             "purchase_line_id": order_line.id if order_type == "purchase" else False,
             "sale_line_id": order_line.id if order_type == "sale" else False,
-            "discount": order_line.discount if order_type == "sale" else 0,
+            "discount": order_line.discount,
         })
         return data_line
